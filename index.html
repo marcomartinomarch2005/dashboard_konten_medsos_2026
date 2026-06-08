@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Konten — BBPOM Jayapura 2026</title>
+  <style>
+    :root {
+      --bg:        #f4f6fb;
+      --surface:   #ffffff;
+      --border:    #e5e9f2;
+      --text:      #1e2230;
+      --muted:     #6b7280;
+      --accent:    #3b5bdb;
+      --accent-lt: #e8eeff;
+
+      --c-draft:   #6b7280;
+      --c-naskah:  #0ea5e9;
+      --c-desain:  #8b5cf6;
+      --c-siap:    #f59e0b;
+      --c-posted:  #10b981;
+      --c-overdue: #ef4444;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      font-size: 14px;
+    }
+
+    /* ── HEADER ─────────────────────────────────────────── */
+    .header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0 28px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+      box-shadow: 0 1px 4px rgba(0,0,0,.06);
+    }
+    .header-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .header-icon {
+      width: 36px; height: 36px;
+      background: var(--accent);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; line-height: 1;
+    }
+    .header-title { font-size: 1rem; font-weight: 700; color: var(--text); }
+    .header-sub   { font-size: 0.72rem; color: var(--muted); margin-top: 1px; }
+
+    .sync-pill {
+      display: flex; align-items: center; gap: 6px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 5px 12px;
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+    .sync-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: #10b981; flex-shrink: 0;
+    }
+    .sync-dot.loading { background: #f59e0b; animation: pulse 1s infinite; }
+    .sync-dot.error   { background: #ef4444; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+    /* ── LAYOUT ─────────────────────────────────────────── */
+    .container { max-width: 1280px; margin: 0 auto; padding: 24px 20px; }
+
+    /* ── SUMMARY CARDS ──────────────────────────────────── */
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transition: box-shadow .15s;
+    }
+    .card:hover { box-shadow: 0 4px 16px rgba(0,0,0,.08); }
+    .card-top { display: flex; align-items: center; justify-content: space-between; }
+    .card-icon {
+      width: 32px; height: 32px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px;
+    }
+    .card-num { font-size: 1.75rem; font-weight: 800; line-height: 1; }
+    .card-lbl { font-size: 0.7rem; color: var(--muted); font-weight: 500; text-transform: uppercase; letter-spacing: .5px; }
+
+    .card.draft   .card-num { color: var(--c-draft); }
+    .card.draft   .card-icon { background: #f3f4f6; }
+    .card.naskah  .card-num { color: var(--c-naskah); }
+    .card.naskah  .card-icon { background: #e0f2fe; }
+    .card.desain  .card-num { color: var(--c-desain); }
+    .card.desain  .card-icon { background: #ede9fe; }
+    .card.siap    .card-num { color: var(--c-siap); }
+    .card.siap    .card-icon { background: #fef3c7; }
+    .card.posted  .card-num { color: var(--c-posted); }
+    .card.posted  .card-icon { background: #d1fae5; }
+    .card.overdue .card-num { color: var(--c-overdue); }
+    .card.overdue .card-icon { background: #fee2e2; }
+
+    /* ── TOOLBAR ────────────────────────────────────────── */
+    .toolbar {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .toolbar-filters { display: flex; flex-wrap: wrap; gap: 8px; flex: 1; }
+
+    select, input[type="text"] {
+      padding: 7px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.82rem;
+      background: var(--bg);
+      color: var(--text);
+      outline: none;
+      transition: border-color .15s;
+    }
+    select:focus, input[type="text"]:focus { border-color: var(--accent); background: var(--surface); }
+
+    input[type="text"] { min-width: 200px; }
+
+    .toolbar-actions { display: flex; gap: 8px; }
+
+    .btn {
+      padding: 7px 16px;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all .15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      white-space: nowrap;
+    }
+    .btn:disabled { opacity: .5; cursor: not-allowed; }
+    .btn-primary   { background: var(--accent); color: white; }
+    .btn-primary:hover:not(:disabled)   { background: #2f4bbf; }
+    .btn-danger    { background: #ef4444; color: white; }
+    .btn-danger:hover:not(:disabled)    { background: #dc2626; }
+    .btn-ghost     { background: transparent; color: var(--muted); border: 1px solid var(--border); }
+    .btn-ghost:hover:not(:disabled)     { background: var(--bg); color: var(--text); }
+    .btn-sm { padding: 4px 10px; font-size: 0.72rem; border-radius: 6px; }
+
+    /* ── TABLE ──────────────────────────────────────────── */
+    .table-wrap {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      overflow-x: auto;
+    }
+    table { width: 100%; border-collapse: collapse; }
+    thead { background: var(--bg); }
+    th {
+      padding: 11px 14px;
+      text-align: left;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+    td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+    }
+    tr:last-child td { border-bottom: none; }
+    tr.data-row:hover td { background: #fafbff; }
+    tr.overdue td { background: #fff8f8; }
+    tr.overdue:hover td { background: #fff0f0; }
+    tr.posted-row td { opacity: .65; }
+
+    /* col widths */
+    .col-num   { width: 40px; text-align: center; color: var(--muted); font-size: .78rem; }
+    .col-date  { width: 110px; }
+    .col-title { min-width: 180px; }
+    .col-fmt   { width: 100px; }
+    .col-plat  { width: 140px; }
+    .col-status{ width: 130px; }
+    .col-notes { min-width: 160px; max-width: 220px; }
+    .col-action{ min-width: 120px; white-space: nowrap; text-align: right; }
+
+    .date-main  { font-size: .82rem; font-weight: 600; }
+    .date-day   { font-size: .7rem; color: var(--muted); }
+    .date-rescheduled { font-size: .68rem; color: var(--c-overdue); margin-top: 2px; }
+
+    .title-text { font-weight: 600; font-size: .85rem; }
+    .title-sub  { font-size: .7rem; color: var(--muted); margin-top: 2px; }
+
+    /* platform chips */
+    .plat-chips { display: flex; flex-wrap: wrap; gap: 4px; }
+    .plat-chip  {
+      font-size: .68rem; font-weight: 600;
+      padding: 2px 7px; border-radius: 4px;
+      background: var(--bg); color: var(--muted);
+    }
+    .plat-chip.ig  { background: #fce7f3; color: #9d174d; }
+    .plat-chip.tt  { background: #f0fdf4; color: #14532d; }
+    .plat-chip.fb  { background: #eff6ff; color: #1e3a8a; }
+
+    /* format badge */
+    .fmt-badge {
+      display: inline-block;
+      font-size: .7rem; font-weight: 700;
+      padding: 3px 9px; border-radius: 6px;
+      background: var(--bg); color: var(--muted);
+      white-space: nowrap;
+    }
+    .fmt-carousel { background: #eff6ff; color: #1d4ed8; }
+    .fmt-story    { background: #fdf4ff; color: #7e22ce; }
+    .fmt-reels    { background: #fff7ed; color: #c2410c; }
+    .fmt-infografis { background: #f0fdf4; color: #166534; }
+    .fmt-single   { background: #f0f9ff; color: #0369a1; }
+    .fmt-video    { background: #fefce8; color: #92400e; }
+
+    /* status badge */
+    .badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 4px 10px; border-radius: 20px;
+      font-size: .72rem; font-weight: 700;
+      white-space: nowrap;
+    }
+    .badge::before {
+      content: ''; width: 5px; height: 5px; border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .badge-draft   { background: #f3f4f6; color: var(--c-draft); }
+    .badge-draft::before { background: var(--c-draft); }
+    .badge-naskah  { background: #e0f2fe; color: #0369a1; }
+    .badge-naskah::before { background: #0ea5e9; }
+    .badge-desain  { background: #ede9fe; color: #5b21b6; }
+    .badge-desain::before { background: #8b5cf6; }
+    .badge-siap    { background: #fef3c7; color: #92400e; }
+    .badge-siap::before { background: #f59e0b; }
+    .badge-posted  { background: #d1fae5; color: #065f46; }
+    .badge-posted::before { background: #10b981; }
+    .badge-overdue { background: #fee2e2; color: #991b1b; }
+    .badge-overdue::before { background: #ef4444; animation: pulse 1s infinite; }
+
+    .notes-text { font-size: .75rem; color: var(--muted); line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+
+    .action-group { display: flex; gap: 6px; justify-content: flex-end; flex-wrap: nowrap; align-items: center; }
+
+    /* overdue ribbon */
+    .overdue-tag {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: .65rem; font-weight: 700;
+      color: var(--c-overdue); margin-top: 4px;
+    }
+
+    /* state rows */
+    .state-row td {
+      text-align: center; padding: 56px 24px;
+      color: var(--muted); font-size: .9rem;
+    }
+
+    /* ── MODAL ──────────────────────────────────────────── */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(15,20,40,.45);
+      backdrop-filter: blur(2px);
+      z-index: 200; align-items: center; justify-content: center;
+    }
+    .modal-overlay.active { display: flex; }
+    .modal {
+      background: var(--surface);
+      border-radius: 18px;
+      padding: 28px;
+      width: 90%; max-width: 500px;
+      max-height: 90vh; overflow-y: auto;
+      box-shadow: 0 20px 60px rgba(0,0,0,.2);
+    }
+    .modal-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 22px;
+    }
+    .modal h2 { font-size: 1.1rem; font-weight: 700; }
+    .modal-close {
+      width: 28px; height: 28px; border: none;
+      background: var(--bg); border-radius: 6px;
+      cursor: pointer; font-size: 16px; color: var(--muted);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .modal-close:hover { background: var(--border); }
+
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .form-grid .span2 { grid-column: span 2; }
+    .form-group { display: flex; flex-direction: column; gap: 5px; }
+    .form-group label { font-size: .75rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; }
+    .form-group input, .form-group select, .form-group textarea {
+      padding: 9px 12px; border: 1px solid var(--border);
+      border-radius: 8px; font-size: .85rem;
+      background: var(--bg); color: var(--text); outline: none;
+      transition: border-color .15s;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      border-color: var(--accent); background: var(--surface);
+    }
+    .form-group textarea { resize: vertical; min-height: 70px; }
+    .form-divider { grid-column: span 2; border: none; border-top: 1px solid var(--border); margin: 4px 0; }
+    .form-actions { display: flex; gap: 8px; margin-top: 20px; }
+    .form-actions .spacer { flex: 1; }
+
+    /* ── TOAST ──────────────────────────────────────────── */
+    .toast {
+      position: fixed; bottom: 24px; right: 24px;
+      background: #1e2230; color: white;
+      padding: 11px 18px; border-radius: 10px;
+      font-size: .82rem; z-index: 300;
+      opacity: 0; transform: translateY(8px);
+      transition: all .3s; pointer-events: none;
+      max-width: 320px; box-shadow: 0 8px 24px rgba(0,0,0,.2);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.error { background: #ef4444; }
+    .toast.success { background: #10b981; }
+
+    /* ── RESPONSIVE ─────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .summary { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .header { padding: 0 16px; }
+      .container { padding: 16px 12px; }
+      .summary { grid-template-columns: repeat(2, 1fr); }
+      .toolbar { padding: 12px; }
+      .form-grid { grid-template-columns: 1fr; }
+      .form-grid .span2 { grid-column: span 1; }
+    }
+
+    /* ── INLINE STATUS SELECT ───────────────────────────── */
+    .status-select {
+      border: none; background: transparent; cursor: pointer;
+      font-size: .72rem; font-weight: 700; padding: 0;
+      outline: none; appearance: none; -webkit-appearance: none;
+      color: inherit;
+    }
+
+    /* ── PROGRESS BAR ───────────────────────────────────── */
+    .progress-bar { width: 100%; height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; margin-top: 8px; }
+    .progress-fill { height: 100%; border-radius: 2px; transition: width .5s ease; }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-brand">
+    <div class="header-icon">📊</div>
+    <div>
+      <div class="header-title">Dashboard Konten · BBPOM Jayapura</div>
+      <div class="header-sub">Kalender Editorial 2026 · Airtable</div>
+    </div>
+  </div>
+  <div class="sync-pill">
+    <div class="sync-dot loading" id="syncDot"></div>
+    <span id="syncLabel">Menghubungkan…</span>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- SUMMARY CARDS -->
+  <div class="summary" id="summary">
+    <div class="card draft">
+      <div class="card-top"><div class="card-icon">✏️</div></div>
+      <div class="card-num" id="c-draft">–</div>
+      <div class="card-lbl">Belum Dikerjakan</div>
+    </div>
+    <div class="card naskah">
+      <div class="card-top"><div class="card-icon">📝</div></div>
+      <div class="card-num" id="c-naskah">–</div>
+      <div class="card-lbl">Naskah Selesai</div>
+    </div>
+    <div class="card desain">
+      <div class="card-top"><div class="card-icon">🎨</div></div>
+      <div class="card-num" id="c-desain">–</div>
+      <div class="card-lbl">Desain Selesai</div>
+    </div>
+    <div class="card siap">
+      <div class="card-top"><div class="card-icon">🚀</div></div>
+      <div class="card-num" id="c-siap">–</div>
+      <div class="card-lbl">Siap Tayang</div>
+    </div>
+    <div class="card posted">
+      <div class="card-top"><div class="card-icon">✅</div></div>
+      <div class="card-num" id="c-posted">–</div>
+      <div class="card-lbl">Sudah Tayang</div>
+    </div>
+    <div class="card overdue">
+      <div class="card-top"><div class="card-icon">⚠️</div></div>
+      <div class="card-num" id="c-overdue">–</div>
+      <div class="card-lbl">Terlambat</div>
+    </div>
+  </div>
+
+  <!-- TOOLBAR -->
+  <div class="toolbar">
+    <div class="toolbar-filters">
+      <select id="filterMonth">
+        <option value="all">Semua Bulan</option>
+        <option value="5">Mei 2026</option>
+        <option value="6" selected>Juni 2026</option>
+        <option value="7">Juli 2026</option>
+        <option value="8">Agustus 2026</option>
+        <option value="9">September 2026</option>
+        <option value="10">Oktober 2026</option>
+        <option value="11">November 2026</option>
+        <option value="12">Desember 2026</option>
+      </select>
+      <select id="filterStatus">
+        <option value="all">Semua Status</option>
+        <option value="Draft">Belum Dikerjakan</option>
+        <option value="Naskah selesai">Naskah Selesai</option>
+        <option value="Desain selesai">Desain Selesai</option>
+        <option value="Siap posting">Siap Tayang</option>
+        <option value="Posted">Sudah Tayang</option>
+      </select>
+      <select id="filterFormat">
+        <option value="all">Semua Format</option>
+        <option value="Carousel">Carousel</option>
+        <option value="Reels">Reels / TikTok</option>
+        <option value="Story">Story / Poster</option>
+        <option value="Infografis">Infografis</option>
+        <option value="Single Post">Single Post</option>
+        <option value="Video">Video</option>
+      </select>
+      <select id="filterPlatform">
+        <option value="all">Semua Platform</option>
+        <option value="Instagram">Instagram</option>
+        <option value="TikTok">TikTok</option>
+        <option value="Facebook">Facebook</option>
+      </select>
+      <input type="text" id="searchBox" placeholder="🔍  Cari judul atau catatan…">
+    </div>
+    <div class="toolbar-actions">
+      <button class="btn btn-ghost" onclick="loadData()">↻ Perbarui</button>
+      <button class="btn btn-primary" onclick="openAddModal()">＋ Tambah Konten</button>
+    </div>
+  </div>
+
+  <!-- TABLE -->
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th class="col-num">#</th>
+          <th class="col-date">Tanggal</th>
+          <th class="col-title">Judul Konten</th>
+          <th class="col-fmt">Format</th>
+          <th class="col-plat">Platform</th>
+          <th class="col-status">Status Alur</th>
+          <th class="col-notes">Catatan</th>
+          <th class="col-action">Aksi</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody">
+        <tr class="state-row"><td colspan="8">⏳&nbsp; Memuat data dari Airtable…</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div><!-- /container -->
+
+<!-- MODAL TAMBAH / EDIT -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="modalTitle">Tambah Konten</h2>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Tanggal Tayang</label>
+        <input type="date" id="inputDate">
+      </div>
+      <div class="form-group">
+        <label>Status</label>
+        <select id="inputStatus">
+          <option value="Draft">Belum Dikerjakan</option>
+          <option value="Naskah selesai">Naskah Selesai</option>
+          <option value="Desain selesai">Desain Selesai</option>
+          <option value="Siap posting">Siap Tayang</option>
+          <option value="Posted">Sudah Tayang</option>
+        </select>
+      </div>
+      <div class="form-group span2">
+        <label>Judul Konten</label>
+        <input type="text" id="inputTitle" placeholder="Judul konten…">
+      </div>
+      <div class="form-group">
+        <label>Format</label>
+        <select id="inputFormat">
+          <option>Carousel</option>
+          <option>Reels/TikTok</option>
+          <option>Infografis</option>
+          <option>Infografis/Quote</option>
+          <option>Story/Poster</option>
+          <option>Quote/Poster</option>
+          <option>Video</option>
+          <option>Single Post</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Platform (pisahkan koma)</label>
+        <input type="text" id="inputPlatform" placeholder="Instagram, TikTok…">
+      </div>
+      <hr class="form-divider">
+      <div class="form-group span2">
+        <label>Catatan (opsional)</label>
+        <textarea id="inputNotes" placeholder="Momen, agenda, atau catatan lain…"></textarea>
+      </div>
+    </div>
+    <div class="form-actions">
+      <button class="btn btn-primary" id="btnSave" onclick="saveContent()">Simpan</button>
+      <button class="btn btn-ghost" onclick="closeModal()">Batal</button>
+      <div class="spacer"></div>
+      <button class="btn btn-danger" id="btnDelete" style="display:none" onclick="deleteContent()">Hapus</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL GESER JADWAL -->
+<div class="modal-overlay" id="rescheduleOverlay">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>Geser Jadwal</h2>
+      <button class="modal-close" onclick="closeReschedule()">✕</button>
+    </div>
+    <p id="rescheduleInfo" style="font-size:.82rem; color:var(--muted); margin-bottom:18px; line-height:1.5;"></p>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Tanggal Baru</label>
+        <input type="date" id="rescheduleDate">
+      </div>
+      <div class="form-group">
+        <label>&nbsp;</label>
+        <!-- placeholder to align grid -->
+      </div>
+      <div class="form-group span2">
+        <label>Alasan (opsional)</label>
+        <textarea id="rescheduleReason" placeholder="Kenapa jadwal digeser…" style="min-height:60px;"></textarea>
+      </div>
+    </div>
+    <div class="form-actions">
+      <button class="btn btn-primary" onclick="confirmReschedule()">Konfirmasi</button>
+      <button class="btn btn-ghost" onclick="closeReschedule()">Batal</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ── CONFIG ────────────────────────────────────────────────
+const AT_BASE    = 'appZbKbl6inYv8y2m';
+const AT_TABLE   = 'tblfl6n2LU6bGUR5P';
+const PROXY_URL  = '/.netlify/functions/airtable-proxy';
+
+async function atFetch(path = '', method = 'GET', body = null) {
+  const url  = `${PROXY_URL}?base=${AT_BASE}&table=${AT_TABLE}${path ? '&' + path.replace(/^\?/,'') : ''}`;
+  const opts = { method, headers: { 'Content-Type': 'application/json' } };
+  if (body) opts.body = JSON.stringify(body);
+  const res  = await fetch(url, opts);
+  if (!res.ok) throw new Error(`API error ${res.status}`);
+  return method === 'DELETE' ? null : res.json();
+}
+// ─────────────────────────────────────────────────────────
+
+const today = new Date().toISOString().split('T')[0];
+let allData = [];
+let editingRecId    = null;
+let rescheduleRecId = null;
+
+function toRow(rec) {
+  const f = rec.fields;
+  return {
+    recId:        rec.id,
+    judul:        f.judul        || '',
+    tanggal:      f.tanggal      || '',
+    format:       f.format       || '',
+    platform:     f.platform     || '',
+    status:       f.status       || 'Draft',
+    catatan:      f.catatan      || '',
+    tanggal_asal: f.tanggal_asal || ''
+  };
+}
+
+async function loadData() {
+  setSyncStatus('loading', 'Memuat…');
+  try {
+    let records = [], offset = '';
+    do {
+      const q    = 'sort[0][field]=tanggal&sort[0][direction]=asc' + (offset ? `&offset=${offset}` : '');
+      const json = await atFetch('?' + q);
+      records    = records.concat(json.records);
+      offset     = json.offset || '';
+    } while (offset);
+    allData = records.map(toRow);
+    render();
+    setSyncStatus('ok', 'Tersinkron · ' + new Date().toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'}));
+  } catch (e) {
+    setSyncStatus('error', 'Gagal memuat');
+    showToast('Gagal memuat data: ' + e.message, 'error');
+  }
+}
+
+function render() { renderSummary(); renderTable(); }
+
+function renderSummary() {
+  const c = { Draft:0,'Naskah selesai':0,'Desain selesai':0,'Siap posting':0,Posted:0,overdue:0 };
+  allData.forEach(d => {
+    if (c[d.status] !== undefined) c[d.status]++;
+    if (d.status !== 'Posted' && d.tanggal && d.tanggal < today) c.overdue++;
+  });
+  document.getElementById('c-draft').textContent   = c.Draft;
+  document.getElementById('c-naskah').textContent  = c['Naskah selesai'];
+  document.getElementById('c-desain').textContent  = c['Desain selesai'];
+  document.getElementById('c-siap').textContent    = c['Siap posting'];
+  document.getElementById('c-posted').textContent  = c.Posted;
+  document.getElementById('c-overdue').textContent = c.overdue;
+}
+
+function renderTable() {
+  const month    = document.getElementById('filterMonth').value;
+  const status   = document.getElementById('filterStatus').value;
+  const format   = document.getElementById('filterFormat').value;
+  const platform = document.getElementById('filterPlatform').value;
+  const search   = document.getElementById('searchBox').value.toLowerCase();
+
+  const filtered = allData.filter(d => {
+    if (month    !== 'all' && new Date(d.tanggal + 'T00:00:00').getMonth() + 1 !== +month) return false;
+    if (status   !== 'all' && d.status !== status)                return false;
+    if (format   !== 'all' && !d.format.includes(format))         return false;
+    if (platform !== 'all' && !d.platform.includes(platform))     return false;
+    if (search   && !d.judul.toLowerCase().includes(search)
+                 && !d.catatan.toLowerCase().includes(search))     return false;
+    return true;
+  });
+
+  const tbody = document.getElementById('tableBody');
+  if (!filtered.length) {
+    tbody.innerHTML = '<tr class="state-row"><td colspan="8">Tidak ada konten yang cocok dengan filter.</td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = filtered.map((d, i) => {
+    const ov    = d.status !== 'Posted' && d.tanggal && d.tanggal < today;
+    const isDone = d.status === 'Posted';
+
+    // date cell
+    const dateStr = fmtDate(d.tanggal);
+    const reschedTag = d.tanggal_asal
+      ? `<div class="date-rescheduled">↩ Asal: ${fmtDateShort(d.tanggal_asal)}</div>` : '';
+
+    // platform chips
+    const platforms = d.platform.split(',').map(p => p.trim()).filter(Boolean);
+    const chips = platforms.map(p => {
+      const cls = p.toLowerCase().includes('instagram') ? 'ig'
+                : p.toLowerCase().includes('tiktok')    ? 'tt'
+                : p.toLowerCase().includes('facebook')  ? 'fb' : '';
+      return `<span class="plat-chip ${cls}">${p}</span>`;
+    }).join('');
+
+    // format badge
+    const fmtClass = fmtBadgeClass(d.format);
+
+    // status badge  — if overdue use special style, else normal
+    const statusBadge = ov
+      ? `<span class="badge badge-overdue">Terlambat</span>`
+      : `<span class="badge ${badgeClass(d.status)}">${statusLabel(d.status)}</span>`;
+
+    // reschedule button only for overdue rows
+    const reschedBtn = ov
+      ? `<button class="btn btn-ghost btn-sm" onclick="openReschedule('${d.recId}')" title="Geser Jadwal">📅</button>` : '';
+
+    return `
+      <tr class="data-row ${ov ? 'overdue' : ''} ${isDone ? 'posted-row' : ''}">
+        <td class="col-num">${i + 1}</td>
+        <td class="col-date">
+          <div class="date-day">${fmtDay(d.tanggal)}</div>
+          <div class="date-main">${fmtDateShort(d.tanggal)}</div>
+          ${reschedTag}
+        </td>
+        <td class="col-title">
+          <div class="title-text">${d.judul}</div>
+        </td>
+        <td class="col-fmt"><span class="fmt-badge ${fmtClass}">${d.format || '–'}</span></td>
+        <td class="col-plat"><div class="plat-chips">${chips || '–'}</div></td>
+        <td class="col-status">${statusBadge}</td>
+        <td class="col-notes"><div class="notes-text">${d.catatan || '–'}</div></td>
+        <td class="col-action">
+          <div class="action-group">
+            ${reschedBtn}
+            <button class="btn btn-primary btn-sm" onclick="openEditModal('${d.recId}')">Edit</button>
+          </div>
+        </td>
+      </tr>`;
+  }).join('');
+}
+
+// ── HELPERS ───────────────────────────────────────────────
+function fmtDay(str) {
+  if (!str) return '';
+  const days = ['Min','Sen','Sel','Rab','Kam','Jum','Sab'];
+  return days[new Date(str + 'T00:00:00').getDay()];
+}
+
+function fmtDate(str) {
+  if (!str) return '–';
+  const d = new Date(str + 'T00:00:00');
+  const months = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
+  const days   = ['Min','Sen','Sel','Rab','Kam','Jum','Sab'];
+  return `${days[d.getDay()]}, ${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
+}
+
+function fmtDateShort(str) {
+  if (!str) return '–';
+  const d = new Date(str + 'T00:00:00');
+  const months = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
+  return `${d.getDate()} ${months[d.getMonth()]}`;
+}
+
+function badgeClass(s) {
+  return {
+    'Draft':          'badge-draft',
+    'Naskah selesai': 'badge-naskah',
+    'Desain selesai': 'badge-desain',
+    'Siap posting':   'badge-siap',
+    'Posted':         'badge-posted'
+  }[s] || 'badge-draft';
+}
+
+function statusLabel(s) {
+  return {
+    'Draft':          'Belum Dikerjakan',
+    'Naskah selesai': 'Naskah Selesai',
+    'Desain selesai': 'Desain Selesai',
+    'Siap posting':   'Siap Tayang',
+    'Posted':         'Sudah Tayang'
+  }[s] || s;
+}
+
+function fmtBadgeClass(f) {
+  if (!f) return '';
+  const fl = f.toLowerCase();
+  if (fl.includes('carousel'))   return 'fmt-carousel';
+  if (fl.includes('story'))      return 'fmt-story';
+  if (fl.includes('reels') || fl.includes('tiktok')) return 'fmt-reels';
+  if (fl.includes('infografis')) return 'fmt-infografis';
+  if (fl.includes('single'))     return 'fmt-single';
+  if (fl.includes('video'))      return 'fmt-video';
+  return '';
+}
+
+function setSyncStatus(state, label) {
+  document.getElementById('syncDot').className =
+    'sync-dot' + (state==='loading'?' loading':state==='error'?' error':'');
+  document.getElementById('syncLabel').textContent = label;
+}
+
+function showToast(msg, type = 'success') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className   = `toast show ${type}`;
+  setTimeout(() => t.className = 'toast', 3500);
+}
+
+// ── MODAL ADD/EDIT ────────────────────────────────────────
+function openAddModal() {
+  editingRecId = null;
+  document.getElementById('modalTitle').textContent  = 'Tambah Konten Baru';
+  document.getElementById('inputDate').value         = '';
+  document.getElementById('inputTitle').value        = '';
+  document.getElementById('inputFormat').value       = 'Carousel';
+  document.getElementById('inputPlatform').value     = '';
+  document.getElementById('inputStatus').value       = 'Draft';
+  document.getElementById('inputNotes').value        = '';
+  document.getElementById('btnSave').textContent     = 'Simpan';
+  document.getElementById('btnSave').disabled        = false;
+  document.getElementById('btnDelete').style.display = 'none';
+  document.getElementById('modalOverlay').classList.add('active');
+}
+
+function openEditModal(recId) {
+  const d = allData.find(r => r.recId === recId);
+  if (!d) return;
+  editingRecId = recId;
+  document.getElementById('modalTitle').textContent  = 'Edit Konten';
+  document.getElementById('inputDate').value         = d.tanggal;
+  document.getElementById('inputTitle').value        = d.judul;
+  document.getElementById('inputFormat').value       = d.format || 'Carousel';
+  document.getElementById('inputPlatform').value     = d.platform;
+  document.getElementById('inputStatus').value       = d.status;
+  document.getElementById('inputNotes').value        = d.catatan;
+  document.getElementById('btnSave').textContent     = 'Simpan';
+  document.getElementById('btnSave').disabled        = false;
+  document.getElementById('btnDelete').style.display = 'inline-flex';
+  document.getElementById('modalOverlay').classList.add('active');
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('active');
+  editingRecId = null;
+}
+
+async function saveContent() {
+  const judul    = document.getElementById('inputTitle').value.trim();
+  const tanggal  = document.getElementById('inputDate').value;
+  const platform = document.getElementById('inputPlatform').value.trim();
+  if (!judul || !tanggal || !platform) {
+    showToast('Judul, Tanggal, dan Platform wajib diisi.', 'error'); return;
+  }
+  const fields = {
+    judul, tanggal,
+    format:   document.getElementById('inputFormat').value,
+    platform,
+    status:   document.getElementById('inputStatus').value,
+    catatan:  document.getElementById('inputNotes').value.trim()
+  };
+  const btn = document.getElementById('btnSave');
+  btn.disabled = true; btn.textContent = 'Menyimpan…';
+  try {
+    if (editingRecId) {
+      await atFetch(`&id=${editingRecId}`, 'PATCH', { fields });
+    } else {
+      await atFetch('', 'POST', { fields });
+    }
+    await loadData();
+    closeModal();
+    showToast(editingRecId ? 'Konten berhasil diperbarui.' : 'Konten berhasil ditambahkan.');
+  } catch (e) {
+    showToast('Gagal menyimpan: ' + e.message, 'error');
+    btn.disabled = false; btn.textContent = 'Simpan';
+  }
+}
+
+async function deleteContent() {
+  if (!editingRecId || !confirm('Yakin hapus konten ini? Tindakan tidak dapat dibatalkan.')) return;
+  try {
+    await atFetch(`&id=${editingRecId}`, 'DELETE');
+    await loadData();
+    closeModal();
+    showToast('Konten berhasil dihapus.');
+  } catch (e) {
+    showToast('Gagal menghapus: ' + e.message, 'error');
+  }
+}
+
+// ── RESCHEDULE ────────────────────────────────────────────
+function openReschedule(recId) {
+  const d = allData.find(r => r.recId === recId);
+  if (!d) return;
+  rescheduleRecId = recId;
+  document.getElementById('rescheduleInfo').textContent =
+    `"${d.judul}" — jadwal asal: ${fmtDate(d.tanggal)}`;
+  document.getElementById('rescheduleDate').value   = '';
+  document.getElementById('rescheduleReason').value = '';
+  document.getElementById('rescheduleOverlay').classList.add('active');
+}
+
+function closeReschedule() {
+  document.getElementById('rescheduleOverlay').classList.remove('active');
+  rescheduleRecId = null;
+}
+
+async function confirmReschedule() {
+  const newDate = document.getElementById('rescheduleDate').value;
+  const reason  = document.getElementById('rescheduleReason').value.trim();
+  if (!newDate) { showToast('Pilih tanggal baru.', 'error'); return; }
+  const d = allData.find(r => r.recId === rescheduleRecId);
+  if (!d) return;
+  try {
+    await atFetch(`&id=${rescheduleRecId}`, 'PATCH', { fields: {
+      tanggal:      newDate,
+      tanggal_asal: d.tanggal_asal || d.tanggal,
+      catatan:      (d.catatan ? d.catatan + ' | ' : '') + 'Dijadwalkan ulang' + (reason ? ': ' + reason : '')
+    }});
+    await loadData();
+    closeReschedule();
+    showToast('Jadwal konten berhasil digeser.');
+  } catch (e) {
+    showToast('Gagal menggeser jadwal: ' + e.message, 'error');
+  }
+}
+
+// ── EVENTS ────────────────────────────────────────────────
+['filterMonth','filterStatus','filterFormat','filterPlatform'].forEach(id =>
+  document.getElementById(id).addEventListener('change', renderTable));
+document.getElementById('searchBox').addEventListener('input', renderTable);
+document.getElementById('modalOverlay').addEventListener('click',
+  e => { if (e.target === e.currentTarget) closeModal(); });
+document.getElementById('rescheduleOverlay').addEventListener('click',
+  e => { if (e.target === e.currentTarget) closeReschedule(); });
+
+loadData();
+</script>
+</html>
