@@ -599,7 +599,7 @@ async function atFetch(path = '', method = 'GET', body = null) {
     // GET request — langsung forward query params
     const qs = path.replace(/^\?/, '');
     const url = `${PROXY_URL}?base=${AT_BASE}&table=${AT_TABLE}${qs ? '&' + qs : ''}`;
-    const res = await fetch(url);
+    const res = await fetch(url, { redirect: 'follow' });
     if (!res.ok) throw new Error(`API error ${res.status}`);
     return res.json();
   } else {
@@ -609,7 +609,7 @@ async function atFetch(path = '', method = 'GET', body = null) {
     const payload = Object.assign({}, body || {}, { _method: method });
     const res = await fetch(url, {
       method: 'POST',
-      headers: { 'Content-Type': 'text/plain' },
+      redirect: 'follow',
       body: JSON.stringify(payload)
     });
     if (!res.ok && method !== 'DELETE') throw new Error(`API error ${res.status}`);
