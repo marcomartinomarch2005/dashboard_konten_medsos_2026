@@ -591,15 +591,32 @@
 // ── CONFIG ────────────────────────────────────────────────
 const AT_BASE    = 'appZbKbl6inYv8y2m';
 const AT_TABLE   = 'tblfl6n2LU6bGUR5P';
-const PROXY_URL  = '/.netlify/functions/airtable-proxy';
+// Ganti URL di bawah dengan URL deployment Apps Script kamu
+const PROXY_URL  = 'PASTE_APPS_SCRIPT_URL_DISINI';
 
 async function atFetch(path = '', method = 'GET', body = null) {
-  const url  = `${PROXY_URL}?base=${AT_BASE}&table=${AT_TABLE}${path ? '&' + path.replace(/^\?/,'') : ''}`;
-  const opts = { method, headers: { 'Content-Type': 'application/json' } };
-  if (body) opts.body = JSON.stringify(body);
-  const res  = await fetch(url, opts);
-  if (!res.ok) throw new Error(`API error ${res.status}`);
-  return method === 'DELETE' ? null : res.json();
+  if (method === 'GET') {
+    // GET request — langsung forward query params
+    const qs = path.replace(/^\?/, '');
+    const url = `${PROXY_URL}?base=${AT_BASE}&table=${AT_TABLE}${qs ? '&' + qs : ''}`;
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`API error ${res.status}`);
+    return res.json();
+  } else {
+    // POST/PATCH/DELETE — kirim via POST dengan _method di body
+    const id = path.match(/[&?]id=([^&]+)/)?.[1] || '';
+    const url = `${PROXY_URL}?base=${AT_BASE}&table=${AT_TABLE}${id ? '&id=' + id : ''}`;
+    const payload = Object.assign({}, body || {}, { _method: method });
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify(payload)
+    });
+    if (!res.ok && method !== 'DELETE') throw new Error(`API error ${res.status}`);
+    const text = await res.text();
+    if (method === 'DELETE') return null;
+    return text ? JSON.parse(text) : null;
+  }
 }
 // ─────────────────────────────────────────────────────────
 
