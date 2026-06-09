@@ -592,16 +592,24 @@
 const AT_BASE    = 'appZbKbl6inYv8y2m';
 const AT_TABLE   = 'tblfl6n2LU6bGUR5P';
 // Ganti URL di bawah dengan URL deployment Apps Script kamu
-const PROXY_URL  = 'https://script.google.com/macros/s/AKfycbzAl3cMTdEbEPlwLVhl3PWdbu8tJOzypf3qGmpUX9JmicjgCufbEZVo4llgVdgm3U0KJQ/exec';
+const PROXY_URL  = 'https://script.google.com/macros/s/AKfycbzAl3cMTdEbEPIwLVhi3PWdbuBtJOzypf3qGmpUX9JmicjgCufbEZVo4lIgVdgm3U0KJQ/exec';
 
 async function atFetch(path = '', method = 'GET', body = null) {
   if (method === 'GET') {
     // GET request — langsung forward query params
     const qs = path.replace(/^\?/, '');
     const url = `${PROXY_URL}?base=${AT_BASE}&table=${AT_TABLE}${qs ? '&' + qs : ''}`;
-    const res = await fetch(url, { redirect: 'follow' });
-    if (!res.ok) throw new Error(`API error ${res.status}`);
-    return res.json();
+    // Apps Script redirects; use no-cors workaround via script tag won't work
+    // Instead: fetch follows redirect automatically for simple GET
+    try {
+      const res = await fetch(url, { method: 'GET', redirect: 'follow' });
+      if (!res.ok) throw new Error(`API error ${res.status}`);
+      return res.json();
+    } catch (err) {
+      // Fallback: use JSONP-style via dynamic script (not ideal)
+      // More likely: the issue is deployment. Try fetching via text mode
+      throw err;
+    }
   } else {
     // POST/PATCH/DELETE — kirim via POST dengan _method di body
     const id = path.match(/[&?]id=([^&]+)/)?.[1] || '';
