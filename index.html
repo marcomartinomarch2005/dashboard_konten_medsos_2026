@@ -591,39 +591,34 @@
 // ── CONFIG ────────────────────────────────────────────────
 const AT_BASE    = 'appZbKbl6inYv8y2m';
 const AT_TABLE   = 'tblfl6n2LU6bGUR5P';
-// Ganti URL di bawah dengan URL deployment Apps Script kamu
-const PROXY_URL  = 'https://script.google.com/macros/s/AKfycbzAl3cMTdEbEPIwLVhi3PWdbuBtJOzypf3qGmpUX9JmicjgCufbEZVo4lIgVdgm3U0KJQ/exec';
+const AT_TOKEN   = 'patrJRAFX5FtHkJ5r2cbca2f2b54938737cd1c77eb3885e58dfe177dac22047d8a3791778b8abbfe3';
 
 async function atFetch(path = '', method = 'GET', body = null) {
+  let url = `https://api.airtable.com/v0/${AT_BASE}/${AT_TABLE}`;
+  
   if (method === 'GET') {
-    // GET request — langsung forward query params
     const qs = path.replace(/^\?/, '');
-    const url = `${PROXY_URL}?base=${AT_BASE}&table=${AT_TABLE}${qs ? '&' + qs : ''}`;
-    // Apps Script redirects; use no-cors workaround via script tag won't work
-    // Instead: fetch follows redirect automatically for simple GET
-    try {
-      const res = await fetch(url, { method: 'GET', redirect: 'follow' });
-      if (!res.ok) throw new Error(`API error ${res.status}`);
-      return res.json();
-    } catch (err) {
-      // Fallback: use JSONP-style via dynamic script (not ideal)
-      // More likely: the issue is deployment. Try fetching via text mode
-      throw err;
-    }
-  } else {
-    // POST/PATCH/DELETE — kirim via POST dengan _method di body
-    const id = path.match(/[&?]id=([^&]+)/)?.[1] || '';
-    const url = `${PROXY_URL}?base=${AT_BASE}&table=${AT_TABLE}${id ? '&id=' + id : ''}`;
-    const payload = Object.assign({}, body || {}, { _method: method });
+    if (qs) url += '?' + qs;
     const res = await fetch(url, {
-      method: 'POST',
-      redirect: 'follow',
-      body: JSON.stringify(payload)
+      headers: { 'Authorization': 'Bearer ' + AT_TOKEN }
     });
+    if (!res.ok) throw new Error(`API error ${res.status}`);
+    return res.json();
+  } else {
+    // POST/PATCH/DELETE
+    const id = path.match(/[&?]id=([^&]+)/)?.[1] || '';
+    if (id) url += '/' + id;
+    const opts = {
+      method: method,
+      headers: {
+        'Authorization': 'Bearer ' + AT_TOKEN,
+        'Content-Type': 'application/json'
+      }
+    };
+    if (body && method !== 'DELETE') opts.body = JSON.stringify(body);
+    const res = await fetch(url, opts);
     if (!res.ok && method !== 'DELETE') throw new Error(`API error ${res.status}`);
-    const text = await res.text();
-    if (method === 'DELETE') return null;
-    return text ? JSON.parse(text) : null;
+    return method === 'DELETE' ? null : res.json();
   }
 }
 // ─────────────────────────────────────────────────────────
