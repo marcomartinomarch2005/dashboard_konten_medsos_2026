@@ -213,6 +213,7 @@
     .col-plat  { width: 140px; }
     .col-status{ width: 130px; }
     .col-notes { min-width: 160px; max-width: 220px; }
+    .col-drive { min-width: 130px; }
     .col-action{ min-width: 120px; white-space: nowrap; text-align: right; }
 
     .date-main  { font-size: .82rem; font-weight: 600; }
@@ -486,12 +487,13 @@
           <th class="col-fmt">Format</th>
           <th class="col-plat">Platform</th>
           <th class="col-status">Status Alur</th>
+          <th class="col-drive">Drive Workspace</th>
           <th class="col-notes">Catatan</th>
           <th class="col-action">Aksi</th>
         </tr>
       </thead>
       <tbody id="tableBody">
-        <tr class="state-row"><td colspan="8">⏳&nbsp; Memuat data dari Airtable…</td></tr>
+        <tr class="state-row"><td colspan="9">⏳&nbsp; Memuat data dari Airtable…</td></tr>
       </tbody>
     </table>
   </div>
@@ -542,6 +544,10 @@
         <input type="text" id="inputPlatform" placeholder="Instagram, TikTok…">
       </div>
       <hr class="form-divider">
+      <div class="form-group span2">
+        <label>Link Google Drive Folder (opsional)</label>
+        <input type="text" id="inputDriveFolder" placeholder="https://drive.google.com/drive/folders/...">
+      </div>
       <div class="form-group span2">
         <label>Catatan (opsional)</label>
         <textarea id="inputNotes" placeholder="Momen, agenda, atau catatan lain…"></textarea>
@@ -630,7 +636,8 @@ function toRow(rec) {
     platform:     f.platform     || '',
     status:       f.status       || 'Draft',
     catatan:      f.catatan      || '',
-    tanggal_asal: f.tanggal_asal || ''
+    tanggal_asal: f.tanggal_asal || '',
+    drive_folder: f.drive_folder || ''
   };
 }
 
@@ -688,7 +695,7 @@ function renderTable() {
 
   const tbody = document.getElementById('tableBody');
   if (!filtered.length) {
-    tbody.innerHTML = '<tr class="state-row"><td colspan="8">Tidak ada konten yang cocok dengan filter.</td></tr>';
+    tbody.innerHTML = '<tr class="state-row"><td colspan="9">Tidak ada konten yang cocok dengan filter.</td></tr>';
     return;
   }
 
@@ -736,6 +743,9 @@ function renderTable() {
         <td class="col-fmt"><span class="fmt-badge ${fmtClass}">${d.format || '–'}</span></td>
         <td class="col-plat"><div class="plat-chips">${chips || '–'}</div></td>
         <td class="col-status">${statusBadge}</td>
+        <td class="col-drive">
+          ${d.drive_folder ? `<a href="${d.drive_folder}" target="_blank" class="btn btn-ghost btn-sm">📂 Buka Folder</a>` : '<span style="color:var(--muted);font-size:.75rem;">–</span>'}
+        </td>
         <td class="col-notes"><div class="notes-text">${d.catatan || '–'}</div></td>
         <td class="col-action">
           <div class="action-group">
@@ -824,6 +834,7 @@ function openAddModal() {
   document.getElementById('inputPlatform').value     = '';
   document.getElementById('inputStatus').value       = 'Draft';
   document.getElementById('inputNotes').value        = '';
+  document.getElementById('inputDriveFolder').value  = '';
   document.getElementById('btnSave').textContent     = 'Simpan';
   document.getElementById('btnSave').disabled        = false;
   document.getElementById('btnDelete').style.display = 'none';
@@ -841,6 +852,7 @@ function openEditModal(recId) {
   document.getElementById('inputPlatform').value     = d.platform;
   document.getElementById('inputStatus').value       = d.status;
   document.getElementById('inputNotes').value        = d.catatan;
+  document.getElementById('inputDriveFolder').value  = d.drive_folder;
   document.getElementById('btnSave').textContent     = 'Simpan';
   document.getElementById('btnSave').disabled        = false;
   document.getElementById('btnDelete').style.display = 'inline-flex';
@@ -864,7 +876,8 @@ async function saveContent() {
     format:   document.getElementById('inputFormat').value,
     platform,
     status:   document.getElementById('inputStatus').value,
-    catatan:  document.getElementById('inputNotes').value.trim()
+    catatan:  document.getElementById('inputNotes').value.trim(),
+    drive_folder: document.getElementById('inputDriveFolder').value.trim()
   };
   const btn = document.getElementById('btnSave');
   btn.disabled = true; btn.textContent = 'Menyimpan…';
