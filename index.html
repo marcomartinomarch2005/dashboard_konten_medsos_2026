@@ -599,6 +599,37 @@ const AT_BASE    = 'appZbKbl6inYv8y2m';
 const AT_TABLE   = 'tblfl6n2LU6bGUR5P';
 const PROXY_URL  = 'https://script.google.com/macros/s/AKfycbxbySj9byS6s8CSn7rePNgoS9JnjWNH3W5dTrETq1TgNBe8XTDqzYLSmaecrssrFa8sFg/exec';
 
+const DRIVE_FOLDER_BY_CODE = {
+  'K-JPR-2026-06-001': '1G88P4K6j2uYCbkgf2ZBPhUwWMM9YY38J',
+  'K-JPR-2026-06-002': '1f_5j6o5a3zRv7G-yNVClKtKoCR79ggdW',
+  'K-JPR-2026-06-003': '1nBhfJoUNEhI1UR58R3E_JYW3rs51JYVi',
+  'K-JPR-2026-06-004': '11y5Ef2QnGvHp6ZZ_MIOoxdRUYdIrTMXz',
+  'K-JPR-2026-06-005': '1fNfhIERyzZavcfqUZfAE4mYcHF4WqVnd',
+  'K-JPR-2026-06-006': '15JCiL9jSLZXCnYPqOHkVBoJNaX7M4Y4G',
+  'K-JPR-2026-06-007': '1smKBu9xeWkGIt1n8t124CYbUEt_NQlRx',
+  'K-JPR-2026-06-008': '117jlUtNe3XUyviYz5ybYknrvQrvGulvt',
+  'K-JPR-2026-06-009': '1P4-BqZLLZxFfxG4UMnxdrtRRH-_laJFG',
+  'K-JPR-2026-06-010': '1o06REtiVP3so92fx_qIEWrU6UfTpbCZf',
+  'K-JPR-2026-06-011': '1sGJ_rxe89P99RzvVxWA8517Q_qvjOdvd',
+  'K-JPR-2026-06-012': '1B0vyuSP-9cOgUVnYAqbCTMm89EDv6Qe5',
+  'K-JPR-2026-06-013': '1sbjvt0sSmsTEnWnTCO_BB7PeXhnUfjh1',
+  'K-JPR-2026-06-014': '1jtJfexDRpkf6FQpHhUtAs0F668OUUhEv',
+  'K-JPR-2026-06-015': '1lwFoy0LLFlkdq-sdbrMryRa9AQij-kvP',
+  'K-JPR-2026-06-016': '163OdqRutYsP91lmmpPTihF0CadeuvaD_',
+  'K-JPR-2026-06-017': '1kaD8kuD6jFAhXDOGIwFDwttAIG5dWNig',
+  'K-JPR-2026-06-018': '1Bdj6vGmoEeCOCR3krIe4Sw8Nr84E7CbB',
+  'K-JPR-2026-06-019': '1wtUY_sNQ9UqbTtgxUAY1A24seCndy7mm',
+  'K-JPR-2026-06-020': '1dbkU5NtJ2eLrv4YLuWVwIi_xfpdFfI6B'
+};
+function deriveDriveFolder(fields) {
+  const explicit = fields.drive_folder || fields.drive_folder_url || '';
+  if (explicit) return explicit;
+  const text = `${fields.judul || ''} ${fields.catatan || ''}`;
+  const match = text.match(/K-JPR-2026-06-\d{3}/);
+  const id = match && DRIVE_FOLDER_BY_CODE[match[0]];
+  return id ? `https://drive.google.com/drive/folders/${id}` : '';
+}
+
 async function atFetch(path = '', method = 'GET', body = null) {
   if (method === 'GET') {
     const qs = path.replace(/^\?/, '');
@@ -637,7 +668,7 @@ function toRow(rec) {
     status:       f.status       || 'Draft',
     catatan:      f.catatan      || '',
     tanggal_asal: f.tanggal_asal || '',
-    drive_folder: f.drive_folder || ''
+    drive_folder: deriveDriveFolder(f)
   };
 }
 
