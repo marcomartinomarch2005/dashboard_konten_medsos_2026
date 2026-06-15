@@ -658,7 +658,8 @@ async function atFetch(path = '', method = 'GET', body = null) {
     const payload = Object.assign({}, body || {}, { _method: method });
     const res = await fetch(url, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      // Do not set Content-Type here: Google Apps Script proxies can fail CORS
+      // preflight on GitHub Pages. The JSON body is still parsed by the proxy.
       body: JSON.stringify(payload)
     });
     if (method === 'DELETE' && res.status === 204) return null;
