@@ -630,24 +630,39 @@ function deriveDriveFolder(fields) {
   return id ? `https://drive.google.com/drive/folders/${id}` : '';
 }
 
+function parseProxyError(json, status) {
+  if (!json || !json.error) return null;
+  if (typeof json.error === 'string') return json.error;
+  return json.error.message || json.error.type || `Request gagal (${status})`;
+}
+
+async function parseProxyResponse(res) {
+  const text = await res.text();
+  const json = text ? JSON.parse(text) : null;
+  const proxyError = parseProxyError(json, res.status);
+  if (!res.ok || proxyError) {
+    throw new Error(proxyError || `Request gagal (${res.status})`);
+  }
+  return json;
+}
+
 async function atFetch(path = '', method = 'GET', body = null) {
   if (method === 'GET') {
     const qs = path.replace(/^\?/, '');
     const url = `${PROXY_URL}?base=${AT_BASE}&table=${AT_TABLE}${qs ? '&' + qs : ''}`;
     const res = await fetch(url);
-    const text = await res.text();
-    return JSON.parse(text);
+    return parseProxyResponse(res);
   } else {
     const id = path.match(/[&?]id=([^&]+)/)?.[1] || '';
     const url = `${PROXY_URL}?base=${AT_BASE}&table=${AT_TABLE}${id ? '&id=' + id : ''}`;
     const payload = Object.assign({}, body || {}, { _method: method });
     const res = await fetch(url, {
       method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
     });
-    if (method === 'DELETE') return null;
-    const text = await res.text();
-    return text ? JSON.parse(text) : null;
+    if (method === 'DELETE' && res.status === 204) return null;
+    return parseProxyResponse(res);
   }
 }
 // ─────────────────────────────────────────────────────────
@@ -668,7 +683,8 @@ function toRow(rec) {
     status:       f.status       || 'Draft',
     catatan:      f.catatan      || '',
     tanggal_asal: f.tanggal_asal || '',
-    drive_folder: deriveDriveFolder(f)
+    drive_folder: f.drive_folder_url || deriveDriveFolder(f),
+    drive_folder_url: f.drive_folder_url || ''
   };
 }
 
@@ -908,7 +924,7 @@ async function saveContent() {
     platform,
     status:   document.getElementById('inputStatus').value,
     catatan:  document.getElementById('inputNotes').value.trim(),
-    drive_folder: document.getElementById('inputDriveFolder').value.trim()
+    drive_folder_url: document.getElementById('inputDriveFolder').value.trim()
   };
   const btn = document.getElementById('btnSave');
   btn.disabled = true; btn.textContent = 'Menyimpan…';
