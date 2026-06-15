@@ -912,15 +912,16 @@ async function saveContent() {
   };
   const btn = document.getElementById('btnSave');
   btn.disabled = true; btn.textContent = 'Menyimpan…';
+  const isEdit = !!editingRecId;
   try {
-    if (editingRecId) {
+    if (isEdit) {
       await atFetch(`&id=${editingRecId}`, 'PATCH', { fields });
     } else {
       await atFetch('', 'POST', { fields });
     }
     await loadData();
     closeModal();
-    showToast(editingRecId ? 'Konten berhasil diperbarui.' : 'Konten berhasil ditambahkan.');
+    showToast(isEdit ? 'Konten berhasil diperbarui.' : 'Konten berhasil ditambahkan.');
   } catch (e) {
     showToast('Gagal menyimpan: ' + e.message, 'error');
     btn.disabled = false; btn.textContent = 'Simpan';
