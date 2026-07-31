@@ -59,7 +59,7 @@ Seluruh tanggal jatuh pada hari kerja. Detail struktur slide, angle lokal, dan c
 ## 5. Catatan Produksi
 
 - **Prioritas tertinggi:** 08-006 dan 08-007 (17 Agustus) — perlu selesai desain paling lambat 14 Agustus.
-- **08-010 Maulid Nabi:** tanggal 25 Agustus mengikuti agenda setting; konfirmasi ke owner jika penetapan pemerintah bergeser.
+- **08-010 Maulid Nabi:** tanggal 25 Agustus **terkonfirmasi** — SKB 3 Menteri menetapkan Selasa, 25 Agustus 2026 (12 Rabiul Awal 1448 H) sebagai libur nasional. Tidak ada cuti bersama di Agustus 2026.
 - **Pasangan konten:** 08-003 (produk palsu) dan 08-008 (BPOM Mobile) dirancang saling menyambung — sebaiknya caption 08-008 merujuk ke 08-003.
 - **Belum ada:** seluruh naskah dan visual. Folder kerja Drive per konten juga belum dibuat (kolom `drive_folder_url` masih kosong).
 - Sebelum menulis naskah, wajib tanya owner: *"Perlu riset data dari internet dulu?"* (PROTOCOL.md §4).
