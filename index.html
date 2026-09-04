@@ -376,9 +376,51 @@
     /* ── PROGRESS BAR ───────────────────────────────────── */
     .progress-bar { width: 100%; height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; margin-top: 8px; }
     .progress-fill { height: 100%; border-radius: 2px; transition: width .5s ease; }
+
+    /* ── LOGIN GATE ─────────────────────────────────────── */
+    .login-overlay {
+      position: fixed; inset: 0; z-index: 500;
+      background: var(--bg);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .login-card {
+      background: var(--surface); border-radius: 18px;
+      padding: 36px 32px; width: 90%; max-width: 360px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.12);
+      text-align: center;
+    }
+    .login-card .header-icon { margin: 0 auto 14px; }
+    .login-card h1 { font-size: 1.05rem; font-weight: 700; margin-bottom: 6px; }
+    .login-card p { font-size: .82rem; color: var(--muted); margin-bottom: 20px; line-height: 1.5; }
+    #googleSignInBtn { display: flex; justify-content: center; min-height: 40px; }
+    .login-error {
+      margin-top: 16px; padding: 10px 12px; border-radius: 8px;
+      background: #fef2f2; color: var(--c-overdue);
+      font-size: .78rem; line-height: 1.4; display: none;
+    }
+    .login-error.active { display: block; }
+    .btn-logout {
+      background: transparent; border: 1px solid var(--border);
+      color: var(--muted); border-radius: 8px; padding: 6px 12px;
+      font-size: .78rem; cursor: pointer;
+    }
+    .btn-logout:hover { background: var(--bg); }
   </style>
 </head>
 <body>
+
+<!-- LOGIN GATE -->
+<div class="login-overlay" id="loginOverlay">
+  <div class="login-card">
+    <div class="header-icon" style="width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;">📊</div>
+    <h1>Dashboard Konten · BBPOM Jayapura</h1>
+    <p>Masuk dengan akun Google yang sudah diizinkan untuk membuka kalender editorial.</p>
+    <div id="googleSignInBtn"></div>
+    <div class="login-error" id="loginError"></div>
+  </div>
+</div>
+
+<div id="appRoot" style="display:none">
 
 <!-- HEADER -->
 <header class="header">
@@ -386,12 +428,16 @@
     <div class="header-icon">📊</div>
     <div>
       <div class="header-title">Dashboard Konten · BBPOM Jayapura</div>
-      <div class="header-sub">Kalender Editorial 2026 · Airtable</div>
+      <div class="header-sub">Kalender Editorial 2026 · Google Sheets</div>
     </div>
   </div>
-  <div class="sync-pill">
-    <div class="sync-dot loading" id="syncDot"></div>
-    <span id="syncLabel">Menghubungkan…</span>
+  <div style="display:flex; align-items:center; gap:12px;">
+    <div class="sync-pill">
+      <div class="sync-dot loading" id="syncDot"></div>
+      <span id="syncLabel">Menghubungkan…</span>
+    </div>
+    <span id="userEmailLabel" style="font-size:.75rem; color:var(--muted);"></span>
+    <button class="btn-logout" onclick="signOut()">Keluar</button>
   </div>
 </header>
 
@@ -493,7 +539,7 @@
         </tr>
       </thead>
       <tbody id="tableBody">
-        <tr class="state-row"><td colspan="9">⏳&nbsp; Memuat data dari Airtable…</td></tr>
+        <tr class="state-row"><td colspan="9">⏳&nbsp; Memuat data dari Google Sheets…</td></tr>
       </tbody>
     </table>
   </div>
@@ -593,11 +639,84 @@
 
 <div class="toast" id="toast"></div>
 
+</div><!-- /appRoot -->
+
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 <script>
 // ── CONFIG ────────────────────────────────────────────────
-const AT_BASE    = 'appZbKbl6inYv8y2m';
-const AT_TABLE   = 'tblfl6n2LU6bGUR5P';
-const PROXY_URL  = 'https://script.google.com/macros/s/AKfycbxbySj9byS6s8CSn7rePNgoS9JnjWNH3W5dTrETq1TgNBe8XTDqzYLSmaecrssrFa8sFg/exec';
+// Backend: Google Apps Script Web App di atas Google Sheets (google_apps_script/Code.gs).
+// Ganti URL ini setelah deploy — lihat google_apps_script/SETUP.md langkah 2.6.
+const API_URL = 'https://script.google.com/macros/s/AKfycbwnX_bESrMsHxVeJ0YxqdO3FwZqU3kA8sSk0ud0TWVePuHbs7qUOE7bouIUIKRH0Qg5nQ/exec';
+
+// Google Sign-In — batasi akses dashboard hanya ke email yang diizinkan.
+// Ganti dengan OAuth Client ID dari Google Cloud Console — lihat SETUP.md bagian 6.
+const GOOGLE_CLIENT_ID = '254776071269-65aj1dcss5gir5nvo2pid8hijg42ro2s.apps.googleusercontent.com';
+
+// ── AUTH (Google Sign-In) ───────────────────────────────────
+let idToken = sessionStorage.getItem('id_token') || null;
+let userEmail = sessionStorage.getItem('user_email') || null;
+
+function showLoginError(msg) {
+  const el = document.getElementById('loginError');
+  el.textContent = msg;
+  el.classList.toggle('active', !!msg);
+}
+
+function showLogin() {
+  idToken = null; userEmail = null;
+  sessionStorage.removeItem('id_token');
+  sessionStorage.removeItem('user_email');
+  document.getElementById('appRoot').style.display = 'none';
+  document.getElementById('loginOverlay').style.display = 'flex';
+}
+
+function showApp() {
+  document.getElementById('loginOverlay').style.display = 'none';
+  document.getElementById('appRoot').style.display = 'block';
+  document.getElementById('userEmailLabel').textContent = userEmail || '';
+  showLoginError('');
+  loadData();
+}
+
+function signOut() {
+  if (window.google && google.accounts && google.accounts.id) {
+    google.accounts.id.disableAutoSelect();
+  }
+  showLogin();
+}
+
+function handleCredentialResponse(response) {
+  idToken = response.credential;
+  // decode payload hanya untuk tampilkan email di header — verifikasi asli tetap di backend
+  try {
+    userEmail = JSON.parse(atob(response.credential.split('.')[1])).email || '';
+  } catch (e) { userEmail = ''; }
+  sessionStorage.setItem('id_token', idToken);
+  sessionStorage.setItem('user_email', userEmail);
+  showApp();
+}
+
+window.onload = function () {
+  if (!window.google || !google.accounts || !google.accounts.id) {
+    showLoginError('Gagal memuat Google Sign-In. Cek koneksi internet lalu muat ulang halaman.');
+    return;
+  }
+  google.accounts.id.initialize({
+    client_id: GOOGLE_CLIENT_ID,
+    callback: handleCredentialResponse
+  });
+  google.accounts.id.renderButton(
+    document.getElementById('googleSignInBtn'),
+    { theme: 'outline', size: 'large', width: 260 }
+  );
+  if (idToken) {
+    // ada sesi tersimpan — coba langsung pakai, kalau ternyata tidak valid/kedaluwarsa
+    // atFetch akan menolak dan melempar balik ke layar login (lihat parseProxyResponse)
+    showApp();
+  } else {
+    google.accounts.id.prompt();
+  }
+};
 
 const DRIVE_FOLDER_BY_CODE = {
   'K-JPR-2026-06-001': '1PfaJUhdkZpkM9eCFo3Akej4AIllJbvnR',
@@ -639,6 +758,11 @@ function parseProxyError(json, status) {
 async function parseProxyResponse(res) {
   const text = await res.text();
   const json = text ? JSON.parse(text) : null;
+  if (json && json.error === 'unauthorized') {
+    showLogin();
+    showLoginError('Sesi login habis atau akun ini belum diizinkan mengakses dashboard. Silakan login lagi.');
+    throw new Error('unauthorized');
+  }
   const proxyError = parseProxyError(json, res.status);
   if (!res.ok || proxyError) {
     throw new Error(proxyError || `Request gagal (${res.status})`);
@@ -647,19 +771,20 @@ async function parseProxyResponse(res) {
 }
 
 async function atFetch(path = '', method = 'GET', body = null) {
+  const tokenQs = 'id_token=' + encodeURIComponent(idToken || '');
   if (method === 'GET') {
     const qs = path.replace(/^\?/, '');
-    const url = `${PROXY_URL}?base=${AT_BASE}&table=${AT_TABLE}${qs ? '&' + qs : ''}`;
+    const url = `${API_URL}?${tokenQs}${qs ? '&' + qs : ''}`;
     const res = await fetch(url);
     return parseProxyResponse(res);
   } else {
     const id = path.match(/[&?]id=([^&]+)/)?.[1] || '';
-    const url = `${PROXY_URL}?base=${AT_BASE}&table=${AT_TABLE}${id ? '&id=' + id : ''}`;
+    const url = `${API_URL}?${tokenQs}${id ? '&id=' + id : ''}`;
     const payload = Object.assign({}, body || {}, { _method: method });
     const res = await fetch(url, {
       method: 'POST',
-      // Do not set Content-Type here: Google Apps Script proxies can fail CORS
-      // preflight on GitHub Pages. The JSON body is still parsed by the proxy.
+      // Do not set Content-Type here: Google Apps Script web apps can fail CORS
+      // preflight on GitHub Pages. The JSON body is still parsed by the backend.
       body: JSON.stringify(payload)
     });
     if (method === 'DELETE' && res.status === 204) return null;
@@ -1002,7 +1127,6 @@ document.getElementById('modalOverlay').addEventListener('click',
   e => { if (e.target === e.currentTarget) closeModal(); });
 document.getElementById('rescheduleOverlay').addEventListener('click',
   e => { if (e.target === e.currentTarget) closeReschedule(); });
-
-loadData();
+// loadData() dipanggil dari showApp() setelah Google Sign-In berhasil, bukan di sini.
 </script>
 </html>
