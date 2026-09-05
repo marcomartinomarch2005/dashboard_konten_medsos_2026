@@ -2,6 +2,33 @@
 
 ---
 
+## Sesi 5 September 2026 (lanjutan ke-2) — Claude Sonnet 5 (Anthropic) via Claude Code
+
+### Yang dikerjakan — resolusi untracked files
+Owner minta solusi untuk 22 item yang selama ini untracked di git (lihat catatan berulang di entri-entri sebelumnya). Solusi: commit semuanya kecuali config lokal, sesuai arahan owner "jalankan".
+
+- Tambah `.claude/` dan `.vscode/` ke `.gitignore` — ini config lokal Claude Code/VS Code di komputer ini (dicek isinya dulu: cuma daftar izin & setting editor, tidak ada secret), bukan konten proyek.
+- Push `index.html` (pembersihan lookup Drive Juni dari sesi sebelumnya) — commit `b70a21f`.
+- Commit `2d743a0` — `PROTOCOL.md`, `HANDOFF.md`, `doc/Alur-Konten-BPOM-Jayapura.pdf`.
+- Commit `b90591f` — `google_apps_script/` (Code.gs, SETUP.md, CSV export Airtable). Dicek dulu tidak ada token/secret hardcode di Code.gs (semua lewat Script Properties).
+- Commit `b2c0abf` — seluruh arsip naskah & rencana konten Mei, Juli, Agustus, September 2026 + `_Template/`.
+- Semua di-push ke `main`.
+
+### Status saat ini:
+- **`git status` bersih** — tidak ada lagi untracked files. Repo sekarang jadi backup penuh (dokumentasi, kode backend, seluruh naskah), bukan cuma `index.html`.
+- Repo GitHub `dashboard_konten_medsos_2026` (private) sekarang melacak semuanya kecuali `.claude/`, `.vscode/`, dan file OS junk (`desktop.ini`, dll, sudah dari awal di `.gitignore`).
+
+### Yang belum selesai / perlu dilanjutkan:
+- Item September #09-001 (1 Sep) dan #09-002 (4 Sep) masih "Terlambat" — owner minta dibiarkan dulu, belum diputuskan.
+- Verifikasi ulang status 12 konten September di dashboard (lihat entri sesi sebelumnya — update status dilaporkan lisan oleh owner, belum dicek langsung oleh Claude).
+- Drive Workspace untuk konten Juli–September masih kosong — alur manual, lihat memori `feedback_drive_workflow_manual`.
+
+### Catatan untuk sesi berikutnya:
+- **Mulai sesi ini, treat git sebagai sumber backup penuh** — kalau menulis naskah/dokumentasi baru, ingat untuk commit (tanya owner dulu sesuai kebiasaan, tapi jangan lagi biarkan menumpuk untracked berbulan-bulan seperti sebelumnya).
+- `.claude/` dan `.vscode/` sengaja di-gitignore — jangan coba commit folder ini di sesi berikutnya.
+
+---
+
 ## Sesi 5 September 2026 (lanjutan) — Claude Sonnet 5 (Anthropic) via Claude Code
 
 ### Yang dikerjakan:
