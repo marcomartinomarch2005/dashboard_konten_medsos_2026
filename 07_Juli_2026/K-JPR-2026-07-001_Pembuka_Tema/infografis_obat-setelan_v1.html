@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1080">
+<title>Obat Setelan — @bpom.jayapura</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --navy:    #00205B;
+    --navy-md: #003580;
+    --red:     #D32F2F;
+    --red-lt:  #FFEBEE;
+    --gold:    #F4A423;
+    --white:   #FFFFFF;
+    --grey:    #F0F4FA;
+    --text:    #1A2340;
+  }
+
+  body {
+    width: 1080px;
+    height: 1350px;
+    overflow: hidden;
+    font-family: 'Plus Jakarta Sans', 'Segoe UI', system-ui, sans-serif;
+    background: var(--white);
+    color: var(--text);
+  }
+
+  .card {
+    width: 1080px;
+    height: 1350px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background: #F8FAFF;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    background: var(--navy);
+    padding: 28px 52px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+  }
+  .header-brand {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .logo-box {
+    width: 52px; height: 52px;
+    background: var(--white);
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 26px;
+    font-weight: 900;
+    color: var(--navy);
+    letter-spacing: -1px;
+    flex-shrink: 0;
+  }
+  .brand-text .name {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--white);
+    letter-spacing: 0.3px;
+  }
+  .brand-text .sub {
+    font-size: 13px;
+    color: rgba(255,255,255,0.6);
+    margin-top: 2px;
+  }
+  .handle {
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.8);
+    background: rgba(255,255,255,0.12);
+    border-radius: 20px;
+    padding: 8px 18px;
+    letter-spacing: 0.2px;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  /* Background diagonal split */
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 520px;
+    background: linear-gradient(145deg, var(--navy) 0%, var(--navy-md) 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 78%, 0 100%);
+    z-index: 0;
+  }
+
+  /* Decorative circles */
+  .hero::after {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 380px; height: 380px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.04);
+    z-index: 0;
+  }
+
+  .deco-circle-2 {
+    position: absolute;
+    top: 60px; right: 40px;
+    width: 220px; height: 220px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+    z-index: 0;
+  }
+
+  /* ── WARNING BADGE ── */
+  .warning-badge {
+    position: absolute;
+    top: 52px; left: 52px;
+    background: var(--red);
+    color: var(--white);
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    padding: 10px 24px;
+    border-radius: 6px;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .warning-badge::before {
+    content: '⚠';
+    font-size: 14px;
+  }
+
+  /* ── PILL ILLUSTRATION (CSS only) ── */
+  .pill-illustration {
+    position: absolute;
+    top: 32px;
+    right: 52px;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    opacity: 0.18;
+  }
+  .pill {
+    width: 60px; height: 60px;
+    background: var(--white);
+    border-radius: 50%;
+    position: relative;
+  }
+  .pill.rect {
+    width: 60px; height: 30px;
+    border-radius: 15px;
+    margin-top: 15px;
+  }
+
+  /* ── HEADLINE SECTION ── */
+  .headline-section {
+    position: relative;
+    z-index: 2;
+    padding: 130px 52px 0;
+    flex-shrink: 0;
+  }
+  .headline-eyebrow {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+  .headline-main {
+    font-size: 74px;
+    font-weight: 900;
+    color: var(--white);
+    line-height: 0.95;
+    letter-spacing: -2px;
+  }
+  .headline-main .highlight {
+    color: var(--gold);
+    display: block;
+  }
+
+  /* ── CONTENT AREA ── */
+  .content-area {
+    position: relative;
+    z-index: 2;
+    margin: 52px 52px 0;
+    background: var(--white);
+    border-radius: 24px;
+    padding: 48px 52px;
+    box-shadow: 0 8px 48px rgba(0,32,91,0.12);
+    flex-shrink: 0;
+  }
+
+  .hook-text {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.45;
+    margin-bottom: 36px;
+    border-left: 5px solid var(--red);
+    padding-left: 24px;
+  }
+  .hook-text em {
+    font-style: normal;
+    color: var(--red);
+  }
+
+  .key-point {
+    background: var(--grey);
+    border-radius: 16px;
+    padding: 32px 36px;
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+  }
+  .key-icon {
+    width: 52px; height: 52px;
+    background: var(--navy);
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px;
+    flex-shrink: 0;
+  }
+  .key-body .key-label {
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--navy);
+    margin-bottom: 8px;
+  }
+  .key-body .key-desc {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.4;
+  }
+  .key-body .key-desc span {
+    color: var(--red);
+  }
+
+  /* ── CTA STRIP ── */
+  .cta-strip {
+    position: relative;
+    z-index: 2;
+    margin: 28px 52px 0;
+    background: var(--navy);
+    border-radius: 16px;
+    padding: 24px 36px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+  }
+  .cta-text {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.35;
+  }
+  .cta-text .sub {
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.6);
+    margin-top: 4px;
+  }
+  .cta-badge {
+    background: var(--gold);
+    color: var(--navy);
+    font-size: 15px;
+    font-weight: 800;
+    padding: 12px 24px;
+    border-radius: 10px;
+    white-space: nowrap;
+    letter-spacing: 0.3px;
+    flex-shrink: 0;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    margin-top: auto;
+    padding: 24px 52px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+  }
+  .footer-tags {
+    font-size: 14px;
+    font-weight: 600;
+    color: #8095C0;
+    line-height: 1.8;
+  }
+  .footer-hotline {
+    text-align: right;
+  }
+  .hotline-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #8095C0;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .hotline-num {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--navy);
+    letter-spacing: 0.5px;
+  }
+
+  /* Bottom accent bar */
+  .bottom-bar {
+    height: 8px;
+    background: linear-gradient(90deg, var(--red) 0%, var(--navy) 50%, var(--gold) 100%);
+    flex-shrink: 0;
+  }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-brand">
+      <div class="logo-box">B</div>
+      <div class="brand-text">
+        <div class="name">BBPOM di Jayapura</div>
+        <div class="sub">Badan Pengawas Obat dan Makanan</div>
+      </div>
+    </div>
+    <div class="handle">@bpom.jayapura</div>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="deco-circle-2"></div>
+
+    <div class="warning-badge">Waspada Obat Ilegal</div>
+
+    <!-- Decorative pill grid (top right) -->
+    <div class="pill-illustration">
+      <div class="pill"></div>
+      <div class="pill rect"></div>
+      <div class="pill"></div>
+      <div class="pill rect"></div>
+      <div class="pill"></div>
+      <div class="pill rect"></div>
+      <div class="pill"></div>
+      <div class="pill rect"></div>
+      <div class="pill"></div>
+    </div>
+
+    <!-- HEADLINE -->
+    <div class="headline-section">
+      <div class="headline-eyebrow">Kenali dan Hindari</div>
+      <div class="headline-main">
+        OBAT
+        <span class="highlight">SETELAN</span>
+      </div>
+    </div>
+
+    <!-- CONTENT CARD -->
+    <div class="content-area">
+      <div class="hook-text">
+        Obat dijual lepasan per butir di warung, diklaim bisa sembuhkan apa saja —
+        tapi <em>tidak ada yang tahu isinya.</em>
+      </div>
+
+      <div class="key-point">
+        <div class="key-icon">🔍</div>
+        <div class="key-body">
+          <div class="key-label">Satu Hal yang Wajib Kamu Tahu</div>
+          <div class="key-desc">
+            Obat setelan <span>tidak memiliki Nomor Izin Edar BPOM</span> —
+            artinya tidak ada jaminan mutu, keamanan, atau dosis yang benar.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA STRIP -->
+    <div class="cta-strip">
+      <div class="cta-text">
+        Pastikan obatmu sudah punya NIE BPOM
+        <div class="sub">Cek di cekbpom.pom.go.id atau BPOM Mobile</div>
+      </div>
+      <div class="cta-badge">Cek Sekarang →</div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+      <div class="footer-tags">
+        #ObatSetelan #SahabatBPOM<br>
+        #BBPOMJayapura #AmanBersama
+      </div>
+      <div class="footer-hotline">
+        <div class="hotline-label">Hubungi Kami</div>
+        <div class="hotline-num">1500533</div>
+      </div>
+    </div>
+
+  </div><!-- /hero -->
+
+  <!-- BOTTOM BAR -->
+  <div class="bottom-bar"></div>
+
+</div>
+</body>
+</html>
