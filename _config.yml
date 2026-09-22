@@ -1,0 +1,32 @@
+# Konfigurasi GitHub Pages (Jekyll) untuk repo dashboard_konten_medsos_2026.
+#
+# Yang diterbitkan ke web HANYA index.html (dashboard). File lain di repo ini
+# (dokumen internal, naskah, kode Apps Script, CSV, PDF) tetap tersimpan di repo
+# private, tetapi TIDAK disajikan oleh situs Pages.
+#
+# PENTING: Jekyll tidak punya mode "terbitkan hanya file ini", jadi setiap file
+# atau folder BARU di root repo harus ditambahkan ke daftar exclude di bawah.
+# Kalau tidak, ia ikut terbit secara publik. (File/folder berawalan "_" atau "."
+# otomatis tidak terbit, mis. _Template/ dan .gitignore.)
+# Setelah mengubah daftar ini, cek dengan curl bahwa alamatnya membalas 404.
+
+exclude:
+  # Dokumen internal
+  - "PROTOCOL.md"
+  - "HANDOFF.md"
+  # Kode dan data backend (Apps Script, CSV ekspor)
+  - "google_apps_script"
+  # Diagram dan referensi
+  - "doc"
+  # Arsip naskah dan rencana konten per bulan
+  - "05_Mei_2026"
+  - "06_Juni_2026"
+  - "07_Juli_2026"
+  - "08_Agustus_2026"
+  - "09_September_2026"
+  - "10_Oktober_2026"
+  - "11_November_2026"
+  - "12_Desember_2026"
+  # Jaring pengaman (pola glob) untuk folder bulan berikutnya dan dokumen markdown baru
+  - "[0-9][0-9]_*"
+  - "*.md"
