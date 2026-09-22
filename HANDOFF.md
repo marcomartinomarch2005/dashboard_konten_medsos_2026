@@ -2,6 +2,44 @@
 
 ---
 
+## Sesi 22 September 2026 — Claude Sonnet 5 (Anthropic) via Claude Code
+
+### Yang dikerjakan:
+- **Recap dan pemetaan kondisi terbaru.** Sesi ini fork dari sesi "Pelajari project" (5 Sep; hanya membaca dokumentasi, tanpa perubahan file di repo). Proyek kini ada di `E:\Projects\konten_sosmed_2026`; salinan lama di OneDrive sudah tidak ada. Isi root sama dengan yang dibaca 5 Sep, dan tidak ada commit baru sejak `c00c293`.
+- **Temuan: 7 naskah September diubah 9 Sep di luar sesi yang tercatat.** Waktu modifikasi file sekitar 13:01–13:04 (9 Sep, di drive E:), tepat semua naskah berformat Carousel/Infografis: `09-001, 003, 004, 006, 007, 008, 012`. Perubahannya murni tambahan (379 baris, 0 dihapus): bagian `PROMPT VISUAL AI (Pixar 3D — siap generate)`. Tidak ada sesi Claude lain yang menyentuh proyek ini (dicari di riwayat sesi, termasuk yang di-archive), jadi siapa atau alat apa yang membuatnya **belum diketahui**. Scan pola rahasia pada baris tambahan: bersih.
+- **Sync dengan GitHub.**
+  - Git di drive E: sempat menolak jalan ("dubious ownership", karena file system-nya tidak menyimpan data kepemilikan). Berjalan setelah `safe.directory` untuk folder ini ditambahkan di config global git. Itu setting keamanan, jadi Claude hanya menyarankan perintahnya dan tidak mengubahnya sendiri.
+  - `git fetch` gagal dengan `bad object refs/desktop.ini`: file `desktop.ini` bawaan Google Drive File Stream tersebar di seluruh isi `.git`. 11 file di `.git/refs` dan `.git/logs/refs` **dipindahkan** (bukan dihapus) ke scratchpad sesi; sekitar 55 `desktop.ini` di `.git/objects` dibiarkan. Setelah itu fetch sukses, dan GitHub tidak punya commit baru.
+  - Commit `9fa4e24` (7 naskah + prompt visual AI) di-push ke `main`.
+- **Temuan keamanan: GitHub Pages menyajikan seluruh isi repo secara publik tanpa login**, walau repo-nya private, sejak push 5 Sep. Yang terbuka: `PROTOCOL.md` (memuat email owner dan URL Apps Script), `HANDOFF.md`, `Code.gs`, CSV kalender, PDF alur, dan semua naskah termasuk yang belum tayang. Claude baru mengeceknya sesudah push `9fa4e24`; seharusnya sebelum.
+  - Perbaikan: `_config.yml` (commit `8bb4769`) dengan daftar `exclude`, sehingga hanya `index.html` yang terbit. Diverifikasi dari luar tanpa login setelah rebuild: `/` = 200; semua path lain yang diuji (PROTOCOL.md, HANDOFF.md, `google_apps_script/`, `doc/`, `_Template/`, folder Mei/Juli/Agustus/September) = 404; SHA-256 `index.html` publik identik dengan yang di repo. Aturan ini juga dicatat di `PROTOCOL.md` §8.
+  - Scan pola kredensial (token Telegram/Google/GitHub/Airtable, kunci privat, dll.) di semua file ter-track: 0 kecocokan. Email yang sempat terlihat: email owner, `timedbbpomjayapura@gmail.com`, `tim1@gmail.com` dan `owner@gmail.com` (tampak contoh), `halobpom@pom.go.id` (publik). Paparan 5–22 Sep tidak bisa ditarik kembali.
+
+### Status saat ini:
+- **Git:** `main` = `origin/main` = `8bb4769` sebelum entri ini ditulis.
+- **GitHub Pages:** hanya `index.html` yang terbit (lewat `_config.yml`); dashboard tidak berubah.
+- **7 naskah carousel/infografis September** (09-001, 003, 004, 006, 007, 008, 012) → ter-commit, kini memuat Prompt Visual AI. Naskah Single Post/Reels (002, 005, 009, 010, 011) tidak berubah.
+- **Status konten di Google Sheets → tidak diverifikasi** (Claude tidak bisa login Google). Yang terakhir diketahui: 12 item September `Naskah selesai` (laporan lisan owner, 5 Sep).
+- **Jadwal per 22 Sep:** 7 dari 12 konten September sudah lewat tanggal rencananya (1, 4, 8, 10, 14, 17, 21 Sep); sisanya 23 (#09-008 Cegah Stunting), 25, 28, 29, 30 Sep. Status tayang sebenarnya tidak diketahui.
+- **Visual/desain:** belum ada file visual tercatat; baru ada teks prompt visual AI di naskah.
+- **Drive Workspace:** masih kosong, alur manual (tidak berubah, lihat entri 5 Sep).
+
+### Yang belum selesai / perlu dilanjutkan:
+1. Konfirmasi asal-usul perubahan 9 Sep (siapa atau alat apa yang menambah Prompt Visual AI) dan apakah visualnya sudah dibuat dari prompt itu.
+2. Verifikasi status 12 konten September di dashboard/Sheets (butuh login owner). Masih terbuka dari 5 Sep, dan kini lebih mendesak karena 7 konten sudah lewat tanggal rencana.
+3. Keputusan #09-001 dan #09-002 (Terlambat sejak 5 Sep) belum diambil.
+4. Konten terdekat: #09-008 (23 Sep), lalu #09-009 (25), #09-010 (28), #09-011 (29), #09-012 (30).
+5. Opsional: hapus atau merge branch remote lama `fix/drive-folder-url-save` (15 Jun, 1 commit belum ter-merge; tidak disentuh).
+
+### Catatan untuk sesi berikutnya:
+- **Aturan Pages (penting):** hanya `index.html` yang boleh terbit. Jekyll tidak punya mode whitelist, jadi **setiap file/folder baru di root repo harus ditambahkan ke daftar `exclude` di `_config.yml` pada push yang sama**, lalu cek 404 lewat curl setelah rebuild (sekitar 1 menit; pakai query acak supaya tidak kena cache). Yang teruji hanya entri eksplisit; pola glob (`[0-9][0-9]_*`, `*.md`) belum teruji. Cek dampak publikasi SEBELUM push, bukan sesudahnya.
+- **Folder kerja sekarang `E:\Projects\konten_sosmed_2026`.** Path OneDrive di entri-entri lama sudah tidak berlaku.
+- **Git di drive E:** butuh `safe.directory` (setting keamanan; minta owner yang menjalankan, jangan diubah Claude). Kalau `git fetch` gagal dengan `bad object refs/desktop.ini`, cek `find .git/refs .git/logs/refs -name desktop.ini` dan pindahkan (bukan hapus) file itu. Sisa `desktop.ini` di `.git/objects` bisa memicu peringatan "garbage" dari `git gc`/`fsck`; tidak berbahaya.
+- **Ada edit di luar sesi Claude:** perubahan 9 Sep hanya ketahuan dari waktu modifikasi file. Di awal sesi, jalankan `git status` untuk mendeteksi edit yang belum ter-commit sebelum mengandalkan isi HANDOFF.
+- Endpoint Apps Script tetap wajib `id_token`; `curl` polos dari Claude Code membalas `{"error":"unauthorized"}` (normal, bukan bug).
+
+---
+
 ## Sesi 5 September 2026 (lanjutan ke-2) — Claude Sonnet 5 (Anthropic) via Claude Code
 
 ### Yang dikerjakan — resolusi untracked files

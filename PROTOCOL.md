@@ -2,7 +2,7 @@
 **Project:** Konten Media Sosial BBPOM Jayapura 2026
 **Owner:** Marco Martino (Apoteker, ASN BBPOM Jayapura)
 **Channel:** Instagram @bpom.jayapura · TikTok · Facebook Page
-**Last updated:** 5 September 2026 (gerbang login Google Sign-In live + dikonfirmasi jalan di dashboard nyata)
+**Last updated:** 22 September 2026 (aturan GitHub Pages: hanya `index.html` yang terbit, lewat `_config.yml`)
 
 ---
 
@@ -179,6 +179,7 @@ Setiap mengakhiri sesi kerja, **wajib buat atau update `HANDOFF.md`** di root fo
 - **Backend/API:** Google Apps Script Web App di atas sheet tersebut — kode sumber `google_apps_script/Code.gs` di repo ini, deploy manual oleh owner (lihat `google_apps_script/SETUP.md`). Meniru bentuk respons `{records:[{id, fields:{...}}]}` supaya kompatibel dengan dashboard lama.
 - **URL API aktif:** `https://script.google.com/macros/s/AKfycbwnX_bESrMsHxVeJ0YxqdO3FwZqU3kA8sSk0ud0TWVePuHbs7qUOE7bouIUIKRH0Qg5nQ/exec` (deploy 5 September 2026, Apps Script project `konten_kalender_api`, Sheet ID `1Z5gSxAfGL9iGF7HJ0ghfUXFfOPu6ntcO12w5Tf15vXw`). URL yang sama dipakai di `index.html` (`const API_URL`) dan untuk cek status di awal sesi (§1). **Catatan:** endpoint ini sekarang wajib `id_token` (Google Sign-In) — `curl` polos ke `?action=list` akan balas `{"error":"unauthorized"}`, itu perilaku normal bukan bug.
 - **Dashboard publik tim:** GitHub Pages, deploy otomatis dari `index.html` di root repo saat push ke `main`. Satu file, tidak ada `dashboard.html` terpisah.
+- **Aturan GitHub Pages (sejak 22 September 2026):** situs Pages hanya boleh menerbitkan `index.html`. Repo memang private, tetapi Pages menyajikan setiap file di root secara publik tanpa login — hal ini sempat terjadi 5–22 September (PROTOCOL.md, HANDOFF.md, `Code.gs`, CSV, dan semua naskah terbuka). `_config.yml` di root berisi daftar `exclude` untuk semua file/folder selain `index.html`. **Setiap file atau folder baru di root repo wajib ditambahkan ke daftar itu pada push yang sama**, lalu cek bahwa alamatnya membalas 404 setelah rebuild (±1 menit). Jangan commit secret atau data pribadi ke repo ini.
 - **Kode sumber dashboard:** GitHub repo `dashboard_konten_medsos_2026` (private) — file `index.html`
 - **Reminder & laporan mingguan:** trigger waktu di Apps Script (fungsi `reminderMingguan` / `laporanMingguan` di `Code.gs`), kirim ke Telegram lewat bot terpisah — bukan lagi lewat Hermes/Docker. Setup: `google_apps_script/SETUP.md` §4–5.
 - **Akses dashboard dibatasi Google Sign-In (sejak 5 September 2026, dikonfirmasi jalan live):** dashboard tidak lagi terbuka untuk siapa pun yang tahu link-nya. Setiap request ke Apps Script wajib bawa `id_token` (JWT dari Google Sign-In di `index.html`), diverifikasi backend lewat `verifyIdToken_()`/`isEmailAllowed_()` di `Code.gs` terhadap daftar email di Script Property `ALLOWED_EMAILS`. **Jangan asumsikan siapa pun bisa buka dashboard** — kalau owner mau invite orang, cukup tambah emailnya ke `ALLOWED_EMAILS` (tidak perlu ubah kode). Setup lengkap: `google_apps_script/SETUP.md` §6. `GOOGLE_CLIENT_ID` di `index.html` harus sama persis dengan Script Property `GOOGLE_CLIENT_ID`. Owner sudah login sukses dengan `marcomartinomarch2005@gmail.com` dan konfirmasi data tersinkron real-time dari Sheets (lihat `HANDOFF.md` sesi 5 September).
