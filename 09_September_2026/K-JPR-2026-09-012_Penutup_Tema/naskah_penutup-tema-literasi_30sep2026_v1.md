@@ -151,3 +151,61 @@ Balai Besar POM di Jayapura
 
 - Deskripsi singkat, pesan kunci, dan framing "investasi menuju masyarakat sehat, produktif, berdaya saing menuju Indonesia Emas 2045": dokumen Agenda Setting BPOM September 2026.
 - Rekap topik merujuk pada naskah K-JPR-2026-09-001 s.d. 09-011 dalam kalender konten bulan ini.
+
+## 🖼️ PROMPT VISUAL AI (Pixar 3D — siap generate)
+
+*Gaya default: 3D animated Pixar style, karakter "smart Papuan teenager", sticker outline, UI info card mengambang, gradasi latar biru tua–biru muda, tipografi putih + kuning keemasan. Cocok untuk DALL-E 3 / Midjourney. Teks panjang di gambar tidak selalu akurat dirender AI — gunakan sebagai draft komposisi, sempurnakan teks final di Canva.*
+
+**Slide 1 (Hook — Cover)**
+
+Teks Lengkap untuk Desain Canva: "September segera berlalu. Tapi kebiasaannya seharusnya tidak."
+
+Prompt AI (Copy-Paste Langsung):
+```
+3D animated Pixar style, a smart Papuan teenage girl standing next to a wall calendar showing September 30, holding up a generic product package while examining its label, warm evening light mood, reflective expression. Thick solid white sticker outline around the character and the calendar. Floating semi-3D rounded UI info cards with glowing calendar and label icons. Seamless soft dark blue to light blue gradient background with perfectly smooth blending, strictly no hard lines, leaving large empty blended spaces at the top and bottom. Prominently display the exact typographic text: "September segera berlalu. Tapi kebiasaannya seharusnya tidak." using a bold, elegant heavy sans-serif font in white and vibrant golden-yellow. 8k resolution.
+```
+
+**Slide 2 (Rekap Ringan)**
+
+Teks Lengkap untuk Desain Canva: "Baca label. Sentra Informasi. Waspada suplemen ilegal. Keselamatan pasien. Kemasan aman. Gizi remaja putri."
+
+Prompt AI (Copy-Paste Langsung):
+```
+3D animated Pixar style, a smart Papuan teenage girl standing proudly surrounded by six small floating icon cards arranged in a semicircle representing a month of topics, welcoming explaining gesture. Thick solid white sticker outline around the character and the six icon cards. Floating semi-3D rounded UI info cards with glowing book, shield-magnifier, warning-triangle, heart-pill, recycle, and nutrition icons. Seamless soft dark blue to light blue gradient background with perfectly smooth blending, strictly no hard lines, leaving large empty blended spaces at the top and bottom. Prominently display the exact typographic text: "Baca label. Sentra Informasi. Waspada suplemen ilegal. Keselamatan pasien. Kemasan aman. Gizi remaja putri." using a bold, elegant heavy sans-serif font in white and vibrant golden-yellow. 8k resolution.
+```
+
+**Slide 3 (Insight)**
+
+Teks Lengkap untuk Desain Canva: "Literasi bukan sekali baca. Tapi kebiasaan yang dijaga terus."
+
+Prompt AI (Copy-Paste Langsung):
+```
+3D animated Pixar style, a smart Papuan teenage girl holding a glowing open book that morphs into a shield shape, determined confident expression. Thick solid white sticker outline around the character and the book-shield object. Floating semi-3D rounded UI info cards with glowing book-shield icons. Seamless soft dark blue to light blue gradient background with perfectly smooth blending, strictly no hard lines, leaving large empty blended spaces at the top and bottom. Prominently display the exact typographic text: "Literasi bukan sekali baca. Tapi kebiasaan yang dijaga terus." using a bold, elegant heavy sans-serif font in white and vibrant golden-yellow. 8k resolution.
+```
+
+**Slide 4 (Mengapa Ini Penting)**
+
+Teks Lengkap untuk Desain Canva: "Investasi menuju masyarakat sehat, produktif, menuju Indonesia Emas 2045."
+
+Prompt AI (Copy-Paste Langsung):
+```
+3D animated Pixar style, a smart Papuan teenage girl standing with an extended hand gesture toward a glowing sunrise, joined by soft silhouettes representing three generations of family, hopeful uplifting expression. Thick solid white sticker outline around the character and the sunrise. Floating semi-3D rounded UI info cards with glowing sunrise and family icons. Seamless soft dark blue to light blue gradient background with perfectly smooth blending, strictly no hard lines, leaving large empty blended spaces at the top and bottom. Prominently display the exact typographic text: "Investasi menuju masyarakat sehat, produktif, menuju Indonesia Emas 2045." using a bold, elegant heavy sans-serif font in white and vibrant golden-yellow. 8k resolution.
+```
+
+**Slide 5 (Yang Bisa Terus Dibawa)**
+
+Teks Lengkap untuk Desain Canva: "Baca label sampai habis. Cek dulu baru percaya. Tanya sumber tepercaya."
+
+Prompt AI (Copy-Paste Langsung):
+```
+3D animated Pixar style, a smart Papuan teenage girl confidently pointing at three floating info cards arranged in a row, closing gesture with a warm smile. Thick solid white sticker outline around the character and the info cards. Floating semi-3D rounded UI info cards with glowing book, magnifying-phone, and speech-bubble icons. Seamless soft dark blue to light blue gradient background with perfectly smooth blending, strictly no hard lines, leaving large empty blended spaces at the top and bottom. Prominently display the exact typographic text: "Baca label sampai habis. Cek dulu baru percaya. Tanya sumber tepercaya." using a bold, elegant heavy sans-serif font in white and vibrant golden-yellow. 8k resolution.
+```
+
+**Slide 6 (CTA)**
+
+Teks Lengkap untuk Desain Canva: "Literasi Hebat, Masyarakat Sehat. Sampai jumpa bulan depan."
+
+Prompt AI (Copy-Paste Langsung):
+```
+3D animated Pixar style, a smart Papuan teenage girl standing calmly next to the same wall calendar now showing a new month, a generic product package set down peacefully after being checked, content satisfied smile. Thick solid white sticker outline around the character and the calendar. Floating semi-3D rounded UI info cards with glowing checkmark and calendar icons. Seamless soft dark blue to light blue gradient background with perfectly smooth blending, strictly no hard lines, leaving large empty blended spaces at the top and bottom. Prominently display the exact typographic text: "Literasi Hebat, Masyarakat Sehat. Sampai jumpa bulan depan." using a bold, elegant heavy sans-serif font in white and vibrant golden-yellow. 8k resolution.
+```

@@ -111,3 +111,52 @@ Bagi pelaku usaha di Papua yang bergerak di bidang jamu, kosmetik, atau pangan o
 - Wellfest 2026 adalah kolaborasi BPOM dengan Kementerian Pariwisata dan Ekonomi Kreatif untuk ekosistem wellness Indonesia, menampilkan produk jamu, suplemen kesehatan, kosmetik, dan pangan olahan dari pelaku industri dan UMKM — [pom.go.id](https://www.pom.go.id/berita/genderang-wellfest-ditabuh-bpom-dorong-ekosistem-wellness-tingkatkan-kualitas-hidup-masyarakat-indonesia).
 - Tema "The New Paradigm of Sustainable Living" (transformasi industri menuju produk dan inovasi yang memperhatikan keberlanjutan lingkungan): dokumen Agenda Setting BPOM September 2026, Agenda Prioritas #1.
 - **Perlu dikonfirmasi sebelum tayang:** apakah BBPOM di Jayapura memang membuka layanan pendampingan pendaftaran UMKM secara aktif — kalau belum, ganti CTA slide 5 dengan arahan umum ke layanan BPOM terdekat.
+
+## 🖼️ PROMPT VISUAL AI (Pixar 3D — siap generate)
+
+*Gaya default: 3D animated Pixar style, karakter "smart Papuan teenager", sticker outline, UI info card mengambang, gradasi latar biru tua–biru muda, tipografi putih + kuning keemasan. Cocok untuk DALL-E 3 / Midjourney. Teks panjang di gambar tidak selalu akurat dirender AI — gunakan sebagai draft komposisi, sempurnakan teks final di Canva.*
+
+**Slide 1 (Hook — Cover)**
+
+Teks Lengkap untuk Desain Canva: "Bukan cuma kemasan cantik. Tapi soal keberlanjutan."
+
+Prompt AI (Copy-Paste Langsung):
+```
+3D animated Pixar style, a smart Papuan teenage boy holding an eco-friendly packaged herbal product with recycled paper box and a small glass bottle, impressed admiring expression. Thick solid white sticker outline around the character and the eco-friendly packaging. Floating semi-3D rounded UI info cards with glowing leaf and recycle icons. Seamless soft dark blue to light blue gradient background with perfectly smooth blending, strictly no hard lines, leaving large empty blended spaces at the top and bottom. Prominently display the exact typographic text: "Bukan cuma kemasan cantik. Tapi soal keberlanjutan." using a bold, elegant heavy sans-serif font in white and vibrant golden-yellow. 8k resolution.
+```
+
+**Slide 2 (Konteks)**
+
+Teks Lengkap untuk Desain Canva: "Wellfest 2026 — ruang temu pelaku usaha jamu, kosmetik, dan pangan olahan Indonesia."
+
+Prompt AI (Copy-Paste Langsung):
+```
+3D animated Pixar style, a smart Papuan teenage boy standing among small exhibition booths, pointing curiously at a glowing holographic product display, excited exploring expression. Thick solid white sticker outline around the character and the holographic display. Floating semi-3D rounded UI info cards with glowing storefront and people icons. Seamless soft dark blue to light blue gradient background with perfectly smooth blending, strictly no hard lines, leaving large empty blended spaces at the top and bottom. Prominently display the exact typographic text: "Wellfest 2026 — ruang temu pelaku usaha jamu, kosmetik, dan pangan olahan Indonesia." using a bold, elegant heavy sans-serif font in white and vibrant golden-yellow. 8k resolution.
+```
+
+**Slide 3 (Insight)**
+
+Teks Lengkap untuk Desain Canva: "Produk wellness yang baik bukan cuma yang laris. Tapi yang aman, bermutu, dan berkelanjutan."
+
+Prompt AI (Copy-Paste Langsung):
+```
+3D animated Pixar style, a smart Papuan teenage boy standing confidently between three glowing overlapping circular UI cards, explaining gesture with an open palm. Thick solid white sticker outline around the character and the overlapping circle cards. Floating semi-3D rounded UI info cards with glowing shield, checkmark, and leaf icons. Seamless soft dark blue to light blue gradient background with perfectly smooth blending, strictly no hard lines, leaving large empty blended spaces at the top and bottom. Prominently display the exact typographic text: "Produk wellness yang baik bukan cuma yang laris. Tapi yang aman, bermutu, dan berkelanjutan." using a bold, elegant heavy sans-serif font in white and vibrant golden-yellow. 8k resolution.
+```
+
+**Slide 4 (Relevansi untuk Papua)**
+
+Teks Lengkap untuk Desain Canva: "Papua kaya bahan alam — sagu, buah merah, kelor. Peluang besar, harus terdaftar BPOM."
+
+Prompt AI (Copy-Paste Langsung):
+```
+3D animated Pixar style, a smart Papuan teenage girl proudly holding local Papuan natural ingredients including red fruit (buah merah), sago, and moringa leaves, standing next to a glowing official approval seal icon. Thick solid white sticker outline around the character and the natural ingredients. Floating semi-3D rounded UI info cards with glowing leaf and certified-seal icons. Seamless soft dark blue to light blue gradient background with perfectly smooth blending, strictly no hard lines, leaving large empty blended spaces at the top and bottom. Prominently display the exact typographic text: "Papua kaya bahan alam — sagu, buah merah, kelor. Peluang besar, harus terdaftar BPOM." using a bold, elegant heavy sans-serif font in white and vibrant golden-yellow. 8k resolution.
+```
+
+**Slide 5 (CTA)**
+
+Teks Lengkap untuk Desain Canva: "Simpan postingan ini. BBPOM Jayapura siap mendampingi UMKM."
+
+Prompt AI (Copy-Paste Langsung):
+```
+3D animated Pixar style, a smart Papuan teenage girl holding a tablet showing a simple registration checklist, warm welcoming smile, gesturing an invitation with her other hand. Thick solid white sticker outline around the character and the tablet. Floating semi-3D rounded UI info cards with glowing clipboard-checklist and handshake icons. Seamless soft dark blue to light blue gradient background with perfectly smooth blending, strictly no hard lines, leaving large empty blended spaces at the top and bottom. Prominently display the exact typographic text: "Simpan postingan ini. BBPOM Jayapura siap mendampingi UMKM." using a bold, elegant heavy sans-serif font in white and vibrant golden-yellow. 8k resolution.
+```

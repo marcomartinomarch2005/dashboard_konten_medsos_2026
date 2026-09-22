@@ -147,6 +147,64 @@ Sepanjang September kami akan membahasnya satu per satu. Ikuti terus halaman ini
 - Slide 6 berfungsi sebagai pengantar seri September — jangan diganti dengan CTA produk.
 - Tidak ada angka statistik di seluruh naskah kecuali yang tercantum di bagian Sumber & Verifikasi (tidak dipakai di naskah).
 
+## 🖼️ PROMPT VISUAL AI (Pixar 3D — siap generate)
+
+*Gaya default: 3D animated Pixar style, karakter "smart Papuan teenager", sticker outline, UI info card mengambang, gradasi latar biru tua–biru muda, tipografi putih + kuning keemasan. Cocok untuk DALL-E 3 / Midjourney. Teks panjang di gambar tidak selalu akurat dirender AI — gunakan sebagai draft komposisi, sempurnakan teks final di Canva.*
+
+**Slide 1 (Hook — Cover)**
+
+Teks Lengkap untuk Desain Canva: "Kalau di kotaknya tertulis 'alami', pasti aman kan?"
+
+Prompt AI (Copy-Paste Langsung):
+```
+3D animated Pixar style, a smart Papuan teenage girl holding a generic herbal medicine box with a puzzled, questioning expression, one eyebrow raised as she points at the bold word "ALAMI" printed on the label. Thick solid white sticker outline around the character and the medicine box. Floating semi-3D rounded UI info cards with glowing warning and question-mark icons. Seamless soft dark blue to light blue gradient background with perfectly smooth blending, strictly no hard lines, leaving large empty blended spaces at the top and bottom. Prominently display the exact typographic text: "Kalau di kotaknya tertulis 'alami', pasti aman kan?" using a bold, elegant heavy sans-serif font in white and vibrant golden-yellow. 8k resolution.
+```
+
+**Slide 2 (Buka Cerita)**
+
+Teks Lengkap untuk Desain Canva: "Ia percaya. Bukan karena ceroboh — karena tidak tahu harus curiga dari mana."
+
+Prompt AI (Copy-Paste Langsung):
+```
+3D animated Pixar style, a smart Papuan teenage girl looking at a smartphone screen showing a forwarded WhatsApp message with bold health claims and a before-after photo, curious and slightly concerned expression. Thick solid white sticker outline around the character and the smartphone. Floating semi-3D rounded UI info cards with glowing chat-bubble and alert icons. Seamless soft dark blue to light blue gradient background with perfectly smooth blending, strictly no hard lines, leaving large empty blended spaces at the top and bottom. Prominently display the exact typographic text: "Ia percaya. Bukan karena ceroboh — karena tidak tahu harus curiga dari mana." using a bold, elegant heavy sans-serif font in white and vibrant golden-yellow. 8k resolution.
+```
+
+**Slide 3 (Tension)**
+
+Teks Lengkap untuk Desain Canva: "Klaim 'alami' bukan jaminan aman. Testimoni bukan bukti ilmiah."
+
+Prompt AI (Copy-Paste Langsung):
+```
+3D animated Pixar style, a smart Papuan teenage girl comparing two generic medicine boxes side by side, one plain and one glowing with a faint hidden chemical symbol revealed like an x-ray effect, serious investigative expression. Thick solid white sticker outline around the character and the two medicine boxes. Floating semi-3D rounded UI info cards with glowing chemical-flask and warning-triangle icons. Seamless soft dark blue to light blue gradient background with perfectly smooth blending, strictly no hard lines, leaving large empty blended spaces at the top and bottom. Prominently display the exact typographic text: "Klaim 'alami' bukan jaminan aman. Testimoni bukan bukti ilmiah." using a bold, elegant heavy sans-serif font in white and vibrant golden-yellow. 8k resolution.
+```
+
+**Slide 4 (Insight)**
+
+Teks Lengkap untuk Desain Canva: "Yang melindungi keluarga bukan cuma niat baik. Tapi kebiasaan membaca sebelum percaya."
+
+Prompt AI (Copy-Paste Langsung):
+```
+3D animated Pixar style, a smart Papuan teenage girl holding a magnifying glass over a generic product label, confident and thoughtful expression. Thick solid white sticker outline around the character and the magnifying glass. Floating semi-3D rounded UI info cards with glowing magnifying-glass and open-book icons. Seamless soft dark blue to light blue gradient background with perfectly smooth blending, strictly no hard lines, leaving large empty blended spaces at the top and bottom. Prominently display the exact typographic text: "Yang melindungi keluarga bukan cuma niat baik. Tapi kebiasaan membaca sebelum percaya." using a bold, elegant heavy sans-serif font in white and vibrant golden-yellow. 8k resolution.
+```
+
+**Slide 5 (Contoh Nyata)**
+
+Teks Lengkap untuk Desain Canva: "Baca label. Tanya sumbernya. Cek dulu, baru percaya."
+
+Prompt AI (Copy-Paste Langsung):
+```
+3D animated Pixar style, a smart Papuan teenage girl enthusiastically pointing at three floating info cards, explaining gesture with an open palm, cheerful confident expression. Thick solid white sticker outline around the character and the info cards. Floating semi-3D rounded UI info cards with glowing open-book, question-mark, and checkmark-shield icons. Seamless soft dark blue to light blue gradient background with perfectly smooth blending, strictly no hard lines, leaving large empty blended spaces at the top and bottom. Prominently display the exact typographic text: "Baca label. Tanya sumbernya. Cek dulu, baru percaya." using a bold, elegant heavy sans-serif font in white and vibrant golden-yellow. 8k resolution.
+```
+
+**Slide 6 (CTA)**
+
+Teks Lengkap untuk Desain Canva: "Literasi Hebat, Masyarakat Sehat."
+
+Prompt AI (Copy-Paste Langsung):
+```
+3D animated Pixar style, a smart Papuan teenage girl holding up a smartphone showing the BPOM Mobile app with a verified checkmark screen, smiling confidently and giving a thumbs up. Thick solid white sticker outline around the character and the smartphone. Floating semi-3D rounded UI info cards with glowing shield-checkmark and app icons. Seamless soft dark blue to light blue gradient background with perfectly smooth blending, strictly no hard lines, leaving large empty blended spaces at the top and bottom. Prominently display the exact typographic text: "Literasi Hebat, Masyarakat Sehat." using a bold, elegant heavy sans-serif font in white and vibrant golden-yellow. 8k resolution.
+```
+
 ## 🔍 SUMBER & VERIFIKASI
 
 - Tema bulanan, deskripsi, dan pesan kunci 1–8: dokumen Agenda Setting BPOM September 2026.

@@ -137,3 +137,61 @@ Langkah kecil ini memberi dampak besar bagi keselamatan jangka panjang, khususny
 - World Patient Safety Day 2026 (17 September) mengangkat tema resmi WHO "Safe care for noncommunicable diseases" dengan slogan "Safe care for life!" — [WHO](https://www.who.int/campaigns/world-patient-safety-day/2026).
 - Penyakit tidak menular (PTM) menyumbang sekitar 74% kematian secara global, jadi fokus utama kampanye 2026 — [Knowledge Action Portal on NCDs](https://www.knowledge-action-portal.com/en/content/world-patient-safety-day-2026-safe-care-noncommunicable-diseases) (angka ini tidak dicantumkan di naskah/caption, hanya jadi konteks penulisan).
 - Agenda Prioritas #2 (BPOM turut memperingati World Patient Safety Day, berperan mendukung keselamatan pasien lewat pengawasan keamanan dan mutu obat serta penguatan literasi masyarakat): dokumen Agenda Setting BPOM September 2026.
+
+## 🖼️ PROMPT VISUAL AI (Pixar 3D — siap generate)
+
+*Gaya default: 3D animated Pixar style, karakter "smart Papuan teenager", sticker outline, UI info card mengambang, gradasi latar biru tua–biru muda, tipografi putih + kuning keemasan. Cocok untuk DALL-E 3 / Midjourney. Teks panjang di gambar tidak selalu akurat dirender AI — gunakan sebagai draft komposisi, sempurnakan teks final di Canva.*
+
+**Slide 1 (Hook — Cover)**
+
+Teks Lengkap untuk Desain Canva: "17 September — World Patient Safety Day. Keselamatan pasien penyakit tidak menular."
+
+Prompt AI (Copy-Paste Langsung):
+```
+3D animated Pixar style, a smart Papuan teenage boy gently holding a few pills in his open palm, calm caring expression, warm home setting mood instead of a clinical hospital feel. Thick solid white sticker outline around the character and the pills in his palm. Floating semi-3D rounded UI info cards with glowing heart and pill icons. Seamless soft dark blue to light blue gradient background with perfectly smooth blending, strictly no hard lines, leaving large empty blended spaces at the top and bottom. Prominently display the exact typographic text: "17 September — World Patient Safety Day. Keselamatan pasien penyakit tidak menular." using a bold, elegant heavy sans-serif font in white and vibrant golden-yellow. 8k resolution.
+```
+
+**Slide 2 (Buka Cerita)**
+
+Teks Lengkap untuk Desain Canva: "Obat kan obat, yang penting diminum — pikirnya."
+
+Prompt AI (Copy-Paste Langsung):
+```
+3D animated Pixar style, a smart Papuan teenage boy sitting at a home table with several mixed medicine packets scattered together, thoughtful concerned expression looking at the pile. Thick solid white sticker outline around the character and the medicine packets. Floating semi-3D rounded UI info cards with glowing pill-bottle and calendar icons. Seamless soft dark blue to light blue gradient background with perfectly smooth blending, strictly no hard lines, leaving large empty blended spaces at the top and bottom. Prominently display the exact typographic text: "Obat kan obat, yang penting diminum — pikirnya." using a bold, elegant heavy sans-serif font in white and vibrant golden-yellow. 8k resolution.
+```
+
+**Slide 3 (Tension)**
+
+Teks Lengkap untuk Desain Canva: "Dosis keliru, obat bertumpuk tanpa pengawasan bisa membahayakan."
+
+Prompt AI (Copy-Paste Langsung):
+```
+3D animated Pixar style, a smart Papuan teenage boy looking worriedly at a glowing hourglass-shaped UI card with small pill symbols falling inside it, cautionary serious expression. Thick solid white sticker outline around the character and the hourglass card. Floating semi-3D rounded UI info cards with glowing hourglass and pill icons. Seamless soft dark blue to light blue gradient background with perfectly smooth blending, strictly no hard lines, leaving large empty blended spaces at the top and bottom. Prominently display the exact typographic text: "Dosis keliru, obat bertumpuk tanpa pengawasan bisa membahayakan." using a bold, elegant heavy sans-serif font in white and vibrant golden-yellow. 8k resolution.
+```
+
+**Slide 4 (Insight)**
+
+Teks Lengkap untuk Desain Canva: "Obat yang tepat, dipakai dengan tepat, adalah keselamatan pasien."
+
+Prompt AI (Copy-Paste Langsung):
+```
+3D animated Pixar style, a smart Papuan teenage boy holding a glowing shield emblem with a heart symbol inside it, protective determined expression. Thick solid white sticker outline around the character and the shield emblem. Floating semi-3D rounded UI info cards with glowing shield-heart and notebook icons. Seamless soft dark blue to light blue gradient background with perfectly smooth blending, strictly no hard lines, leaving large empty blended spaces at the top and bottom. Prominently display the exact typographic text: "Obat yang tepat, dipakai dengan tepat, adalah keselamatan pasien." using a bold, elegant heavy sans-serif font in white and vibrant golden-yellow. 8k resolution.
+```
+
+**Slide 5 (Contoh Nyata)**
+
+Teks Lengkap untuk Desain Canva: "Minum sesuai resep. Catat obatnya. Konsultasi dulu. Cek izin edarnya."
+
+Prompt AI (Copy-Paste Langsung):
+```
+3D animated Pixar style, a smart Papuan teenage boy pointing at four floating info cards arranged in a row, instructive explaining pose, confident expression. Thick solid white sticker outline around the character and the info cards. Floating semi-3D rounded UI info cards with glowing pill, notebook, speech-bubble, and checkmark-shield icons. Seamless soft dark blue to light blue gradient background with perfectly smooth blending, strictly no hard lines, leaving large empty blended spaces at the top and bottom. Prominently display the exact typographic text: "Minum sesuai resep. Catat obatnya. Konsultasi dulu. Cek izin edarnya." using a bold, elegant heavy sans-serif font in white and vibrant golden-yellow. 8k resolution.
+```
+
+**Slide 6 (CTA)**
+
+Teks Lengkap untuk Desain Canva: "Keselamatan pasien dimulai dari kebiasaan kecil di rumah."
+
+Prompt AI (Copy-Paste Langsung):
+```
+3D animated Pixar style, a smart Papuan teenage boy warmly showing a simple medicine log notebook to a family member, caring gentle smile. Thick solid white sticker outline around the character and the notebook. Floating semi-3D rounded UI info cards with glowing notebook-checklist and heart icons. Seamless soft dark blue to light blue gradient background with perfectly smooth blending, strictly no hard lines, leaving large empty blended spaces at the top and bottom. Prominently display the exact typographic text: "Keselamatan pasien dimulai dari kebiasaan kecil di rumah." using a bold, elegant heavy sans-serif font in white and vibrant golden-yellow. 8k resolution.
+```

@@ -115,3 +115,43 @@ Ekonomi sirkular berhasil apabila dimulai dari kebiasaan kecil sehari-hari: mema
 - RAN Ekonomi Sirkular Indonesia 2025–2045 mencakup 5 sektor prioritas termasuk pangan dan kemasan plastik, disusun Bappenas — [LCDI Indonesia](https://lcdi-indonesia.id/books/peta-jalan-rencana-aksi-nasional-ekonomi-sirkular-indonesia-2025-2045/), [UN PAGE Indonesia](https://www.un-pageindonesia.org/id/publication/read/circular-economy-roadmap-and-national-action-plan-for-2025-2045).
 - Simbol kode daur ulang plastik (resin identification code, segitiga panah bernomor 1–7) adalah standar internasional umum untuk mengenali jenis plastik kemasan — pengetahuan umum, tidak memerlukan rujukan khusus BPOM.
 - **Catatan redaksi:** tidak mencantumkan klaim migrasi kimia (BPA dll.) tanpa rujukan resmi BPOM/Kemenkes — cukup imbauan kehati-hatian umum.
+
+## 🖼️ PROMPT VISUAL AI (Pixar 3D — siap generate)
+
+*Gaya default: 3D animated Pixar style, karakter "smart Papuan teenager", sticker outline, UI info card mengambang, gradasi latar biru tua–biru muda, tipografi putih + kuning keemasan. Cocok untuk DALL-E 3 / Midjourney. Teks panjang di gambar tidak selalu akurat dirender AI — gunakan sebagai draft komposisi, sempurnakan teks final di Canva. Untuk format infografis, karakter tetap dipakai sebagai elemen hero di sekitar kartu-kartu poin — tata letak 4 kartu bernomor tetap disusun manual di Canva setelah gambar dasar jadi.*
+
+**Slide Utama (Infografis)**
+
+Teks Lengkap untuk Desain Canva: "Bijak Konsumsi Pangan. Sebelum kemasan dipakai ulang, cek dulu keamanannya."
+
+Prompt AI (Copy-Paste Langsung):
+```
+3D animated Pixar style, a smart Papuan teenage girl confidently holding a plastic bottle and examining the recycling symbol on its base with a magnifying glass, surrounded by four floating semi-3D rounded UI info cards representing recycling, reuse safety, and sorting tips. Thick solid white sticker outline around the character and the plastic bottle. Floating semi-3D rounded UI info cards with glowing recycling-triangle, crossed-bottle, sorted-trash-bin, and checkmark-label icons. Seamless soft dark blue to light blue gradient background with perfectly smooth blending, strictly no hard lines, leaving large empty blended spaces at the top and bottom. Prominently display the exact typographic text: "Bijak Konsumsi Pangan. Sebelum kemasan dipakai ulang, cek dulu keamanannya." using a bold, elegant heavy sans-serif font in white and vibrant golden-yellow. 8k resolution.
+```
+
+**Slide A (Pendukung — Kebiasaan yang Perlu Diluruskan)**
+
+Teks Lengkap untuk Desain Canva: "Botol air mineral bekas diisi minyak — praktis, tapi belum tentu aman."
+
+Prompt AI (Copy-Paste Langsung):
+```
+3D animated Pixar style, a smart Papuan teenage girl looking concerned at a reused mineral water bottle filled with cooking oil, cautionary expression with a small glowing warning symbol floating nearby. Thick solid white sticker outline around the character and the reused bottle. Floating semi-3D rounded UI info cards with glowing warning-triangle and bottle icons. Seamless soft dark blue to light blue gradient background with perfectly smooth blending, strictly no hard lines, leaving large empty blended spaces at the top and bottom. Prominently display the exact typographic text: "Botol air mineral bekas diisi minyak — praktis, tapi belum tentu aman." using a bold, elegant heavy sans-serif font in white and vibrant golden-yellow. 8k resolution.
+```
+
+**Slide B (Pendukung — Yang Aman Dipakai Ulang)**
+
+Teks Lengkap untuk Desain Canva: "Toples kaca dan wadah food grade jauh lebih aman dipakai ulang."
+
+Prompt AI (Copy-Paste Langsung):
+```
+3D animated Pixar style, a smart Papuan teenage girl happily holding a glass jar and a food-grade labeled plastic container side by side, approving confident expression. Thick solid white sticker outline around the character and the containers. Floating semi-3D rounded UI info cards with glowing checkmark and jar icons. Seamless soft dark blue to light blue gradient background with perfectly smooth blending, strictly no hard lines, leaving large empty blended spaces at the top and bottom. Prominently display the exact typographic text: "Toples kaca dan wadah food grade jauh lebih aman dipakai ulang." using a bold, elegant heavy sans-serif font in white and vibrant golden-yellow. 8k resolution.
+```
+
+**Slide C (Pendukung — CTA)**
+
+Teks Lengkap untuk Desain Canva: "Cek simbol food grade sebelum pakai ulang kemasan pangan."
+
+Prompt AI (Copy-Paste Langsung):
+```
+3D animated Pixar style, a smart Papuan teenage girl holding a plastic container up while checking the recycling symbol on its base with a focused, attentive expression. Thick solid white sticker outline around the character and the container. Floating semi-3D rounded UI info cards with glowing magnifying-glass and recycle-symbol icons. Seamless soft dark blue to light blue gradient background with perfectly smooth blending, strictly no hard lines, leaving large empty blended spaces at the top and bottom. Prominently display the exact typographic text: "Cek simbol food grade sebelum pakai ulang kemasan pangan." using a bold, elegant heavy sans-serif font in white and vibrant golden-yellow. 8k resolution.
+```

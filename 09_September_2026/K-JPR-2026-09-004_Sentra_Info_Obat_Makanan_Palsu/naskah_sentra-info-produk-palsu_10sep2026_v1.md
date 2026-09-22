@@ -146,3 +146,61 @@ Jangan ragu untuk bertanya, dan jangan menyimpan kecurigaan sendirian. Bagikan i
 - Sentra Informasi Obat dan Makanan Palsu adalah layanan resmi BPOM untuk masyarakat dan pelaku usaha memperoleh kepastian keaslian produk, diakses lewat menu SENTRA/pop-up di cegahtangkal.pom.go.id atau HALOBPOM 1500533 — [ntvnews.id](https://www.ntvnews.id/news/0189692/bpom-perkuat-pengawasan-luncurkan-sentra-informasi-obat-dan-makanan-palsu), [pom.go.id](https://www.pom.go.id/siaran-pers/strategi-baru-bpom-informasi-cepat-kunci-pengendalian-obat-dan-makanan-palsu).
 - Prosedur pelaporan meminta identitas pelapor, tempat/tautan pembelian, serta foto dan bukti pembelian — sumber sama seperti di atas.
 - Agenda Prioritas #3 (Sosialisasi Sentra Layanan Informasi Obat dan Makanan Palsu): dokumen Agenda Setting BPOM September 2026.
+
+## 🖼️ PROMPT VISUAL AI (Pixar 3D — siap generate)
+
+*Gaya default: 3D animated Pixar style, karakter "smart Papuan teenager", sticker outline, UI info card mengambang, gradasi latar biru tua–biru muda, tipografi putih + kuning keemasan. Cocok untuk DALL-E 3 / Midjourney. Teks panjang di gambar tidak selalu akurat dirender AI — gunakan sebagai draft komposisi, sempurnakan teks final di Canva.*
+
+**Slide 1 (Hook — Cover)**
+
+Teks Lengkap untuk Desain Canva: "Kok harganya beda jauh dari biasanya?"
+
+Prompt AI (Copy-Paste Langsung):
+```
+3D animated Pixar style, a smart Papuan teenage boy holding two similar generic medicine boxes side by side, one looking slightly off with faded print, suspicious questioning expression. Thick solid white sticker outline around the character and the two medicine boxes. Floating semi-3D rounded UI info cards with glowing warning and question-mark icons. Seamless soft dark blue to light blue gradient background with perfectly smooth blending, strictly no hard lines, leaving large empty blended spaces at the top and bottom. Prominently display the exact typographic text: "Kok harganya beda jauh dari biasanya?" using a bold, elegant heavy sans-serif font in white and vibrant golden-yellow. 8k resolution.
+```
+
+**Slide 2 (Buka Cerita)**
+
+Teks Lengkap untuk Desain Canva: "Ia sempat ragu. Tapi tidak tahu harus bertanya ke siapa."
+
+Prompt AI (Copy-Paste Langsung):
+```
+3D animated Pixar style, a smart Papuan teenage boy standing in front of a small shop shelf, holding a medicine box while looking at the price tag with an uncertain, hesitant expression. Thick solid white sticker outline around the character and the medicine box. Floating semi-3D rounded UI info cards with glowing price-tag and question-mark icons. Seamless soft dark blue to light blue gradient background with perfectly smooth blending, strictly no hard lines, leaving large empty blended spaces at the top and bottom. Prominently display the exact typographic text: "Ia sempat ragu. Tapi tidak tahu harus bertanya ke siapa." using a bold, elegant heavy sans-serif font in white and vibrant golden-yellow. 8k resolution.
+```
+
+**Slide 3 (Tension)**
+
+Teks Lengkap untuk Desain Canva: "Ada jalur resmi untuk memastikan. Bukan cuma menebak."
+
+Prompt AI (Copy-Paste Langsung):
+```
+3D animated Pixar style, a smart Papuan teenage boy surrounded by floating confusing icons like chat bubbles and star ratings, with a large glowing question mark above a generic product box, overwhelmed uncertain expression. Thick solid white sticker outline around the character and the product box. Floating semi-3D rounded UI info cards with glowing chat-bubble and star-rating icons. Seamless soft dark blue to light blue gradient background with perfectly smooth blending, strictly no hard lines, leaving large empty blended spaces at the top and bottom. Prominently display the exact typographic text: "Ada jalur resmi untuk memastikan. Bukan cuma menebak." using a bold, elegant heavy sans-serif font in white and vibrant golden-yellow. 8k resolution.
+```
+
+**Slide 4 (Insight)**
+
+Teks Lengkap untuk Desain Canva: "Ragu itu wajar. Yang penting tahu ke mana harus bertanya."
+
+Prompt AI (Copy-Paste Langsung):
+```
+3D animated Pixar style, a smart Papuan teenage boy holding a glowing shield emblem with a magnifying-glass symbol in the center, reassured confident expression. Thick solid white sticker outline around the character and the shield emblem. Floating semi-3D rounded UI info cards with glowing shield and magnifying-glass icons. Seamless soft dark blue to light blue gradient background with perfectly smooth blending, strictly no hard lines, leaving large empty blended spaces at the top and bottom. Prominently display the exact typographic text: "Ragu itu wajar. Yang penting tahu ke mana harus bertanya." using a bold, elegant heavy sans-serif font in white and vibrant golden-yellow. 8k resolution.
+```
+
+**Slide 5 (Contoh Nyata)**
+
+Teks Lengkap untuk Desain Canva: "Buka cegahtangkal.pom.go.id. Hubungi HALOBPOM 1500533."
+
+Prompt AI (Copy-Paste Langsung):
+```
+3D animated Pixar style, a smart Papuan teenage boy holding a smartphone showing a simple three-step flow diagram, explaining gesture with his other hand, helpful confident expression. Thick solid white sticker outline around the character and the smartphone. Floating semi-3D rounded UI info cards with glowing phone-call and website-screen icons. Seamless soft dark blue to light blue gradient background with perfectly smooth blending, strictly no hard lines, leaving large empty blended spaces at the top and bottom. Prominently display the exact typographic text: "Buka cegahtangkal.pom.go.id. Hubungi HALOBPOM 1500533." using a bold, elegant heavy sans-serif font in white and vibrant golden-yellow. 8k resolution.
+```
+
+**Slide 6 (CTA)**
+
+Teks Lengkap untuk Desain Canva: "Jangan ragu bertanya. Jangan diam kalau curiga."
+
+Prompt AI (Copy-Paste Langsung):
+```
+3D animated Pixar style, a smart Papuan teenage boy holding up a smartphone showing the cegahtangkal.pom.go.id website page, relieved happy expression, giving a thumbs up. Thick solid white sticker outline around the character and the smartphone. Floating semi-3D rounded UI info cards with glowing shield-checkmark and phone icons. Seamless soft dark blue to light blue gradient background with perfectly smooth blending, strictly no hard lines, leaving large empty blended spaces at the top and bottom. Prominently display the exact typographic text: "Jangan ragu bertanya. Jangan diam kalau curiga." using a bold, elegant heavy sans-serif font in white and vibrant golden-yellow. 8k resolution.
+```

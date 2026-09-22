@@ -153,3 +153,61 @@ Konten ini menjadi penutup seri edukasi stunting yang kami mulai sejak Mei — d
 - Sasaran edukasi (ibu hamil, ibu menyusui, ibu balita, dan remaja putri sebagai calon ibu) dalam memilih dan mengonsumsi pangan aman, bermutu, dan bergizi seimbang: dokumen Agenda Setting BPOM September 2026, Agenda Prioritas #6.
 - Program tablet tambah darah bagi remaja putri sebagai bagian pencegahan anemia dan stunting merupakan program nasional yang sudah berjalan lewat sekolah/Puskesmas — pengetahuan umum program kesehatan remaja, tidak memerlukan klaim medis spesifik di naskah.
 - **Catatan redaksi:** tidak mencantumkan klaim medis kuantitatif (dosis, kadar zat besi) — cukup imbauan mengikuti anjuran sekolah/posyandu, konsisten dengan pembatasan klaim di seri stunting sebelumnya.
+
+## 🖼️ PROMPT VISUAL AI (Pixar 3D — siap generate)
+
+*Gaya default: 3D animated Pixar style, karakter "smart Papuan teenager", sticker outline, UI info card mengambang, gradasi latar biru tua–biru muda, tipografi putih + kuning keemasan. Cocok untuk DALL-E 3 / Midjourney. Teks panjang di gambar tidak selalu akurat dirender AI — gunakan sebagai draft komposisi, sempurnakan teks final di Canva.*
+
+**Slide 1 (Hook — Cover)**
+
+Teks Lengkap untuk Desain Canva: "Stunting itu urusan ibu hamil, kan? Pencegahannya dimulai lebih awal."
+
+Prompt AI (Copy-Paste Langsung):
+```
+3D animated Pixar style, a smart Papuan teenage girl standing cheerfully in a schoolyard, holding a healthy packed lunch box, bright joyful expression, daylight schoolyard mood. Thick solid white sticker outline around the character and the lunch box. Floating semi-3D rounded UI info cards with glowing healthy-food and sun icons. Seamless soft dark blue to light blue gradient background with perfectly smooth blending, strictly no hard lines, leaving large empty blended spaces at the top and bottom. Prominently display the exact typographic text: "Stunting itu urusan ibu hamil, kan? Pencegahannya dimulai lebih awal." using a bold, elegant heavy sans-serif font in white and vibrant golden-yellow. 8k resolution.
+```
+
+**Slide 2 (Buka Cerita)**
+
+Teks Lengkap untuk Desain Canva: "Sering lewatkan sarapan karena buru-buru ke sekolah."
+
+Prompt AI (Copy-Paste Langsung):
+```
+3D animated Pixar style, a smart Papuan teenage girl running to school while biting a piece of bread, hurried rushed expression, backpack bouncing. Thick solid white sticker outline around the character and the bread. Floating semi-3D rounded UI info cards with glowing clock and bread icons. Seamless soft dark blue to light blue gradient background with perfectly smooth blending, strictly no hard lines, leaving large empty blended spaces at the top and bottom. Prominently display the exact typographic text: "Sering lewatkan sarapan karena buru-buru ke sekolah." using a bold, elegant heavy sans-serif font in white and vibrant golden-yellow. 8k resolution.
+```
+
+**Slide 3 (Tension)**
+
+Teks Lengkap untuk Desain Canva: "Gizi remaja putri membawa risiko sampai nanti jadi ibu."
+
+Prompt AI (Copy-Paste Langsung):
+```
+3D animated Pixar style, a smart Papuan teenage girl looking thoughtfully at a glowing floating timeline UI card showing stages from teenage girl to mother to baby, reflective serious expression. Thick solid white sticker outline around the character and the timeline card. Floating semi-3D rounded UI info cards with glowing timeline-arrow and nutrition-symbol icons. Seamless soft dark blue to light blue gradient background with perfectly smooth blending, strictly no hard lines, leaving large empty blended spaces at the top and bottom. Prominently display the exact typographic text: "Gizi remaja putri membawa risiko sampai nanti jadi ibu." using a bold, elegant heavy sans-serif font in white and vibrant golden-yellow. 8k resolution.
+```
+
+**Slide 4 (Insight)**
+
+Teks Lengkap untuk Desain Canva: "Pencegahan stunting dimulai dari remaja putri yang cukup gizi hari ini."
+
+Prompt AI (Copy-Paste Langsung):
+```
+3D animated Pixar style, a smart Papuan teenage girl standing confidently surrounded by floating nutrition icon cards, empowered proud expression. Thick solid white sticker outline around the character and the nutrition cards. Floating semi-3D rounded UI info cards with glowing vegetable, fish, egg, and supplement-tablet icons. Seamless soft dark blue to light blue gradient background with perfectly smooth blending, strictly no hard lines, leaving large empty blended spaces at the top and bottom. Prominently display the exact typographic text: "Pencegahan stunting dimulai dari remaja putri yang cukup gizi hari ini." using a bold, elegant heavy sans-serif font in white and vibrant golden-yellow. 8k resolution.
+```
+
+**Slide 5 (Contoh Nyata)**
+
+Teks Lengkap untuk Desain Canva: "Jangan lewatkan sarapan. Sayur dan lauk hewani. Tablet tambah darah. Jajanan berlabel."
+
+Prompt AI (Copy-Paste Langsung):
+```
+3D animated Pixar style, a smart Papuan teenage girl cheerfully pointing at four floating tip cards arranged in a row, instructive friendly pose. Thick solid white sticker outline around the character and the tip cards. Floating semi-3D rounded UI info cards with glowing fried-egg, vegetable, tablet, and checkmark-label icons. Seamless soft dark blue to light blue gradient background with perfectly smooth blending, strictly no hard lines, leaving large empty blended spaces at the top and bottom. Prominently display the exact typographic text: "Jangan lewatkan sarapan. Sayur dan lauk hewani. Tablet tambah darah. Jajanan berlabel." using a bold, elegant heavy sans-serif font in white and vibrant golden-yellow. 8k resolution.
+```
+
+**Slide 6 (CTA)**
+
+Teks Lengkap untuk Desain Canva: "Kebiasaan kecil hari ini, bekal besar generasi berikutnya."
+
+Prompt AI (Copy-Paste Langsung):
+```
+3D animated Pixar style, a smart Papuan teenage girl sitting happily eating a complete healthy meal together with friends, warm joyful smile. Thick solid white sticker outline around the character and the meal. Floating semi-3D rounded UI info cards with glowing heart and healthy-plate icons. Seamless soft dark blue to light blue gradient background with perfectly smooth blending, strictly no hard lines, leaving large empty blended spaces at the top and bottom. Prominently display the exact typographic text: "Kebiasaan kecil hari ini, bekal besar generasi berikutnya." using a bold, elegant heavy sans-serif font in white and vibrant golden-yellow. 8k resolution.
+```
