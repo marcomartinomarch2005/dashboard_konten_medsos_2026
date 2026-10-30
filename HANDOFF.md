@@ -2,6 +2,42 @@
 
 ---
 
+## Sesi 30 Oktober 2026 (lanjutan) — Claude Opus 5.5 (Anthropic) via Claude Code
+
+Lanjutan dari entri di bawah, masih sesi yang sama.
+
+### Yang dikerjakan:
+- **Rencana konten November** (`11_November_2026/RENCANA_KONTEN_NOVEMBER_2026.md`) dari `AGS November 2026.pdf` (file lokal owner, tidak ikut repo). Tema "Lindungi Generasi, Cegah Resistansi", 13 item 3–30 Nov. Kalender disetujui owner 30 Okt. Riset fakta dilakukan sebelum naskah (PROTOCOL §4), tercatat di §6 rencana.
+- **Naskah v1 untuk 13 konten** (11-001 s/d 11-013), masing-masing di subfolder `K-JPR-2026-11-NNN_*`, lengkap dengan caption IG+FB, catatan produksi, sumber, dan prompt visual AI format v3 (seperti 10-001). Commit `b087c80` dan `60d3f94`.
+- **Import Sheets November:** `11_November_2026/import_sheets_november_2026.tsv` (13 baris, tanpa header, status `Naskah selesai`). Owner sudah tempel ke Sheets; dashboard menampilkan 13 item November.
+- **Dashboard (`index.html`, commit `12615ce`):** kartu ringkasan di atas kini ikut filter bulan (helper `inSelectedMonth()`), dan filter bulan default ke bulan berjalan. Diuji lokal (localhost:3000, data tiruan) lalu di-push.
+- **Google Drive connector tersambung.** Dibuat folder `Dashboard/11_November_2026` (ID `1kbUsFACjZjZvgbdpm54aaSlLm2km8KQV`) + 13 subfolder `K-JPR-2026-11-NNN_*`; tiap naskah v1 di-upload sebagai `.md` mentah (ukuran file di Drive = ukuran lokal, dicek satu per satu).
+- **Kolom Drive Workspace 13 item November diisi** lewat tombol Edit dashboard di Chrome owner (Claude in Chrome). Diverifikasi setelah reload data dari Sheets: 13 link cocok dengan folder masing-masing.
+- **Memori Claude diperbarui:** (1) balas owner dalam bahasa Indonesia santai, langsung ke inti, tanpa "Bapak", kecuali diminta lain; (2) alur Drive baru (lihat catatan di bawah).
+- Semua commit sesi ini sudah di-push; `main` = `origin/main` = `12615ce` sebelum entri ini.
+
+### Status saat ini:
+- **13 konten November** → naskah v1 ada, status Sheets `Naskah selesai`, folder Drive + link dashboard terisi. **Belum direview owner** (PROTOCOL §5 sebenarnya mensyaratkan approval untuk `Naskah selesai`; status ini dipasang atas permintaan owner supaya November tampil).
+- **Visual November:** belum ada.
+- **Oktober:** status tayang dan approval v2/v3 prompt visual masih tidak diketahui (lihat entri di bawah).
+
+### Yang belum selesai / perlu dilanjutkan:
+1. **Review owner atas 13 naskah November.** Prioritas: konten 3 Nov (11-001) dan 5 Nov (11-002).
+2. **Review medis owner (apoteker):** 11-001, 002, 005, 006, 007, 009, dan butir 1 & 4 slide 5 di 11-013 (redaksinya harus disamakan dengan hasil review 006/007/009).
+3. **Keputusan 11-012 HUT KORPRI** (29 Nov hari Minggu): tetap, geser ke Jumat 27 Nov (bentrok 11-011), atau dilewati.
+4. **Konfirmasi owner:** apakah mitos "ikan bikin ASI amis" memang beredar di Jayapura (11-009); kanal aduan antikorupsi yang dipakai (WBS atau HALOBPOM) dan apakah ada survei kepuasan publik (11-011).
+5. **Cek tema/logo resmi** Hari Pahlawan, HKN ke-62, dan HUT KORPRI ke-55 sebelum desain final (belum ditemukan per 30 Okt; jangan pakai tema 2025).
+6. 11-008 memakai sudut A (cek lemari dapur); kalau owner menilai terlalu mirip 10-005, ganti ke sudut B — lalu perbarui rekap di 11-013.
+7. Butir terbuka dari entri di bawah (Oktober, asal-usul edit 9 Sep, branch `fix/drive-folder-url-save`, path `list review` di PROTOCOL §0) masih berlaku.
+
+### Catatan untuk sesi berikutnya:
+- **Alur Drive berubah (menggantikan keputusan 5 Sep "Drive manual"):** begitu naskah ditulis, Claude langsung (1) buat folder Drive `Dashboard/MM_Bulan_2026/K-JPR-...` lewat Google Drive connector dan upload naskah `.md` (cek ukuran file = lokal), (2) isi kolom `drive_folder_url` di TSV import supaya link langsung ikut saat owner tempel ke Sheets, (3) untuk baris yang sudah ada di Sheets, isi link lewat modal Edit dashboard di Chrome owner. Kalau naskah direvisi, upload ulang ke folder yang sama.
+- **Claude in Chrome sekarang tersambung** dan owner login dashboard di Chrome. Browser pane bawaan aplikasi tidak punya login Google — pakai Chrome untuk aksi dashboard. Tiap simpan di dashboard butuh ±15 detik (Apps Script lambat); klik tombol Simpan lewat koordinat lebih andal daripada lewat ref.
+- Folder `2026_MM_*` di Drive adalah template lama (Juni) yang kosong; abaikan, jangan dipakai.
+- Prompt visual 11-013 sengaja tidak menampilkan wajah Ivan (11-007) dan Yohanes (11-010) karena keduanya talent Reels nyata.
+
+---
+
 ## Sesi 30 Oktober 2026 — Claude Opus 5.5 (Anthropic) via Claude Code
 
 ### Yang dikerjakan:
