@@ -804,9 +804,14 @@ async function loadData() {
 
 function render() { renderSummary(); renderTable(); }
 
+function inSelectedMonth(d) {
+  const month = document.getElementById('filterMonth').value;
+  return month === 'all' || new Date(d.tanggal + 'T00:00:00').getMonth() + 1 === +month;
+}
+
 function renderSummary() {
   const c = { Draft:0,'Naskah selesai':0,'Desain selesai':0,'Siap posting':0,Posted:0,overdue:0 };
-  allData.forEach(d => {
+  allData.filter(inSelectedMonth).forEach(d => {
     if (c[d.status] !== undefined) c[d.status]++;
     if (d.status !== 'Posted' && d.tanggal && d.tanggal < today) c.overdue++;
   });
@@ -819,14 +824,13 @@ function renderSummary() {
 }
 
 function renderTable() {
-  const month    = document.getElementById('filterMonth').value;
   const status   = document.getElementById('filterStatus').value;
   const format   = document.getElementById('filterFormat').value;
   const platform = document.getElementById('filterPlatform').value;
   const search   = document.getElementById('searchBox').value.toLowerCase();
 
   const filtered = allData.filter(d => {
-    if (month    !== 'all' && new Date(d.tanggal + 'T00:00:00').getMonth() + 1 !== +month) return false;
+    if (!inSelectedMonth(d))                                       return false;
     if (status   !== 'all' && d.status !== status)                return false;
     if (format   !== 'all' && !d.format.includes(format))         return false;
     if (platform !== 'all' && !d.platform.includes(platform))     return false;
@@ -1089,7 +1093,12 @@ async function confirmReschedule() {
 }
 
 // ── EVENTS ────────────────────────────────────────────────
-['filterMonth','filterStatus','filterFormat','filterPlatform'].forEach(id =>
+// Default filter bulan = bulan berjalan (kalau ada di daftar).
+const monthSel = document.getElementById('filterMonth');
+const thisMonth = String(new Date().getMonth() + 1);
+if ([...monthSel.options].some(o => o.value === thisMonth)) monthSel.value = thisMonth;
+monthSel.addEventListener('change', render);
+['filterStatus','filterFormat','filterPlatform'].forEach(id =>
   document.getElementById(id).addEventListener('change', renderTable));
 document.getElementById('searchBox').addEventListener('input', renderTable);
 document.getElementById('modalOverlay').addEventListener('click',
