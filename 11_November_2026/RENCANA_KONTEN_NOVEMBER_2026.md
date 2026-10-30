@@ -4,7 +4,7 @@
 **Sumber:** `AGS November 2026.pdf` — Agenda Setting BPOM November 2026 (file lokal: `E:\Work\2026\Posting Medsos\Agenda Setting\`, tidak ikut repo)
 **Dibuat:** 30 Oktober 2026
 **Status kalender:** disetujui owner 30 Oktober 2026 (13 item sesuai §4; keputusan 11-012 hari Minggu belum diambil, sementara tetap 29 Nov)
-**Status seluruh konten:** `Draft` — riset selesai 30 Okt (lihat §6). Naskah v1 sudah ditulis 30 Okt untuk 11-001 s/d 11-004 (menunggu review owner); 11-005 s/d 11-013 belum.
+**Status seluruh konten:** `Draft` — riset selesai 30 Okt (lihat §6). Naskah v1 sudah ditulis 30 Okt untuk seluruh 13 konten, 11-001 s/d 11-013 (menunggu review owner).
 
 ---
 
