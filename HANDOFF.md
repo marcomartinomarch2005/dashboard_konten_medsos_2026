@@ -1,5 +1,45 @@
 # HANDOFF LOG
 
+## Sesi 2 November 2026 — Claude Opus 5.5 (Anthropic) via Claude Code
+
+### Yang dikerjakan:
+- **Nomenklatur konten manual diputuskan dan disetujui owner:** `K-JPR-YYYY-MM-Mnn` (contoh `K-JPR-2026-11-M01`). Aturan lengkap ada di `PROTOCOL.md` §2.
+- **Folder Drive dibuat** di `Dashboard/11_November_2026`: `K-JPR-2026-11-M01_Cek_KLIK` (ID `1IwL_SCjxX8kUmAnn5yscFqpoikVjHf7b`) dan `K-JPR-2026-11-M02_Hidrokuinon` (ID `1OeaA16MFnNTAqjNRAZQNhveI8tmsZGQc`).
+- **Catatan dan link Drive dua baris itu diisi** lewat modal Edit dashboard di Chrome owner. Diverifikasi setelah Perbarui: kode dan link cocok, kolom lain tidak berubah.
+
+### Status saat ini:
+- **Cek KLIK (3 Nov) → M01, Hidrokuinon (9 Nov) → M02:** status dashboard `Siap posting`, tetapi folder Drive-nya masih kosong dan naskah/caption berkode belum ada di repo.
+- **`PROTOCOL.md` dan `HANDOFF.md`:** di-commit di branch `docs/nomenklatur-konten-manual`, belum di-merge ke `main` dan belum di-push. Commit ini juga memuat entri Codex 31 Oktober yang sebelumnya belum di-commit.
+
+### Yang belum selesai / perlu dilanjutkan:
+1. Owner upload naskah/caption Cek KLIK (tayang 3 Nov) dan Hidrokuinon ke folder masing-masing, atau kirim ke Claude untuk di-upload.
+2. Butir terbuka dari entri 30–31 Oktober masih berlaku.
+
+### Catatan untuk sesi berikutnya:
+- Urutan asli penambahan dua baris itu tidak diketahui, jadi nomor M01/M02 mengikuti tanggal tayang. Konten manual berikutnya di November mulai dari M03.
+- Baris buatan dashboard memakai UUID di kolom `id`, jadi kode `Mnn` hanya ada di `catatan`.
+- Login dashboard di Chrome bisa perlu ±30 detik sebelum data tampil; tunggu dulu sebelum mengklik ulang. Pencarian `11-M` sudah diuji setelah data termuat: hanya M01 dan M02 yang tampil.
+- Status 11-001 (2 Nov) berubah dari `Naskah selesai` ke `Siap posting` saat sesi ini berjalan, tetapi bukan oleh Claude (yang disimpan hanya baris Cek KLIK dan Hidrokuinon). Kemungkinan diubah owner; belum dikonfirmasi.
+
+---
+
+## Sesi 31 Oktober 2026 — Codex (orientasi proyek)
+
+### Yang dikerjakan:
+- Membaca PROTOCOL, HANDOFF, rencana November, kode dashboard dan Apps Script, serta naskah Reels v5 dan log audio v4 untuk 11-002.
+- Memeriksa git status: ada aset produksi 11-002, .workbuddy-ai/, dan P4_uji/ yang belum dilacak Git; tidak diubah atau di-commit.
+- Memeriksa endpoint kalender: membalas {"error":"unauthorized"}; status Sheets terkini belum terverifikasi. Catatan 30 Oktober dipakai sebagai fallback.
+
+### Status dan tindak lanjut:
+- Menurut handoff 30 Oktober: 13 naskah November tersedia, status Sheets Naskah selesai, tetapi review owner belum tercatat.
+- Pekerjaan lokal lebih baru: 11-002 memiliki script v1–v5 (terbaru v5 Bestie, 66 detik), audio, storyboard, dan video v4. Nama FINAL pada video bukan bukti approval; render v5 belum ditemukan dalam pemeriksaan ini.
+- Rencana November masih memuat catatan Draft/Drive kosong yang tertinggal dibanding handoff 30 Oktober.
+- P4_uji/ belum tercantum eksplisit dalam exclude _config.yml; periksa sebelum memasukkannya ke commit/push agar aset internal tidak ikut terbit di Pages.
+- Sesi ini hanya orientasi; tidak mengubah naskah, kode, data Sheets, atau Drive. HANDOFF diperbarui sesuai protokol akhir sesi.
+
+---
+
+
 ---
 
 ## Sesi 30 Oktober 2026 (lanjutan) — Claude Opus 5.5 (Anthropic) via Claude Code

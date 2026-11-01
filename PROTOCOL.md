@@ -2,7 +2,7 @@
 **Project:** Konten Media Sosial BBPOM Jayapura 2026
 **Owner:** Marco Martino (Apoteker, ASN BBPOM Jayapura)
 **Channel:** Instagram @bpom.jayapura · TikTok · Facebook Page
-**Last updated:** 22 September 2026 (aturan GitHub Pages: hanya `index.html` yang terbit, lewat `_config.yml`)
+**Last updated:** 2 November 2026 (nomenklatur konten manual `K-JPR-YYYY-MM-Mnn`, lihat §2)
 
 ---
 
@@ -82,6 +82,13 @@ konten_sosmed_2026/
 Contoh: `naskah_bpom-mobile_19agu2026_v1.md`
 
 Hapus versi lama jika versi baru sudah final dan disetujui owner.
+
+**Konvensi konten manual (sejak 2 November 2026):** konten di luar rencana bulanan, yang biasanya ditambahkan lewat tombol Tambah Konten di dashboard, memakai kode `K-JPR-YYYY-MM-Mnn` (contoh: `K-JPR-2026-11-M01`). Nomor `NNN` tetap khusus untuk konten reguler dari rencana bulanan.
+- **Nomor:** urut sesuai waktu ditambahkan, mulai dari M01 lagi tiap bulan. Kode tidak berubah walaupun jadwalnya digeser.
+- **Folder:** `K-JPR-YYYY-MM-Mnn_Nama_Tema/`, di dalam folder bulan pada Drive (`Dashboard/MM_Bulan_2026/`) dan repo.
+- **File:** naskah mengikuti konvensi di atas; kalau isinya caption saja, pakai `caption_[slug-topik]_[ddmmmyyyy]_v[nomor]`.
+- **Dashboard:** tulis kode di awal kolom `catatan`, formatnya `K-JPR-YYYY-MM-Mnn - keterangan`, dan tempel link folder di kolom Drive. Baris yang dibuat dari dashboard memakai UUID di kolom `id`, jadi kodenya hanya tercatat di `catatan`; jangan ubah `id`-nya. Pencarian `11-M` menampilkan konten manual November.
+- **Upload:** dashboard belum punya tombol upload, kolom Drive hanya menyimpan link. Buat folder dan upload file di Drive dulu, baru tempel link-nya.
 
 **Trigger `list review`:** scan seluruh subfolder `K-JPR-*/` di bulan berjalan (dan `Konten_Siap_Posting/` untuk arsip Mei–Juni) untuk file naskah `.md`.
 
