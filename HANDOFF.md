@@ -9,7 +9,7 @@
 
 ### Status saat ini:
 - **Cek KLIK (3 Nov) → M01, Hidrokuinon (9 Nov) → M02:** status dashboard `Siap posting`, tetapi folder Drive-nya masih kosong dan naskah/caption berkode belum ada di repo.
-- **`PROTOCOL.md` dan `HANDOFF.md`:** di-commit di branch `docs/nomenklatur-konten-manual`, belum di-merge ke `main` dan belum di-push. Commit ini juga memuat entri Codex 31 Oktober yang sebelumnya belum di-commit.
+- **`PROTOCOL.md` dan `HANDOFF.md`:** sudah di-commit ke `main`, belum di-push. Commit ini juga memuat entri Codex 31 Oktober yang sebelumnya belum di-commit.
 
 ### Yang belum selesai / perlu dilanjutkan:
 1. Owner upload naskah/caption Cek KLIK (tayang 3 Nov) dan Hidrokuinon ke folder masing-masing, atau kirim ke Claude untuk di-upload.
