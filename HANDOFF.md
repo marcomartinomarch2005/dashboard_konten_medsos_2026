@@ -1,5 +1,44 @@
 # HANDOFF LOG
 
+## Sesi 3 November 2026 — Claude Opus 5.5 (Anthropic) via Claude Code
+
+### Yang dikerjakan:
+- Owner kirim video viral "penjual ikan asin semprot obat serangga saat menjemur" (beredar akhir Okt 2026). Konteks beritanya diriset: Kepala BPOM menanggapi 27 Okt, BPOM merilis keterangan 3 Nov, pria di video sudah klarifikasi (ikan penuh ulat, mau dibuang), dan lokasi/waktu belum terverifikasi.
+- Atas brief owner (gaya investigasi: hook potongan video viral → explainer → footage pernyataan BPOM, storytelling dramatis, Susan sebagai anchor, gaya P4), dibuat konten manual **K-JPR-2026-11-M03** di `11_November_2026/K-JPR-2026-11-M03_Ikan_Asin_Insektisida/`:
+  - `naskah_ikan-asin-insektisida_reels-p4_04nov2026_v1.md` (v1.1) berisi VO ±86 dtk, teks layar, caption IG/TikTok + FB, sumber, catatan produksi footage, dan 7 keputusan terbuka.
+  - `storyboard_ikan-asin-insektisida_reels-p4_04nov2026_v1.md` (v1.1) adalah Gerbang 1 P4: lokasi baru "Studio Bedah Kasus", 32 shot, 3 momen kunci, ilustrasi, audio, dan QA footage.
+  - `footage/viral_ikan-asin-disemprot_sumber-medsos_asli.mp4` adalah salinan video dari owner (belum diblur atau dipotong).
+- **Tanggal tayang: dimajukan owner ke Rabu 4 Nov 2026** (sempat 9 Nov, sehari dengan M02). Nama file kini `04nov2026`. Tidak bentrok: 11-002 tayang 5 Nov.
+- Owner mengirim **Penjelasan Publik BPOM No. HM.01.2.1.10.26.305 (2 Nov 2026)**: https://www.pom.go.id/penjelasan-publik/bpom-telusuri-dugaan-penggunaan-insektisida-pada-ikan-asin-imbau-masyarakat-waspadai-pangan-yang-tidak-aman. Rilis ini jadi sumber utama. Penyesuaian yang dibuat:
+  - Footage B kini rekaman layar halaman rilis (B1); video Kepala BPOM jadi opsional (B2).
+  - VO menambah "tergantung bahan dan banyaknya".
+  - Kanal aduan di caption dilengkapi: WA, email, lapor.go.id, dan ULPK.
+- Folder Drive `Dashboard/11_November_2026/K-JPR-2026-11-M03_Ikan_Asin_Insektisida` dibuat (ID `10g2VGdP__U9_IAtzh9qAwKkm1Rt9Va-W`). Isinya sekarang hanya naskah v1.1 (ID `1qHCzBmlBg5xcrmy_gabeeLBx99xnD9Od`) dan storyboard v1.1 (ID `1EPih6Vp4ABW_H94eyZGWyFAHeXoSqNd0`), keduanya versi 4 Nov, ukurannya sama dengan file lokal. Enam upload versi lama (7 Nov dan 9 Nov) dipindah ke sampah Drive (masih bisa dipulihkan). Video tidak di-upload.
+
+### Status saat ini:
+- **M03** → naskah + storyboard v1.1 **disetujui owner** ("Setuju, mulai produksi"). Produksi P4 dimulai di `P4_bedah_ikan_asin/` (dalam folder M03). Gerbang B siap ditinjau: `snapshot_studio_gerbangB.png` + `snap/qa_footage_blur_tiap10frame.png`. Footage A sudah dipotong/crop/blur (`footage/seq_A1–A3`), B1 rilis BPOM sudah ditangkap (`footage/B1_rilis-bpom_halaman-penuh.png`), `kode/dunia_studio.py` jadi. Rincian + urutan sisa: `P4_bedah_ikan_asin/LANJUTAN_PRODUKSI.md`.
+- **Penghambat:** MCP Speech Studio (VO Higgs suara Susan) dan YuE2 Studio (BGM) **tidak tersambung di sesi lokal ini**, jadi VO/BGM belum dibuat. Render lokal jalan lewat `playwright-core` + Chrome terpasang (lihat LANJUTAN_PRODUKSI.md).
+- **Jalur VO diputuskan owner: Speech Studio di ruang kerja lain** (suara Susan tetap sama). Paket siap pakai: `M03/audio/PAKET_VO_BGM_speech-studio.md` + `audio/vo_susan_teks.txt` (VO seed 128, simpan `audio/vo_susan_full.wav` + `audio/vo_susan_kata.json`; BGM YuE2 → `audio/bgm_yue2_92bpm.flac`).
+- Sisipan & ilustrasi non-VO jadi: `P4_bedah_ikan_asin/kode/ilustrasi_ikan.py` (il_residu, il_dimasak, il_rak_jemur + pengolah generik, atas_lapak + tangan bernoken, pov_lapor). QA: `P4_bedah_ikan_asin/snapshot_sisipan.png`.
+- Baris dashboard/Sheets belum dibuat.
+- Belum di-commit.
+
+### Yang belum selesai / perlu dilanjutkan:
+1. **Mendesak:** jalankan paket VO/BGM M03 di ruang kerja ber-Speech Studio, salin hasil ke `M03/audio/`; owner tinjau Gerbang B + `snapshot_sisipan.png`. Sesudah VO ada: `episode_bedah_ikan_asin.py` → Gerbang C. Tayang 4 Nov: full P4 32 shot hampir pasti tidak terkejar; pertimbangkan versi ringkas (naskah Keputusan terbuka #1) atau geser tanggal.
+2. (Tidak ada bentrok jadwal: 11-002 tayang 5 Nov.)
+3. Opsional: owner cek video resmi Kepala BPOM (IG @BPOM_RI / YouTube BPOM / Humas). Jangan pakai rekaman media berita. Rekaman layar rilis (B1) sudah cukup.
+4. Putuskan izin pemakaian video viral (minta izin pengunggah / potongan pendek dengan wajah diblur / rekonstruksi kartun penuh).
+5. Owner pastikan kontak ULPK BBPOM di Jayapura untuk caption.
+6. Tambah baris dashboard 4 Nov (catatan `K-JPR-2026-11-M03 - ...`) + tempel link folder Drive di atas.
+7. Produksi P4 lanjutan: VO → stempel kata → sisipan & ilustrasi → episode → Gerbang C (contact sheet) → BGM/mix/render/QA.
+
+### Catatan untuk sesi berikutnya:
+- Naskah sengaja tidak menyebut merek obat serangga, nama/lokasi pelaku, atau ancaman pidana (kasus belum terverifikasi).
+- Hook M03 menyimpang dari aturan hook P4 (bukan CU Susan) atas permintaan owner; ini sudah dicatat di storyboard §1.
+- Folder M01/M02 hanya ada di Drive, tidak ada di repo.
+
+---
+
 ## Sesi 2 November 2026 — Claude Opus 5.5 (Anthropic) via Claude Code
 
 ### Yang dikerjakan:
