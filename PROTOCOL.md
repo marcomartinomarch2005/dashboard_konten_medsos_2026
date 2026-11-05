@@ -90,6 +90,13 @@ Hapus versi lama jika versi baru sudah final dan disetujui owner.
 - **Dashboard:** tulis kode di awal kolom `catatan`, formatnya `K-JPR-YYYY-MM-Mnn - keterangan`, dan tempel link folder di kolom Drive. Baris yang dibuat dari dashboard memakai UUID di kolom `id`, jadi kodenya hanya tercatat di `catatan`; jangan ubah `id`-nya. Pencarian `11-M` menampilkan konten manual November.
 - **Upload:** dashboard belum punya tombol upload, kolom Drive hanya menyimpan link. Buat folder dan upload file di Drive dulu, baru tempel link-nya.
 
+**Aturan isi kolom Sheets (dirapikan 5 November 2026)** supaya tampilan seragam antar bulan, baik di tabel maupun kalender dashboard:
+- **`catatan`:** diawali kode, lalu ` - ` (spasi, tanda hubung, spasi), lalu keterangan singkat. Contoh: `K-JPR-2026-11-005 - Agenda 3: ...`. Jangan pakai em dash (`—`) sebagai pemisah kode. Konten Mei 2026 (struktur lama) memang tidak berkode.
+- **`format`:** hanya satu dari enam nilai ini: `Carousel`, `Reels/TikTok`, `Single Post`, `Infografis`, `Story/Poster`, `Video`. Greeting/quote masuk `Single Post`.
+- **`platform`:** urutannya selalu Instagram, Facebook, TikTok, dipisah koma dan spasi (mis. `Instagram, Facebook, TikTok` atau `Instagram, TikTok`).
+- **`judul`:** pola `Topik: Subjudul` bila perlu dua bagian; pakai titik dua, bukan tanda hubung.
+- **Jadwal digeser:** tulis "Dijadwalkan ulang …" di catatan (bukan "Rescheduled"). Tombol Geser di dashboard sudah otomatis mengisi `tanggal_asal` dan catatan ini.
+
 **Trigger `list review`:** scan seluruh subfolder `K-JPR-*/` di bulan berjalan (dan `Konten_Siap_Posting/` untuk arsip Mei–Juni) untuk file naskah `.md`.
 
 ---
