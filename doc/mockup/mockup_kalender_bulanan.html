@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MOCKUP Kalender Bulanan — Dashboard Konten BBPOM Jayapura</title>
+<!--
+  MOCKUP SAJA — data tiruan, tidak terhubung ke Google Sheets.
+  Gaya visual diambil dari index.html (dashboard asli) supaya terasa menyatu.
+  Folder doc/ dikecualikan dari GitHub Pages (_config.yml), jadi file ini tidak terbit.
+-->
+<style>
+  :root {
+    --bg:#f4f6fb; --surface:#ffffff; --border:#e5e9f2; --text:#1e2230; --muted:#6b7280;
+    --accent:#3b5bdb; --accent-lt:#e8eeff;
+    --c-draft:#6b7280; --c-naskah:#0ea5e9; --c-desain:#8b5cf6; --c-siap:#f59e0b; --c-posted:#10b981; --c-overdue:#ef4444;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Segoe UI', system-ui, -apple-system, sans-serif; background:var(--bg); color:var(--text); min-height:100vh; font-size:14px; }
+
+  .mock-banner { background:#fff7ed; color:#9a3412; border-bottom:1px solid #fed7aa; font-size:.75rem; padding:6px 28px; text-align:center; }
+
+  /* HEADER (sama dengan asli) */
+  .header { background:var(--surface); border-bottom:1px solid var(--border); padding:0 28px; position:sticky; top:0; z-index:100; display:flex; align-items:center; justify-content:space-between; height:60px; box-shadow:0 1px 4px rgba(0,0,0,.06); }
+  .header-brand { display:flex; align-items:center; gap:12px; }
+  .header-icon { width:36px; height:36px; background:var(--accent); border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:18px; }
+  .header-title { font-size:1rem; font-weight:700; }
+  .header-sub { font-size:.72rem; color:var(--muted); margin-top:1px; }
+  .sync-pill { display:flex; align-items:center; gap:6px; background:var(--bg); border:1px solid var(--border); border-radius:20px; padding:5px 12px; font-size:.72rem; color:var(--muted); }
+  .sync-dot { width:7px; height:7px; border-radius:50%; background:#10b981; }
+  .btn-logout { background:transparent; border:1px solid var(--border); color:var(--muted); border-radius:8px; padding:6px 12px; font-size:.78rem; cursor:pointer; }
+
+  .container { max-width:1280px; margin:0 auto; padding:24px 20px; }
+
+  /* SUMMARY */
+  .summary { display:grid; grid-template-columns:repeat(6,1fr); gap:12px; margin-bottom:24px; }
+  .card { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:16px 18px; display:flex; flex-direction:column; gap:8px; }
+  .card-icon { width:32px; height:32px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:15px; }
+  .card-num { font-size:1.75rem; font-weight:800; line-height:1; }
+  .card-lbl { font-size:.7rem; color:var(--muted); font-weight:500; text-transform:uppercase; letter-spacing:.5px; }
+  .card.draft .card-num{color:var(--c-draft)} .card.draft .card-icon{background:#f3f4f6}
+  .card.naskah .card-num{color:var(--c-naskah)} .card.naskah .card-icon{background:#e0f2fe}
+  .card.desain .card-num{color:var(--c-desain)} .card.desain .card-icon{background:#ede9fe}
+  .card.siap .card-num{color:var(--c-siap)} .card.siap .card-icon{background:#fef3c7}
+  .card.posted .card-num{color:var(--c-posted)} .card.posted .card-icon{background:#d1fae5}
+  .card.overdue .card-num{color:var(--c-overdue)} .card.overdue .card-icon{background:#fee2e2}
+
+  /* TOOLBAR */
+  .toolbar { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:14px 16px; display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-bottom:16px; }
+  .toolbar-filters { display:flex; flex-wrap:wrap; gap:8px; flex:1; }
+  select, input[type="text"] { padding:7px 12px; border:1px solid var(--border); border-radius:8px; font-size:.82rem; background:var(--bg); color:var(--text); outline:none; }
+  input[type="text"] { min-width:200px; }
+  .toolbar-actions { display:flex; gap:8px; align-items:center; }
+  .btn { padding:7px 16px; border:none; border-radius:8px; font-size:.82rem; cursor:pointer; font-weight:600; display:inline-flex; align-items:center; gap:5px; white-space:nowrap; }
+  .btn-primary { background:var(--accent); color:#fff; } .btn-primary:hover { background:#2f4bbf; }
+  .btn-ghost { background:transparent; color:var(--muted); border:1px solid var(--border); } .btn-ghost:hover { background:var(--bg); color:var(--text); }
+  .btn-sm { padding:4px 10px; font-size:.72rem; border-radius:6px; }
+
+  /* VIEW TOGGLE — elemen baru */
+  .view-toggle { display:inline-flex; background:var(--bg); border:1px solid var(--border); border-radius:8px; padding:2px; }
+  .view-toggle button { border:none; background:transparent; padding:5px 12px; border-radius:6px; font-size:.78rem; font-weight:600; color:var(--muted); cursor:pointer; }
+  .view-toggle button.active { background:var(--surface); color:var(--accent); box-shadow:0 1px 3px rgba(0,0,0,.08); }
+
+  /* BADGES (sama dengan asli) */
+  .badge { display:inline-flex; align-items:center; gap:5px; padding:4px 10px; border-radius:20px; font-size:.72rem; font-weight:700; white-space:nowrap; }
+  .badge::before { content:''; width:5px; height:5px; border-radius:50%; }
+  .badge-draft{background:#f3f4f6;color:var(--c-draft)} .badge-draft::before{background:var(--c-draft)}
+  .badge-naskah{background:#e0f2fe;color:#0369a1} .badge-naskah::before{background:#0ea5e9}
+  .badge-desain{background:#ede9fe;color:#5b21b6} .badge-desain::before{background:#8b5cf6}
+  .badge-siap{background:#fef3c7;color:#92400e} .badge-siap::before{background:#f59e0b}
+  .badge-posted{background:#d1fae5;color:#065f46} .badge-posted::before{background:#10b981}
+  .badge-overdue{background:#fee2e2;color:#991b1b} .badge-overdue::before{background:#ef4444}
+  .fmt-badge { display:inline-block; font-size:.66rem; font-weight:700; padding:2px 7px; border-radius:5px; background:var(--bg); color:var(--muted); white-space:nowrap; }
+  .fmt-carousel{background:#eff6ff;color:#1d4ed8} .fmt-reels{background:#fff7ed;color:#c2410c} .fmt-infografis{background:#f0fdf4;color:#166534} .fmt-single{background:#f0f9ff;color:#0369a1}
+  .plat-chip { font-size:.66rem; font-weight:600; padding:2px 6px; border-radius:4px; }
+  .plat-chip.ig{background:#fce7f3;color:#9d174d} .plat-chip.tt{background:#f0fdf4;color:#14532d} .plat-chip.fb{background:#eff6ff;color:#1e3a8a}
+
+  /* ── KALENDER (baru) ─────────────────────────────────── */
+  .cal-layout { display:grid; grid-template-columns:minmax(0,1fr) 320px; gap:16px; align-items:start; }
+  .cal-box { background:var(--surface); border:1px solid var(--border); border-radius:14px; overflow:hidden; }
+  .cal-head { display:flex; align-items:center; justify-content:space-between; padding:14px 16px; border-bottom:1px solid var(--border); gap:12px; flex-wrap:wrap; }
+  .cal-nav { display:flex; align-items:center; gap:8px; }
+  .cal-nav .month { font-size:1.05rem; font-weight:700; min-width:150px; text-align:center; }
+  .nav-btn { width:30px; height:30px; border:1px solid var(--border); background:var(--surface); border-radius:8px; cursor:pointer; font-size:14px; color:var(--muted); }
+  .nav-btn:hover { background:var(--bg); color:var(--text); }
+  .legend { display:flex; flex-wrap:wrap; gap:12px; font-size:.72rem; color:var(--muted); }
+  .legend span { display:inline-flex; align-items:center; gap:5px; }
+  .lg-dot { width:9px; height:9px; border-radius:3px; display:inline-block; }
+
+  .dow { display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); background:var(--bg); border-bottom:1px solid var(--border); }
+  .dow div { padding:8px 10px; font-size:.68rem; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.5px; }
+  .dow div.wkend { color:#b45309; }
+  .grid { display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); }
+  .day { min-height:112px; border-right:1px solid var(--border); border-bottom:1px solid var(--border); padding:6px 6px 8px; display:flex; flex-direction:column; gap:3px; cursor:pointer; position:relative; transition:background .12s; }
+  .day:nth-child(7n) { border-right:none; }
+  .day:hover { background:#fafbff; }
+  .day.out { background:#fbfbfd; cursor:default; }
+  .day.out .dnum { color:#c4c8d2; }
+  .day.past:not(.out) { background:#fcfcfd; }
+  .day.past .chip { opacity:.7; }
+  .day.sel { background:var(--accent-lt); }
+  .day.wkend:not(.out) .dnum { color:#b45309; }
+  .dtop { display:flex; align-items:center; justify-content:space-between; gap:4px; min-height:22px; }
+  .dnum { font-size:.8rem; font-weight:700; width:22px; height:22px; display:flex; align-items:center; justify-content:center; border-radius:50%; }
+  .day.today .dnum { background:var(--accent); color:#fff; }
+  .hb { font-size:.62rem; font-weight:700; color:#b91c1c; background:#fef2f2; border-radius:4px; padding:1px 5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:75%; }
+  .range-band { height:4px; background:#fca5a5; margin:0 -6px 2px; }
+  .range-band.start { margin-left:0; border-radius:2px 0 0 2px; }
+  .range-band.end { margin-right:0; border-radius:0 2px 2px 0; }
+  .chip { font-size:.7rem; font-weight:600; line-height:1.25; padding:3px 6px 3px 7px; border-radius:5px; border-left:3px solid; }
+  .chip .ct { display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; word-break:break-word; }
+  .chip.Draft{background:#f3f4f6;color:#374151;border-color:var(--c-draft)}
+  .chip.naskah{background:#e0f2fe;color:#075985;border-color:var(--c-naskah)}
+  .chip.desain{background:#ede9fe;color:#5b21b6;border-color:var(--c-desain)}
+  .chip.siap{background:#fef3c7;color:#92400e;border-color:var(--c-siap)}
+  .chip.posted{background:#d1fae5;color:#065f46;border-color:var(--c-posted)}
+  .chip.overdue{background:#fee2e2;color:#991b1b;border-color:var(--c-overdue)}
+  .chip.ghost { background:transparent; color:var(--muted); border:1px dashed #cbd2e1; border-left:3px dashed #cbd2e1; font-weight:500; font-style:italic; }
+  .more { font-size:.68rem; color:var(--accent); font-weight:600; padding-left:4px; }
+  .dots { display:none; gap:3px; flex-wrap:wrap; justify-content:center; margin-top:2px; }
+  .dot { width:7px; height:7px; border-radius:50%; }
+
+  /* pita distribusi per minggu */
+  .week-strip { display:flex; gap:8px; padding:12px 16px; border-top:1px solid var(--border); font-size:.72rem; color:var(--muted); flex-wrap:wrap; align-items:center; }
+  .wk { display:flex; align-items:center; gap:6px; background:var(--bg); border-radius:6px; padding:4px 8px; }
+  .wk b { color:var(--text); }
+  .wk-bar { display:flex; gap:2px; }
+  .wk-bar i { width:6px; height:12px; border-radius:2px; background:#c7d2fe; display:block; }
+  .wk.low { background:#fff7ed; color:#9a3412; }
+
+  /* PANEL DETAIL */
+  .panel { background:var(--surface); border:1px solid var(--border); border-radius:14px; position:sticky; top:76px; }
+  .panel-head { padding:14px 16px; border-bottom:1px solid var(--border); }
+  .panel-date { font-size:1rem; font-weight:700; }
+  .panel-sub { font-size:.74rem; color:var(--muted); margin-top:2px; }
+  .panel-hb { margin-top:8px; font-size:.72rem; font-weight:600; color:#b91c1c; background:#fef2f2; border-radius:6px; padding:5px 8px; }
+  .panel-body { padding:6px 16px 14px; }
+  .item { padding:12px 0; border-bottom:1px solid var(--border); display:flex; flex-direction:column; gap:7px; }
+  .item:last-child { border-bottom:none; }
+  .item-title { font-weight:600; font-size:.86rem; line-height:1.35; }
+  .item-code { font-size:.7rem; color:var(--muted); }
+  .item-row { display:flex; flex-wrap:wrap; gap:5px; align-items:center; }
+  .item-moved { font-size:.7rem; color:var(--c-overdue); }
+  .item-actions { display:flex; gap:6px; margin-top:2px; }
+  .empty { text-align:center; padding:28px 8px 18px; color:var(--muted); font-size:.82rem; line-height:1.5; }
+  .empty .big { font-size:28px; margin-bottom:6px; }
+
+  /* TABEL ringkas (supaya toggle bisa dicoba) */
+  .table-wrap { background:var(--surface); border:1px solid var(--border); border-radius:14px; overflow-x:auto; }
+  table { width:100%; border-collapse:collapse; }
+  thead { background:var(--bg); }
+  th { padding:11px 14px; text-align:left; font-size:.72rem; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.5px; border-bottom:1px solid var(--border); white-space:nowrap; }
+  td { padding:12px 14px; border-bottom:1px solid var(--border); vertical-align:middle; font-size:.84rem; }
+  tr:last-child td { border-bottom:none; }
+
+  .hidden { display:none !important; }
+
+  @media (max-width:1100px) { .cal-layout { grid-template-columns:1fr; } .panel { position:static; } }
+  @media (max-width:900px) { .summary { grid-template-columns:repeat(3,1fr); } }
+  @media (max-width:640px) {
+    .header { padding:0 16px; } .header-sub, #emailLbl { display:none; }
+    .mock-banner { padding:6px 12px; }
+    .container { padding:16px 12px; }
+    .summary { grid-template-columns:repeat(2,1fr); }
+    input[type="text"] { min-width:0; width:100%; }
+    .toolbar-actions { width:100%; flex-wrap:wrap; }
+    .view-toggle { width:100%; } .view-toggle button { flex:1; }
+    .toolbar-actions .btn { flex:1; justify-content:center; }
+    .cal-head { padding:12px; }
+    .cal-nav .month { min-width:0; font-size:.95rem; }
+    .legend { display:none; }
+    .dow div { padding:6px 0; text-align:center; font-size:.62rem; }
+    .day { min-height:54px; padding:4px 2px; align-items:center; }
+    .dtop { justify-content:center; }
+    .hb, .chip, .more, .range-band { display:none; }
+    .dots { display:flex; }
+    .day.has-hb .dnum { box-shadow:inset 0 -2px 0 #ef4444; border-radius:4px; }
+    .day.today .dnum { box-shadow:none; border-radius:50%; }
+  }
+</style>
+</head>
+<body>
+
+<div class="mock-banner">MOCKUP — data tiruan (November 2026), belum terhubung ke Google Sheets. Hari ini diasumsikan Kamis, 5 Nov 2026.</div>
+
+<header class="header">
+  <div class="header-brand">
+    <div class="header-icon">📊</div>
+    <div>
+      <div class="header-title">Dashboard Konten · BBPOM Jayapura</div>
+      <div class="header-sub">Kalender Editorial 2026 · Google Sheets</div>
+    </div>
+  </div>
+  <div style="display:flex;align-items:center;gap:12px;">
+    <div class="sync-pill"><div class="sync-dot"></div><span>Tersinkron · 21.46</span></div>
+    <span id="emailLbl" style="font-size:.75rem;color:var(--muted);">marcomartinomarch2005@gmail.com</span>
+    <button class="btn-logout">Keluar</button>
+  </div>
+</header>
+
+<div class="container">
+
+  <div class="summary">
+    <div class="card draft"><div class="card-icon">✏️</div><div class="card-num" id="c-draft">0</div><div class="card-lbl">Belum Dikerjakan</div></div>
+    <div class="card naskah"><div class="card-icon">📝</div><div class="card-num" id="c-naskah">0</div><div class="card-lbl">Naskah Selesai</div></div>
+    <div class="card desain"><div class="card-icon">🎨</div><div class="card-num" id="c-desain">0</div><div class="card-lbl">Desain Selesai</div></div>
+    <div class="card siap"><div class="card-icon">🚀</div><div class="card-num" id="c-siap">0</div><div class="card-lbl">Siap Tayang</div></div>
+    <div class="card posted"><div class="card-icon">✅</div><div class="card-num" id="c-posted">0</div><div class="card-lbl">Sudah Tayang</div></div>
+    <div class="card overdue"><div class="card-icon">⚠️</div><div class="card-num" id="c-overdue">0</div><div class="card-lbl">Terlambat</div></div>
+  </div>
+
+  <div class="toolbar">
+    <div class="toolbar-filters">
+      <select id="fMonth">
+        <option value="10">Oktober 2026</option>
+        <option value="11" selected>November 2026</option>
+        <option value="12">Desember 2026</option>
+      </select>
+      <select id="fStatus">
+        <option value="all">Semua Status</option>
+        <option value="Draft">Belum Dikerjakan</option>
+        <option value="Naskah selesai">Naskah Selesai</option>
+        <option value="Desain selesai">Desain Selesai</option>
+        <option value="Siap posting">Siap Tayang</option>
+        <option value="Posted">Sudah Tayang</option>
+      </select>
+      <select id="fFormat">
+        <option value="all">Semua Format</option>
+        <option value="Carousel">Carousel</option>
+        <option value="Reels">Reels / TikTok</option>
+        <option value="Infografis">Infografis</option>
+        <option value="Single Post">Single Post</option>
+      </select>
+      <select id="fPlat">
+        <option value="all">Semua Platform</option>
+        <option value="Instagram">Instagram</option>
+        <option value="TikTok">TikTok</option>
+        <option value="Facebook">Facebook</option>
+      </select>
+      <input type="text" id="fSearch" placeholder="🔍  Cari judul atau catatan…">
+    </div>
+    <div class="toolbar-actions">
+      <div class="view-toggle" role="tablist">
+        <button id="vTable" role="tab">☰ Tabel</button>
+        <button id="vCal" role="tab" class="active">📅 Kalender</button>
+      </div>
+      <button class="btn btn-ghost">↻ Perbarui</button>
+      <button class="btn btn-primary" onclick="fakeAdd()">＋ Tambah Konten</button>
+    </div>
+  </div>
+
+  <!-- VIEW: KALENDER -->
+  <div id="calView" class="cal-layout">
+    <div class="cal-box">
+      <div class="cal-head">
+        <div class="cal-nav">
+          <button class="nav-btn" id="prev" aria-label="Bulan sebelumnya">‹</button>
+          <div class="month" id="monthLbl">November 2026</div>
+          <button class="nav-btn" id="next" aria-label="Bulan berikutnya">›</button>
+          <button class="btn btn-ghost btn-sm" id="todayBtn">Hari ini</button>
+        </div>
+        <div class="legend">
+          <span><i class="lg-dot" style="background:var(--c-draft)"></i>Belum</span>
+          <span><i class="lg-dot" style="background:var(--c-naskah)"></i>Naskah</span>
+          <span><i class="lg-dot" style="background:var(--c-desain)"></i>Desain</span>
+          <span><i class="lg-dot" style="background:var(--c-siap)"></i>Siap tayang</span>
+          <span><i class="lg-dot" style="background:var(--c-posted)"></i>Sudah tayang</span>
+          <span><i class="lg-dot" style="background:var(--c-overdue)"></i>Terlambat</span>
+          <span><i class="lg-dot" style="border:1px dashed #9ca3af"></i>Tanggal asal (digeser)</span>
+        </div>
+      </div>
+      <div class="dow"><div>Sen</div><div>Sel</div><div>Rab</div><div>Kam</div><div>Jum</div><div class="wkend">Sab</div><div class="wkend">Min</div></div>
+      <div class="grid" id="grid"></div>
+      <div class="week-strip" id="weekStrip"></div>
+    </div>
+
+    <aside class="panel" id="panel"></aside>
+  </div>
+
+  <!-- VIEW: TABEL (ringkas, hanya untuk mencoba toggle) -->
+  <div id="tableView" class="table-wrap hidden">
+    <table>
+      <thead><tr><th>#</th><th>Tanggal</th><th>Judul Konten</th><th>Format</th><th>Platform</th><th>Status Alur</th></tr></thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </div>
+
+</div>
+
+<script>
+/* ── DATA TIRUAN ─────────────────────────────────────────
+   Baris 2–12 Nov meniru screenshot dashboard 5 Nov; sisanya dari RENCANA_KONTEN_NOVEMBER_2026.md.
+   tanggal_asal di Ikan Asin hanya contoh untuk memperlihatkan penanda "digeser". */
+const DATA = [
+  {t:'2026-11-02', j:'Jangan Simpan Sisa Antibiotik', f:'Reels', p:'Instagram, Facebook, TikTok', s:'Posted', c:'K-JPR-2026-11-001'},
+  {t:'2026-11-03', j:'Kenali Modus Kosmetik Ilegal: Krim Tanpa Label', f:'Reels', p:'Instagram, Facebook, TikTok', s:'Posted', c:'K-JPR-2026-11-002'},
+  {t:'2026-11-03', j:'Sosialisasi Keamanan Pangan', f:'Carousel', p:'Instagram, Facebook', s:'Posted', c:''},
+  {t:'2026-11-04', j:'Penjelasan BPOM - Ikan Asin', f:'Reels', p:'Instagram, Facebook, TikTok', s:'Posted', c:'K-JPR-2026-11-M03', asal:'2026-11-09'},
+  {t:'2026-11-05', j:'Penjelasan BPOM - Stevia', f:'Reels', p:'Instagram, Facebook, TikTok', s:'Posted', c:''},
+  {t:'2026-11-06', j:'Simpan Obat Dengan Benar', f:'Carousel', p:'Instagram, Facebook, TikTok', s:'Siap posting', c:''},
+  {t:'2026-11-09', j:'Hidrokuinon', f:'Reels', p:'Instagram, Facebook, TikTok', s:'Siap posting', c:'K-JPR-2026-11-M02'},
+  {t:'2026-11-10', j:'Hari Pahlawan: Pahlawan Masa Kini Dimulai dari Rumah', f:'Single Post', p:'Instagram, Facebook', s:'Naskah selesai', c:'K-JPR-2026-11-003'},
+  {t:'2026-11-10', j:'Cek KLIK', f:'Reels', p:'Instagram, Facebook, TikTok', s:'Siap posting', c:'K-JPR-2026-11-M01'},
+  {t:'2026-11-12', j:'Hari Kesehatan Nasional ke-62: Generasi Sehat dari Pilihan yang Tepat', f:'Single Post', p:'Instagram, Facebook', s:'Naskah selesai', c:'K-JPR-2026-11-004'},
+  {t:'2026-11-16', j:'Cuaca Makin Panas, Pangan Makin Cepat Rusak', f:'Carousel', p:'Instagram, Facebook', s:'Naskah selesai', c:'K-JPR-2026-11-005'},
+  {t:'2026-11-18', j:'Antibiotik Bukan Obat Segala Sakit', f:'Carousel', p:'Instagram, Facebook', s:'Naskah selesai', c:'K-JPR-2026-11-006'},
+  {t:'2026-11-20', j:'Sisa Antibiotik Jangan Dibagi', f:'Reels', p:'Instagram, TikTok', s:'Naskah selesai', c:'K-JPR-2026-11-007'},
+  {t:'2026-11-23', j:'Bijak Konsumsi Pangan, Sirkular Ekonomi Tercapai', f:'Infografis', p:'Instagram, Facebook', s:'Naskah selesai', c:'K-JPR-2026-11-008'},
+  {t:'2026-11-25', j:'Cegah Stunting: Ibu Menyusui Butuh Lauk, Bukan Pantangan', f:'Carousel', p:'Instagram, Facebook', s:'Naskah selesai', c:'K-JPR-2026-11-009'},
+  {t:'2026-11-26', j:'BPOM Mobile: Cek Izin Edar sebelum Belanja Natal', f:'Reels', p:'Instagram, TikTok', s:'Naskah selesai', c:'K-JPR-2026-11-010'},
+  {t:'2026-11-27', j:'Integritas Melayani: Tolak Gratifikasi Akhir Tahun', f:'Single Post', p:'Instagram, Facebook', s:'Naskah selesai', c:'K-JPR-2026-11-011'},
+  {t:'2026-11-29', j:'Selamat HUT KORPRI ke-55', f:'Single Post', p:'Instagram, Facebook', s:'Naskah selesai', c:'K-JPR-2026-11-012'},
+  {t:'2026-11-30', j:'Penutup Tema: Lindungi Generasi Mulai Hari Ini', f:'Carousel', p:'Instagram, Facebook', s:'Naskah selesai', c:'K-JPR-2026-11-013'},
+];
+
+/* Hari besar — opsi "ditulis di kode". Rentang pakai 'sampai'. */
+const HARI_BESAR = [
+  {t:'2026-11-10', n:'Hari Pahlawan'},
+  {t:'2026-11-12', n:'Hari Kesehatan Nasional'},
+  {t:'2026-11-18', sampai:'2026-11-24', n:'Pekan Kesadaran Antimikroba (WAAW)'},
+  {t:'2026-11-29', n:'HUT KORPRI'},
+  {t:'2026-12-01', n:'Hari AIDS Sedunia'},
+];
+
+const TODAY = '2026-11-05';
+const BULAN = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+const HARI  = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+const STATUS = {
+  'Draft':          {cls:'Draft',  badge:'badge-draft',  lbl:'Belum Dikerjakan', col:'var(--c-draft)'},
+  'Naskah selesai': {cls:'naskah', badge:'badge-naskah', lbl:'Naskah Selesai',   col:'var(--c-naskah)'},
+  'Desain selesai': {cls:'desain', badge:'badge-desain', lbl:'Desain Selesai',   col:'var(--c-desain)'},
+  'Siap posting':   {cls:'siap',   badge:'badge-siap',   lbl:'Siap Tayang',      col:'var(--c-siap)'},
+  'Posted':         {cls:'posted', badge:'badge-posted', lbl:'Sudah Tayang',     col:'var(--c-posted)'},
+};
+const FMT_CLS = {'Carousel':'fmt-carousel','Reels':'fmt-reels','Infografis':'fmt-infografis','Single Post':'fmt-single'};
+const MAX_CHIPS = 3;
+
+let month = 11, year = 2026, selected = TODAY, view = 'cal';
+
+const $ = id => document.getElementById(id);
+const pad = n => String(n).padStart(2,'0');
+const iso = (y,m,d) => `${y}-${pad(m)}-${pad(d)}`;
+const isOverdue = d => d.t < TODAY && d.s !== 'Posted';
+const stOf = d => isOverdue(d) ? {cls:'overdue', badge:'badge-overdue', lbl:'Terlambat', col:'var(--c-overdue)'} : STATUS[d.s];
+
+function filtered() {
+  const s = $('fStatus').value, f = $('fFormat').value, p = $('fPlat').value, q = $('fSearch').value.trim().toLowerCase();
+  return DATA.filter(d =>
+    (s === 'all' || d.s === s) && (f === 'all' || d.f === f) && (p === 'all' || d.p.includes(p)) &&
+    (!q || d.j.toLowerCase().includes(q) || d.c.toLowerCase().includes(q)));
+}
+function hbOn(dateIso) {
+  return HARI_BESAR.filter(h => h.sampai ? (dateIso >= h.t && dateIso <= h.sampai) : h.t === dateIso);
+}
+
+function renderSummary() {
+  const c = {draft:0,naskah:0,desain:0,siap:0,posted:0,overdue:0};
+  DATA.filter(d => +d.t.slice(5,7) === month).forEach(d => {
+    if (isOverdue(d)) c.overdue++;
+    ({'Draft':'draft','Naskah selesai':'naskah','Desain selesai':'desain','Siap posting':'siap','Posted':'posted'})[d.s] && c[({'Draft':'draft','Naskah selesai':'naskah','Desain selesai':'desain','Siap posting':'siap','Posted':'posted'})[d.s]]++;
+  });
+  for (const k in c) $('c-'+k).textContent = c[k];
+}
+
+function renderCalendar() {
+  $('monthLbl').textContent = `${BULAN[month-1]} ${year}`;
+  const rows = filtered();
+  const first = new Date(year, month-1, 1);
+  const lead = (first.getDay() + 6) % 7;                 // Senin = 0
+  const days = new Date(year, month, 0).getDate();
+  const total = Math.ceil((lead + days) / 7) * 7;
+  const grid = $('grid'); grid.innerHTML = '';
+  const weeks = [];
+
+  for (let i = 0; i < total; i++) {
+    const dt = new Date(year, month-1, 1 - lead + i);
+    const di = iso(dt.getFullYear(), dt.getMonth()+1, dt.getDate());
+    const out = dt.getMonth()+1 !== month;
+    const col = i % 7;
+    const items = rows.filter(r => r.t === di);
+    const ghosts = rows.filter(r => r.asal === di);
+    const hb = hbOn(di);
+    if (!out) { const w = Math.floor(i/7); weeks[w] = (weeks[w]||0) + items.length; }
+
+    const el = document.createElement('div');
+    el.className = 'day' + (out?' out':'') + (di===TODAY?' today':'') + (di<TODAY?' past':'') +
+                   (col>=5?' wkend':'') + (di===selected && !out?' sel':'') + (hb.length && !out?' has-hb':'');
+    let h = '';
+    const range = hb.find(x => x.sampai);
+    if (range && !out) h += `<div class="range-band${di===range.t||col===0?' start':''}${di===range.sampai||col===6?' end':''}" title="${range.n}"></div>`;
+    const single = hb.find(x => !x.sampai) || (range && (di===range.t) ? range : null);
+    h += `<div class="dtop"><span class="dnum">${dt.getDate()}</span>${single && !out ? `<span class="hb" title="${single.n}">${single.n}</span>` : ''}</div>`;
+    if (!out) {
+      items.slice(0, MAX_CHIPS).forEach(r => { h += `<div class="chip ${stOf(r).cls}" title="${r.j} · ${r.f} · ${stOf(r).lbl}"><span class="ct">${r.j}</span></div>`; });
+      if (items.length > MAX_CHIPS) h += `<div class="more">+${items.length-MAX_CHIPS} lagi</div>`;
+      ghosts.forEach(r => { h += `<div class="chip ghost" title="Digeser ke ${fmtShort(r.t)}"><span class="ct">↪ ${r.j}</span></div>`; });
+      h += `<div class="dots">${items.map(r => `<i class="dot" style="background:${stOf(r).col}"></i>`).join('')}</div>`;
+      el.onclick = () => { selected = di; renderCalendar(); renderPanel(); };
+    }
+    el.innerHTML = h;
+    grid.appendChild(el);
+  }
+
+  // pita distribusi per minggu
+  const ws = $('weekStrip');
+  ws.innerHTML = '<span>Sebaran per minggu:</span>' + weeks.map((n,i) =>
+    `<span class="wk${n<=1?' low':''}">Mg ${i+1} <b>${n}</b><span class="wk-bar">${'<i></i>'.repeat(n)}</span></span>`).join('') +
+    `<span style="margin-left:auto">${rows.filter(r=>+r.t.slice(5,7)===month).length} konten · ${emptyWeekdays(rows)} hari kerja tanpa konten</span>`;
+}
+
+function emptyWeekdays(rows) {
+  const days = new Date(year, month, 0).getDate(); let n = 0;
+  for (let d = 1; d <= days; d++) {
+    const dt = new Date(year, month-1, d), wd = dt.getDay();
+    if (wd === 0 || wd === 6) continue;
+    if (!rows.some(r => r.t === iso(year, month, d))) n++;
+  }
+  return n;
+}
+
+function fmtShort(s) { const d = new Date(s+'T00:00'); return `${d.getDate()} ${BULAN[d.getMonth()].slice(0,3)}`; }
+function fmtLong(s)  { const d = new Date(s+'T00:00'); return `${HARI[d.getDay()]}, ${d.getDate()} ${BULAN[d.getMonth()]} ${d.getFullYear()}`; }
+function platChips(p) {
+  return p.split(',').map(x => x.trim()).map(x => `<span class="plat-chip ${x==='Instagram'?'ig':x==='TikTok'?'tt':'fb'}">${x}</span>`).join('');
+}
+
+function renderPanel() {
+  const pnl = $('panel');
+  if (+selected.slice(5,7) !== month) { pnl.innerHTML = `<div class="empty"><div class="big">📅</div>Klik tanggal untuk lihat detail konten.</div>`; return; }
+  const items = filtered().filter(r => r.t === selected);
+  const ghosts = filtered().filter(r => r.asal === selected);
+  const hb = hbOn(selected);
+  const rel = selected === TODAY ? 'Hari ini' : selected < TODAY ? 'Sudah lewat' : `${Math.round((new Date(selected) - new Date(TODAY))/864e5)} hari lagi`;
+  let h = `<div class="panel-head"><div class="panel-date">${fmtLong(selected)}</div>
+           <div class="panel-sub">${rel} · ${items.length} konten</div>
+           ${hb.map(x => `<div class="panel-hb">🚩 ${x.n}</div>`).join('')}</div><div class="panel-body">`;
+  if (!items.length) {
+    h += `<div class="empty"><div class="big">🗓️</div>Belum ada konten di tanggal ini.<br><br>
+          <button class="btn btn-primary btn-sm" onclick="fakeAdd('${selected}')">＋ Tambah konten di tanggal ini</button></div>`;
+  }
+  items.forEach(r => {
+    const st = stOf(r);
+    h += `<div class="item">
+      <div><div class="item-title">${r.j}</div>${r.c ? `<div class="item-code">${r.c}</div>` : ''}</div>
+      <div class="item-row"><span class="badge ${st.badge}">${st.lbl}</span><span class="fmt-badge ${FMT_CLS[r.f]||''}">${r.f==='Reels'?'Reels/TikTok':r.f}</span></div>
+      <div class="item-row">${platChips(r.p)}</div>
+      ${r.asal ? `<div class="item-moved">↩ Asal: ${fmtShort(r.asal)}</div>` : ''}
+      <div class="item-actions">
+        <button class="btn btn-primary btn-sm">Edit</button>
+        ${r.c ? '<button class="btn btn-ghost btn-sm">📁 Buka Folder</button>' : ''}
+        <button class="btn btn-ghost btn-sm">⇄ Geser</button>
+      </div></div>`;
+  });
+  ghosts.forEach(r => {
+    h += `<div class="item" style="opacity:.7"><div class="item-title" style="font-style:italic">↪ ${r.j}</div>
+          <div class="item-moved" style="color:var(--muted)">Semula dijadwalkan di sini, digeser ke ${fmtShort(r.t)}</div></div>`;
+  });
+  if (items.length) h += `<div style="padding-top:10px"><button class="btn btn-ghost btn-sm" onclick="fakeAdd('${selected}')">＋ Tambah konten lain di tanggal ini</button></div>`;
+  pnl.innerHTML = h + '</div>';
+}
+
+function renderTable() {
+  const rows = filtered().filter(r => +r.t.slice(5,7) === month);
+  $('tbody').innerHTML = rows.map((r,i) => `<tr><td style="color:var(--muted)">${i+1}</td><td>${fmtShort(r.t)}</td>
+    <td style="font-weight:600">${r.j}</td><td><span class="fmt-badge ${FMT_CLS[r.f]||''}">${r.f}</span></td>
+    <td>${platChips(r.p)}</td><td><span class="badge ${stOf(r).badge}">${stOf(r).lbl}</span></td></tr>`).join('') ||
+    '<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:40px">Tidak ada konten.</td></tr>';
+}
+
+function render() {
+  renderSummary();
+  if (view === 'cal') { renderCalendar(); renderPanel(); } else renderTable();
+}
+
+function setMonth(m) {
+  if (m < 10) m = 10; if (m > 12) m = 12;   // mockup: Okt–Des saja
+  month = m; $('fMonth').value = String(m);
+  if (+selected.slice(5,7) !== m) selected = m === 11 ? TODAY : iso(year, m, 1);
+  render();
+}
+function setView(v) {
+  view = v;
+  $('vCal').classList.toggle('active', v==='cal'); $('vTable').classList.toggle('active', v==='table');
+  $('calView').classList.toggle('hidden', v!=='cal'); $('tableView').classList.toggle('hidden', v!=='table');
+  render();
+}
+function fakeAdd(d) { alert('Mockup: di versi asli, modal Tambah Konten terbuka' + (d ? ` dengan tanggal ${fmtLong(d)} sudah terisi.` : '.')); }
+
+$('prev').onclick = () => setMonth(month-1);
+$('next').onclick = () => setMonth(month+1);
+$('todayBtn').onclick = () => { selected = TODAY; setMonth(11); };
+$('fMonth').onchange = e => setMonth(+e.target.value);
+['fStatus','fFormat','fPlat'].forEach(id => $(id).onchange = render);
+$('fSearch').oninput = render;
+$('vCal').onclick = () => setView('cal');
+$('vTable').onclick = () => setView('table');
+render();
+</script>
+</body>
+</html>

@@ -377,6 +377,104 @@
     .progress-bar { width: 100%; height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; margin-top: 8px; }
     .progress-fill { height: 100%; border-radius: 2px; transition: width .5s ease; }
 
+    /* ── VIEW TOGGLE (Tabel / Kalender) ─────────────────── */
+    .view-toggle { display: inline-flex; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 2px; }
+    .view-toggle button {
+      border: none; background: transparent; padding: 5px 12px; border-radius: 6px;
+      font-size: .78rem; font-weight: 600; color: var(--muted); cursor: pointer;
+    }
+    .view-toggle button.active { background: var(--surface); color: var(--accent); box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+
+    /* ── KALENDER BULANAN ───────────────────────────────── */
+    .cal-layout { display: grid; grid-template-columns: minmax(0,1fr) 320px; gap: 16px; align-items: start; }
+    .cal-box { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+    .cal-head { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; border-bottom: 1px solid var(--border); gap: 12px; flex-wrap: wrap; }
+    .cal-nav { display: flex; align-items: center; gap: 8px; }
+    .cal-month { font-size: 1.05rem; font-weight: 700; min-width: 150px; text-align: center; }
+    .cal-nav-btn { width: 30px; height: 30px; border: 1px solid var(--border); background: var(--surface); border-radius: 8px; cursor: pointer; font-size: 14px; color: var(--muted); }
+    .cal-nav-btn:hover:not(:disabled) { background: var(--bg); color: var(--text); }
+    .cal-nav-btn:disabled { opacity: .35; cursor: not-allowed; }
+    .cal-legend { display: flex; flex-wrap: wrap; gap: 12px; font-size: .72rem; color: var(--muted); }
+    .cal-legend span { display: inline-flex; align-items: center; gap: 5px; }
+    .lg-dot { width: 9px; height: 9px; border-radius: 3px; display: inline-block; }
+
+    .cal-dow { display: grid; grid-template-columns: repeat(7,minmax(0,1fr)); background: var(--bg); border-bottom: 1px solid var(--border); }
+    .cal-dow div { padding: 8px 10px; font-size: .68rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; }
+    .cal-dow div.wkend { color: #b45309; }
+    .cal-grid { display: grid; grid-template-columns: repeat(7,minmax(0,1fr)); }
+    .cal-day { min-height: 112px; border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 6px 6px 8px; display: flex; flex-direction: column; gap: 3px; cursor: pointer; transition: background .12s; }
+    .cal-day:nth-child(7n) { border-right: none; }
+    .cal-day:hover { background: #fafbff; }
+    .cal-day.out { background: #fbfbfd; cursor: default; }
+    .cal-day.out .cal-dnum { color: #c4c8d2; }
+    .cal-day.past:not(.out) { background: #fcfcfd; }
+    .cal-day.past .cal-chip { opacity: .7; }
+    .cal-day.sel { background: var(--accent-lt); }
+    .cal-day.wkend:not(.out) .cal-dnum { color: #b45309; }
+    .cal-dtop { display: flex; align-items: center; justify-content: space-between; gap: 4px; min-height: 22px; }
+    .cal-dnum { font-size: .8rem; font-weight: 700; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border-radius: 50%; }
+    .cal-day.today .cal-dnum { background: var(--accent); color: #fff; }
+    .cal-hb { font-size: .62rem; font-weight: 700; color: #b91c1c; background: #fef2f2; border-radius: 4px; padding: 1px 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 75%; }
+    .cal-band { height: 4px; background: #fca5a5; margin: 0 -6px 2px; }
+    .cal-band.start { margin-left: 0; border-radius: 2px 0 0 2px; }
+    .cal-band.end { margin-right: 0; border-radius: 0 2px 2px 0; }
+    .cal-chip { font-size: .7rem; font-weight: 600; line-height: 1.25; padding: 3px 6px 3px 7px; border-radius: 5px; border-left: 3px solid; }
+    .cal-chip .ct { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; word-break: break-word; }
+    .cal-chip.st-draft   { background: #f3f4f6; color: #374151; border-color: var(--c-draft); }
+    .cal-chip.st-naskah  { background: #e0f2fe; color: #075985; border-color: var(--c-naskah); }
+    .cal-chip.st-desain  { background: #ede9fe; color: #5b21b6; border-color: var(--c-desain); }
+    .cal-chip.st-siap    { background: #fef3c7; color: #92400e; border-color: var(--c-siap); }
+    .cal-chip.st-posted  { background: #d1fae5; color: #065f46; border-color: var(--c-posted); }
+    .cal-chip.st-overdue { background: #fee2e2; color: #991b1b; border-color: var(--c-overdue); }
+    .cal-chip.ghost { background: transparent; color: var(--muted); border: 1px dashed #cbd2e1; border-left: 3px dashed #cbd2e1; font-weight: 500; font-style: italic; }
+    .cal-more { font-size: .68rem; color: var(--accent); font-weight: 600; padding-left: 4px; }
+    .cal-dots { display: none; gap: 3px; flex-wrap: wrap; justify-content: center; margin-top: 2px; }
+    .cal-dot { width: 7px; height: 7px; border-radius: 50%; }
+
+    .cal-weeks { display: flex; gap: 8px; padding: 12px 16px; border-top: 1px solid var(--border); font-size: .72rem; color: var(--muted); flex-wrap: wrap; align-items: center; }
+    .cal-wk { display: flex; align-items: center; gap: 6px; background: var(--bg); border-radius: 6px; padding: 4px 8px; }
+    .cal-wk b { color: var(--text); }
+    .cal-wk-bar { display: flex; gap: 2px; }
+    .cal-wk-bar i { width: 6px; height: 12px; border-radius: 2px; background: #c7d2fe; display: block; }
+    .cal-wk.low { background: #fff7ed; color: #9a3412; }
+    .cal-total { margin-left: auto; }
+
+    .cal-panel { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; position: sticky; top: 76px; }
+    .cal-panel-head { padding: 14px 16px; border-bottom: 1px solid var(--border); }
+    .cal-panel-date { font-size: 1rem; font-weight: 700; }
+    .cal-panel-sub { font-size: .74rem; color: var(--muted); margin-top: 2px; }
+    .cal-panel-hb { margin-top: 8px; font-size: .72rem; font-weight: 600; color: #b91c1c; background: #fef2f2; border-radius: 6px; padding: 5px 8px; }
+    .cal-panel-body { padding: 6px 16px 14px; }
+    .cal-item { padding: 12px 0; border-bottom: 1px solid var(--border); display: flex; flex-direction: column; gap: 7px; }
+    .cal-item:last-child { border-bottom: none; }
+    .cal-item-title { font-weight: 600; font-size: .86rem; line-height: 1.35; }
+    .cal-item-note { font-size: .72rem; color: var(--muted); line-height: 1.4; }
+    .cal-item-row { display: flex; flex-wrap: wrap; gap: 5px; align-items: center; }
+    .cal-item-moved { font-size: .7rem; color: var(--c-overdue); }
+    .cal-item-actions { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 2px; }
+    .cal-empty { text-align: center; padding: 28px 8px 18px; color: var(--muted); font-size: .82rem; line-height: 1.5; }
+    .cal-empty .big { font-size: 28px; margin-bottom: 6px; }
+
+    @media (max-width: 1100px) { .cal-layout { grid-template-columns: 1fr; } .cal-panel { position: static; } }
+    @media (max-width: 640px) {
+      .toolbar-actions { width: 100%; flex-wrap: wrap; }
+      .toolbar-actions .btn { flex: 1; justify-content: center; }
+      .view-toggle { width: 100%; }
+      .view-toggle button { flex: 1; }
+      input[type="text"] { min-width: 0; width: 100%; }
+      .cal-head { padding: 12px; }
+      .cal-month { min-width: 0; font-size: .95rem; }
+      .cal-legend { display: none; }
+      .cal-dow div { padding: 6px 0; text-align: center; font-size: .62rem; }
+      .cal-day { min-height: 54px; padding: 4px 2px; align-items: center; }
+      .cal-dtop { justify-content: center; }
+      .cal-hb, .cal-chip, .cal-more, .cal-band { display: none; }
+      .cal-dots { display: flex; }
+      .cal-day.has-hb .cal-dnum { box-shadow: inset 0 -2px 0 #ef4444; border-radius: 4px; }
+      .cal-day.today .cal-dnum { box-shadow: none; border-radius: 50%; }
+      .cal-total { margin-left: 0; }
+    }
+
     /* ── LOGIN GATE ─────────────────────────────────────── */
     .login-overlay {
       position: fixed; inset: 0; z-index: 500;
@@ -517,13 +615,44 @@
       <input type="text" id="searchBox" placeholder="🔍  Cari judul atau catatan…">
     </div>
     <div class="toolbar-actions">
+      <div class="view-toggle" role="group" aria-label="Pilih tampilan">
+        <button type="button" id="viewTableBtn" onclick="setView('table')">☰ Tabel</button>
+        <button type="button" id="viewCalBtn" onclick="setView('cal')">📅 Kalender</button>
+      </div>
       <button class="btn btn-ghost" onclick="loadData()">↻ Perbarui</button>
       <button class="btn btn-primary" onclick="openAddModal()">＋ Tambah Konten</button>
     </div>
   </div>
 
+  <!-- KALENDER BULANAN -->
+  <div class="cal-layout" id="calView" style="display:none">
+    <div class="cal-box">
+      <div class="cal-head">
+        <div class="cal-nav">
+          <button class="cal-nav-btn" id="calPrev" onclick="shiftMonth(-1)" aria-label="Bulan sebelumnya">‹</button>
+          <div class="cal-month" id="calMonthLbl"></div>
+          <button class="cal-nav-btn" id="calNext" onclick="shiftMonth(1)" aria-label="Bulan berikutnya">›</button>
+          <button class="btn btn-ghost btn-sm" onclick="goToday()">Hari ini</button>
+        </div>
+        <div class="cal-legend">
+          <span><i class="lg-dot" style="background:var(--c-draft)"></i>Belum</span>
+          <span><i class="lg-dot" style="background:var(--c-naskah)"></i>Naskah</span>
+          <span><i class="lg-dot" style="background:var(--c-desain)"></i>Desain</span>
+          <span><i class="lg-dot" style="background:var(--c-siap)"></i>Siap tayang</span>
+          <span><i class="lg-dot" style="background:var(--c-posted)"></i>Sudah tayang</span>
+          <span><i class="lg-dot" style="background:var(--c-overdue)"></i>Terlambat</span>
+          <span><i class="lg-dot" style="border:1px dashed #9ca3af"></i>Tanggal asal (digeser)</span>
+        </div>
+      </div>
+      <div class="cal-dow"><div>Sen</div><div>Sel</div><div>Rab</div><div>Kam</div><div>Jum</div><div class="wkend">Sab</div><div class="wkend">Min</div></div>
+      <div class="cal-grid" id="calGrid"></div>
+      <div class="cal-weeks" id="calWeeks"></div>
+    </div>
+    <aside class="cal-panel" id="calPanel"></aside>
+  </div>
+
   <!-- TABLE -->
-  <div class="table-wrap">
+  <div class="table-wrap" id="tableView">
     <table>
       <thead>
         <tr>
@@ -762,7 +891,12 @@ async function atFetch(path = '', method = 'GET', body = null) {
 }
 // ─────────────────────────────────────────────────────────
 
-const today = new Date().toISOString().split('T')[0];
+// Tanggal hari ini menurut jam lokal perangkat (WIT di Jayapura).
+// toISOString() memakai UTC, jadi sebelum pukul 09.00 WIT ia masih menunjuk ke kemarin.
+const today = (() => {
+  const n = new Date();
+  return `${n.getFullYear()}-${String(n.getMonth() + 1).padStart(2, '0')}-${String(n.getDate()).padStart(2, '0')}`;
+})();
 let allData = [];
 let editingRecId    = null;
 let rescheduleRecId = null;
@@ -802,7 +936,24 @@ async function loadData() {
   }
 }
 
-function render() { renderSummary(); renderTable(); }
+function render() {
+  renderSummary();
+  if (currentView === 'cal') renderCalendar(); else renderTable();
+}
+
+// Filter status/format/platform/pencarian — dipakai bersama oleh tabel dan kalender.
+function matchesFilters(d) {
+  const status   = document.getElementById('filterStatus').value;
+  const format   = document.getElementById('filterFormat').value;
+  const platform = document.getElementById('filterPlatform').value;
+  const search   = document.getElementById('searchBox').value.toLowerCase();
+  if (status   !== 'all' && d.status !== status)                return false;
+  if (format   !== 'all' && !d.format.includes(format))         return false;
+  if (platform !== 'all' && !d.platform.includes(platform))     return false;
+  if (search   && !d.judul.toLowerCase().includes(search)
+               && !d.catatan.toLowerCase().includes(search))     return false;
+  return true;
+}
 
 function inSelectedMonth(d) {
   const month = document.getElementById('filterMonth').value;
@@ -824,20 +975,7 @@ function renderSummary() {
 }
 
 function renderTable() {
-  const status   = document.getElementById('filterStatus').value;
-  const format   = document.getElementById('filterFormat').value;
-  const platform = document.getElementById('filterPlatform').value;
-  const search   = document.getElementById('searchBox').value.toLowerCase();
-
-  const filtered = allData.filter(d => {
-    if (!inSelectedMonth(d))                                       return false;
-    if (status   !== 'all' && d.status !== status)                return false;
-    if (format   !== 'all' && !d.format.includes(format))         return false;
-    if (platform !== 'all' && !d.platform.includes(platform))     return false;
-    if (search   && !d.judul.toLowerCase().includes(search)
-                 && !d.catatan.toLowerCase().includes(search))     return false;
-    return true;
-  });
+  const filtered = allData.filter(d => inSelectedMonth(d) && matchesFilters(d));
 
   const tbody = document.getElementById('tableBody');
   if (!filtered.length) {
@@ -971,10 +1109,10 @@ function showToast(msg, type = 'success') {
 }
 
 // ── MODAL ADD/EDIT ────────────────────────────────────────
-function openAddModal() {
+function openAddModal(date = '') {
   editingRecId = null;
   document.getElementById('modalTitle').textContent  = 'Tambah Konten Baru';
-  document.getElementById('inputDate').value         = '';
+  document.getElementById('inputDate').value         = date;
   document.getElementById('inputTitle').value        = '';
   document.getElementById('inputFormat').value       = 'Carousel';
   document.getElementById('inputPlatform').value     = '';
@@ -1092,15 +1230,256 @@ async function confirmReschedule() {
   }
 }
 
+// ── KALENDER BULANAN ──────────────────────────────────────
+// Tahun dashboard. Pilihan filter bulan hanya berisi angka bulan, jadi tahunnya tetap di sini.
+const DASH_YEAR = 2026;
+
+// Hari besar/peringatan yang ditandai di kalender. Diisi manual; tambahkan baris baru di sini.
+// Untuk rentang (mis. pekan peringatan) isi juga `sampai`.
+const HARI_BESAR = [
+  { t: '2026-05-02', n: 'Hari Pendidikan Nasional' },
+  { t: '2026-05-20', n: 'Hari Kebangkitan Nasional' },
+  { t: '2026-05-31', n: 'Hari Tanpa Tembakau Sedunia' },
+  { t: '2026-06-01', n: 'Hari Lahir Pancasila' },
+  { t: '2026-06-05', n: 'Hari Lingkungan Hidup Sedunia' },
+  { t: '2026-06-07', n: 'Hari Keamanan Pangan Sedunia' },
+  { t: '2026-06-26', n: 'Hari Anti Narkotika Internasional' },
+  { t: '2026-06-29', n: 'Hari Keluarga Nasional' },
+  { t: '2026-07-23', n: 'Hari Anak Nasional' },
+  { t: '2026-08-17', n: 'HUT Kemerdekaan RI' },
+  { t: '2026-09-04', n: 'Hari Pelanggan Nasional' },
+  { t: '2026-09-17', n: 'Hari Keselamatan Pasien Sedunia' },
+  { t: '2026-09-25', n: 'Hari Apoteker Sedunia' },
+  { t: '2026-10-01', n: 'Hari Kesaktian Pancasila' },
+  { t: '2026-10-05', n: 'Hari TNI' },
+  { t: '2026-10-16', n: 'Hari Pangan Sedunia' },
+  { t: '2026-10-28', n: 'Hari Sumpah Pemuda' },
+  { t: '2026-11-10', n: 'Hari Pahlawan' },
+  { t: '2026-11-12', n: 'Hari Kesehatan Nasional' },
+  { t: '2026-11-18', sampai: '2026-11-24', n: 'Pekan Kesadaran Antimikroba Sedunia' },
+  { t: '2026-11-29', n: 'HUT KORPRI' },
+  { t: '2026-12-01', n: 'Hari AIDS Sedunia' },
+  { t: '2026-12-09', n: 'Hari Antikorupsi Sedunia' },
+  { t: '2026-12-22', n: 'Hari Ibu' },
+  { t: '2026-12-25', n: 'Hari Natal' },
+];
+
+const NAMA_BULAN = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+const NAMA_HARI  = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+const CAL_MAX_CHIPS = 3;
+
+let currentView  = 'table';
+let selectedDate = null;
+try { if (localStorage.getItem('dashboard_view') === 'cal') currentView = 'cal'; } catch (e) {}
+
+function esc(s) {
+  return String(s ?? '').replace(/[&<>"']/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c]));
+}
+function isoDate(y, m, d) { return `${y}-${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')}`; }
+function isOverdue(d) { return d.status !== 'Posted' && d.tanggal && d.tanggal < today; }
+function statusKey(d) {
+  if (isOverdue(d)) return 'overdue';
+  return { 'Draft':'draft', 'Naskah selesai':'naskah', 'Desain selesai':'desain', 'Siap posting':'siap', 'Posted':'posted' }[d.status] || 'draft';
+}
+function hariBesarOn(dateIso) {
+  return HARI_BESAR.filter(h => h.sampai ? (dateIso >= h.t && dateIso <= h.sampai) : h.t === dateIso);
+}
+function monthOptions() {
+  return [...document.getElementById('filterMonth').options].map(o => o.value).filter(v => v !== 'all');
+}
+
+// Bulan yang tampil di kalender. Kalender butuh satu bulan pasti, jadi "Semua Bulan"
+// diganti ke bulan berjalan (atau bulan pertama di daftar).
+function calMonth() {
+  const sel  = document.getElementById('filterMonth');
+  const opts = monthOptions();
+  if (sel.value === 'all') {
+    const now = String(new Date().getMonth() + 1);
+    sel.value = opts.includes(now) ? now : opts[0];
+  }
+  return +sel.value;
+}
+
+function setView(view) {
+  currentView = view;
+  try { localStorage.setItem('dashboard_view', view); } catch (e) {}
+  document.getElementById('viewTableBtn').classList.toggle('active', view === 'table');
+  document.getElementById('viewCalBtn').classList.toggle('active', view === 'cal');
+  document.getElementById('tableView').style.display = view === 'table' ? '' : 'none';
+  document.getElementById('calView').style.display   = view === 'cal' ? '' : 'none';
+  render();
+}
+
+function shiftMonth(step) {
+  const opts = monthOptions();
+  const i = opts.indexOf(String(calMonth())) + step;
+  if (i < 0 || i >= opts.length) return;
+  document.getElementById('filterMonth').value = opts[i];
+  selectedDate = null;
+  render();
+}
+
+function goToday() {
+  const now = String(new Date().getMonth() + 1);
+  if (monthOptions().includes(now) && new Date().getFullYear() === DASH_YEAR) {
+    document.getElementById('filterMonth').value = now;
+    selectedDate = today;
+    render();
+  } else {
+    showToast('Bulan ini tidak ada di daftar dashboard.', 'error');
+  }
+}
+
+function selectDate(dateIso) {
+  selectedDate = dateIso;
+  renderCalendar();
+  if (window.matchMedia('(max-width: 1100px)').matches) {
+    document.getElementById('calPanel').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
+function renderCalendar() {
+  const month = calMonth();
+  const opts  = monthOptions();
+  document.getElementById('calMonthLbl').textContent = `${NAMA_BULAN[month - 1]} ${DASH_YEAR}`;
+  document.getElementById('calPrev').disabled = opts.indexOf(String(month)) <= 0;
+  document.getElementById('calNext').disabled = opts.indexOf(String(month)) >= opts.length - 1;
+
+  if (!selectedDate || +selectedDate.slice(5, 7) !== month) {
+    selectedDate = (+today.slice(5, 7) === month && +today.slice(0, 4) === DASH_YEAR) ? today : null;
+  }
+
+  const rows  = allData.filter(matchesFilters);
+  const lead  = (new Date(DASH_YEAR, month - 1, 1).getDay() + 6) % 7;   // Senin = kolom 0
+  const days  = new Date(DASH_YEAR, month, 0).getDate();
+  const total = Math.ceil((lead + days) / 7) * 7;
+  const weeks = [];
+  let html = '';
+
+  for (let i = 0; i < total; i++) {
+    const dt  = new Date(DASH_YEAR, month - 1, 1 - lead + i);
+    const di  = isoDate(dt.getFullYear(), dt.getMonth() + 1, dt.getDate());
+    const out = dt.getMonth() + 1 !== month;
+    const col = i % 7;
+    const w   = Math.floor(i / 7);
+    const items  = out ? [] : rows.filter(r => r.tanggal === di);
+    const ghosts = out ? [] : rows.filter(r => r.tanggal_asal === di && r.tanggal !== di);
+    const hb     = out ? [] : hariBesarOn(di);
+
+    if (!weeks[w]) weeks[w] = { n: 0, workdays: 0 };
+    if (!out) { weeks[w].n += items.length; if (col < 5) weeks[w].workdays++; }
+
+    const cls = ['cal-day'];
+    if (out) cls.push('out');
+    if (di === today) cls.push('today');
+    if (di < today) cls.push('past');
+    if (col >= 5) cls.push('wkend');
+    if (di === selectedDate) cls.push('sel');
+    if (hb.length) cls.push('has-hb');
+
+    let inner = '';
+    const range = hb.find(h => h.sampai);
+    if (range) {
+      inner += `<div class="cal-band${di === range.t || col === 0 ? ' start' : ''}${di === range.sampai || col === 6 ? ' end' : ''}" title="${esc(range.n)}"></div>`;
+    }
+    const label = hb.find(h => !h.sampai) || (range && di === range.t ? range : null);
+    inner += `<div class="cal-dtop"><span class="cal-dnum">${dt.getDate()}</span>${label ? `<span class="cal-hb" title="${esc(label.n)}">${esc(label.n)}</span>` : ''}</div>`;
+    items.slice(0, CAL_MAX_CHIPS).forEach(r => {
+      const st = statusKey(r);
+      inner += `<div class="cal-chip st-${st}" title="${esc(r.judul)} · ${esc(r.format)} · ${st === 'overdue' ? 'Terlambat' : esc(statusLabel(r.status))}"><span class="ct">${esc(r.judul)}</span></div>`;
+    });
+    if (items.length > CAL_MAX_CHIPS) inner += `<div class="cal-more">+${items.length - CAL_MAX_CHIPS} lagi</div>`;
+    ghosts.forEach(r => {
+      inner += `<div class="cal-chip ghost" title="Digeser ke ${esc(fmtDateShort(r.tanggal))}"><span class="ct">↪ ${esc(r.judul)}</span></div>`;
+    });
+    inner += `<div class="cal-dots">${items.map(r => `<i class="cal-dot" style="background:var(--c-${statusKey(r)})"></i>`).join('')}</div>`;
+
+    html += `<div class="${cls.join(' ')}"${out ? '' : ` onclick="selectDate('${di}')"`}>${inner}</div>`;
+  }
+  document.getElementById('calGrid').innerHTML = html;
+
+  // Sebaran per minggu + hari kerja kosong
+  let emptyWorkdays = 0;
+  for (let d = 1; d <= days; d++) {
+    const wd = new Date(DASH_YEAR, month - 1, d).getDay();
+    if (wd !== 0 && wd !== 6 && !rows.some(r => r.tanggal === isoDate(DASH_YEAR, month, d))) emptyWorkdays++;
+  }
+  const monthCount = rows.filter(r => r.tanggal && +r.tanggal.slice(5, 7) === month && +r.tanggal.slice(0, 4) === DASH_YEAR).length;
+  document.getElementById('calWeeks').innerHTML =
+    '<span>Sebaran per minggu:</span>' +
+    weeks.map((wk, i) => `<span class="cal-wk${wk.workdays >= 3 && wk.n <= 1 ? ' low' : ''}">Mg ${i + 1} <b>${wk.n}</b><span class="cal-wk-bar">${'<i></i>'.repeat(wk.n)}</span></span>`).join('') +
+    `<span class="cal-total">${monthCount} konten · ${emptyWorkdays} hari kerja tanpa konten</span>`;
+
+  renderCalPanel(rows);
+}
+
+function renderCalPanel(rows) {
+  const panel = document.getElementById('calPanel');
+  if (!selectedDate) {
+    panel.innerHTML = '<div class="cal-empty"><div class="big">📅</div>Klik tanggal untuk melihat konten hari itu.</div>';
+    return;
+  }
+  const items  = rows.filter(r => r.tanggal === selectedDate);
+  const ghosts = rows.filter(r => r.tanggal_asal === selectedDate && r.tanggal !== selectedDate);
+  const hb     = hariBesarOn(selectedDate);
+  const dt     = new Date(selectedDate + 'T00:00:00');
+  const diff   = Math.round((dt - new Date(today + 'T00:00:00')) / 864e5);
+  const rel    = diff === 0 ? 'Hari ini' : diff < 0 ? `${-diff} hari lalu` : `${diff} hari lagi`;
+
+  let h = `<div class="cal-panel-head">
+      <div class="cal-panel-date">${NAMA_HARI[dt.getDay()]}, ${dt.getDate()} ${NAMA_BULAN[dt.getMonth()]} ${dt.getFullYear()}</div>
+      <div class="cal-panel-sub">${rel} · ${items.length} konten</div>
+      ${hb.map(x => `<div class="cal-panel-hb">🚩 ${esc(x.n)}</div>`).join('')}
+    </div><div class="cal-panel-body">`;
+
+  if (!items.length) {
+    h += `<div class="cal-empty"><div class="big">🗓️</div>Belum ada konten di tanggal ini.<br><br>
+          <button class="btn btn-primary btn-sm" onclick="openAddModal('${selectedDate}')">＋ Tambah konten di tanggal ini</button></div>`;
+  }
+  items.forEach(r => {
+    const ov = isOverdue(r);
+    const platforms = r.platform.split(',').map(p => p.trim()).filter(Boolean).map(p => {
+      const cls = p.toLowerCase().includes('instagram') ? 'ig' : p.toLowerCase().includes('tiktok') ? 'tt' : p.toLowerCase().includes('facebook') ? 'fb' : '';
+      return `<span class="plat-chip ${cls}">${esc(p)}</span>`;
+    }).join('');
+    h += `<div class="cal-item">
+        <div class="cal-item-title">${esc(r.judul)}</div>
+        ${r.catatan ? `<div class="cal-item-note">${esc(r.catatan)}</div>` : ''}
+        <div class="cal-item-row">
+          ${ov ? '<span class="badge badge-overdue">Terlambat</span>' : `<span class="badge ${badgeClass(r.status)}">${esc(statusLabel(r.status))}</span>`}
+          ${r.format ? `<span class="fmt-badge ${fmtBadgeClass(r.format)}">${esc(r.format)}</span>` : ''}
+        </div>
+        ${platforms ? `<div class="cal-item-row">${platforms}</div>` : ''}
+        ${r.tanggal_asal && r.tanggal_asal !== r.tanggal ? `<div class="cal-item-moved">↩ Asal: ${esc(fmtDateShort(r.tanggal_asal))}</div>` : ''}
+        <div class="cal-item-actions">
+          <button class="btn btn-primary btn-sm" onclick="openEditModal('${r.recId}')">Edit</button>
+          ${r.drive_folder ? `<a href="${esc(r.drive_folder)}" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">📂 Buka Folder</a>` : ''}
+          ${r.status !== 'Posted' ? `<button class="btn btn-ghost btn-sm" onclick="openReschedule('${r.recId}')">📅 Geser</button>` : ''}
+        </div>
+      </div>`;
+  });
+  ghosts.forEach(r => {
+    h += `<div class="cal-item" style="opacity:.7">
+        <div class="cal-item-title" style="font-style:italic">↪ ${esc(r.judul)}</div>
+        <div class="cal-item-note">Semula dijadwalkan di sini, digeser ke ${esc(fmtDateShort(r.tanggal))}.</div>
+      </div>`;
+  });
+  if (items.length) {
+    h += `<div style="padding-top:10px"><button class="btn btn-ghost btn-sm" onclick="openAddModal('${selectedDate}')">＋ Tambah konten lain di tanggal ini</button></div>`;
+  }
+  panel.innerHTML = h + '</div>';
+}
+
 // ── EVENTS ────────────────────────────────────────────────
 // Default filter bulan = bulan berjalan (kalau ada di daftar).
 const monthSel = document.getElementById('filterMonth');
 const thisMonth = String(new Date().getMonth() + 1);
 if ([...monthSel.options].some(o => o.value === thisMonth)) monthSel.value = thisMonth;
-monthSel.addEventListener('change', render);
+monthSel.addEventListener('change', () => { selectedDate = null; render(); });
 ['filterStatus','filterFormat','filterPlatform'].forEach(id =>
-  document.getElementById(id).addEventListener('change', renderTable));
-document.getElementById('searchBox').addEventListener('input', renderTable);
+  document.getElementById(id).addEventListener('change', render));
+document.getElementById('searchBox').addEventListener('input', render);
+setView(currentView);
 document.getElementById('modalOverlay').addEventListener('click',
   e => { if (e.target === e.currentTarget) closeModal(); });
 document.getElementById('rescheduleOverlay').addEventListener('click',
