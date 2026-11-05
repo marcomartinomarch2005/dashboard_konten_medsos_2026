@@ -578,16 +578,10 @@
   <!-- TOOLBAR -->
   <div class="toolbar">
     <div class="toolbar-filters">
+      <!-- Diisi otomatis oleh buildMonthOptions(): nilai "YYYY-MM", dari bulan
+           data paling awal sampai 2 bulan setelah bulan berjalan. -->
       <select id="filterMonth">
         <option value="all">Semua Bulan</option>
-        <option value="5">Mei 2026</option>
-        <option value="6">Juni 2026</option>
-        <option value="7">Juli 2026</option>
-        <option value="8" selected>Agustus 2026</option>
-        <option value="9">September 2026</option>
-        <option value="10">Oktober 2026</option>
-        <option value="11">November 2026</option>
-        <option value="12">Desember 2026</option>
       </select>
       <select id="filterStatus">
         <option value="all">Semua Status</option>
@@ -926,6 +920,7 @@ async function loadData() {
       offset     = json.offset || '';
     } while (offset);
     allData = records.map(toRow);
+    buildMonthOptions();
     render();
     setSyncStatus('ok', 'Tersinkron · ' + new Date().toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'}));
   } catch (e) {
@@ -953,9 +948,10 @@ function matchesFilters(d) {
   return true;
 }
 
+// Filter bulan memakai nilai "YYYY-MM", jadi November 2026 dan November 2027 terpisah.
 function inSelectedMonth(d) {
-  const month = document.getElementById('filterMonth').value;
-  return month === 'all' || new Date(d.tanggal + 'T00:00:00').getMonth() + 1 === +month;
+  const ym = document.getElementById('filterMonth').value;
+  return ym === 'all' || (d.tanggal || '').slice(0, 7) === ym;
 }
 
 function renderSummary() {
@@ -1229,11 +1225,11 @@ async function confirmReschedule() {
 }
 
 // ── KALENDER BULANAN ──────────────────────────────────────
-// Tahun dashboard. Pilihan filter bulan hanya berisi angka bulan, jadi tahunnya tetap di sini.
-const DASH_YEAR = 2026;
-
-// Hari besar/peringatan yang ditandai di kalender. Diisi manual; tambahkan baris baru di sini.
+// Hari besar/peringatan yang ditandai di kalender. Diisi manual per tahun; tambahkan baris di sini.
 // Untuk rentang (mis. pekan peringatan) isi juga `sampai`.
+// Hari besar keagamaan/kalender bulan (Imlek, Isra Mikraj, Nyepi, Idulfitri, Wafat dan Kenaikan
+// Yesus Kristus, Waisak, Iduladha, Tahun Baru Islam, Maulid) sengaja belum dimasukkan untuk 2027:
+// tanggalnya berubah tiap tahun, jadi isi setelah dicek ke SKB libur nasional 2027.
 const HARI_BESAR = [
   { t: '2026-05-02', n: 'Hari Pendidikan Nasional' },
   { t: '2026-05-20', n: 'Hari Kebangkitan Nasional' },
@@ -1260,6 +1256,41 @@ const HARI_BESAR = [
   { t: '2026-12-09', n: 'Hari Antikorupsi Sedunia' },
   { t: '2026-12-22', n: 'Hari Ibu' },
   { t: '2026-12-25', n: 'Hari Natal' },
+
+  // 2027 — tanggal tetap saja
+  { t: '2027-01-01', n: 'Tahun Baru Masehi' },
+  { t: '2027-01-25', n: 'Hari Gizi Nasional' },
+  { t: '2027-02-04', n: 'Hari Kanker Sedunia' },
+  { t: '2027-03-15', n: 'Hari Hak Konsumen Sedunia' },
+  { t: '2027-03-24', n: 'Hari Tuberkulosis Sedunia' },
+  { t: '2027-04-07', n: 'Hari Kesehatan Sedunia' },
+  { t: '2027-04-21', n: 'Hari Kartini' },
+  { t: '2027-05-01', n: 'Hari Buruh Internasional' },
+  { t: '2027-05-02', n: 'Hari Pendidikan Nasional' },
+  { t: '2027-05-20', n: 'Hari Kebangkitan Nasional' },
+  { t: '2027-05-31', n: 'Hari Tanpa Tembakau Sedunia' },
+  { t: '2027-06-01', n: 'Hari Lahir Pancasila' },
+  { t: '2027-06-05', n: 'Hari Lingkungan Hidup Sedunia' },
+  { t: '2027-06-07', n: 'Hari Keamanan Pangan Sedunia' },
+  { t: '2027-06-26', n: 'Hari Anti Narkotika Internasional' },
+  { t: '2027-06-29', n: 'Hari Keluarga Nasional' },
+  { t: '2027-07-23', n: 'Hari Anak Nasional' },
+  { t: '2027-08-17', n: 'HUT Kemerdekaan RI' },
+  { t: '2027-09-04', n: 'Hari Pelanggan Nasional' },
+  { t: '2027-09-17', n: 'Hari Keselamatan Pasien Sedunia' },
+  { t: '2027-09-25', n: 'Hari Apoteker Sedunia' },
+  { t: '2027-10-01', n: 'Hari Kesaktian Pancasila' },
+  { t: '2027-10-05', n: 'Hari TNI' },
+  { t: '2027-10-16', n: 'Hari Pangan Sedunia' },
+  { t: '2027-10-28', n: 'Hari Sumpah Pemuda' },
+  { t: '2027-11-10', n: 'Hari Pahlawan' },
+  { t: '2027-11-12', n: 'Hari Kesehatan Nasional' },
+  { t: '2027-11-18', sampai: '2027-11-24', n: 'Pekan Kesadaran Antimikroba Sedunia' },
+  { t: '2027-11-29', n: 'HUT KORPRI' },
+  { t: '2027-12-01', n: 'Hari AIDS Sedunia' },
+  { t: '2027-12-09', n: 'Hari Antikorupsi Sedunia' },
+  { t: '2027-12-22', n: 'Hari Ibu' },
+  { t: '2027-12-25', n: 'Hari Natal' },
 ];
 
 const NAMA_BULAN = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
@@ -1286,16 +1317,41 @@ function monthOptions() {
   return [...document.getElementById('filterMonth').options].map(o => o.value).filter(v => v !== 'all');
 }
 
-// Bulan yang tampil di kalender. Kalender butuh satu bulan pasti, jadi "Semua Bulan"
-// diganti ke bulan berjalan (atau bulan pertama di daftar).
-function calMonth() {
+const THIS_YM = today.slice(0, 7);
+function addMonths(ym, n) {
+  const idx = (+ym.slice(0, 4)) * 12 + (+ym.slice(5, 7) - 1) + n;
+  return `${Math.floor(idx / 12)}-${String(idx % 12 + 1).padStart(2, '0')}`;
+}
+
+// Isi pilihan filter bulan dari data: bulan paling awal di Sheets sampai bulan terakhir di
+// Sheets atau 2 bulan setelah bulan berjalan (mana yang lebih jauh), tanpa celah. Pilihan yang
+// sedang aktif dipertahankan; kalau belum ada, default ke bulan berjalan.
+let monthOptionsBuilt = false;
+function buildMonthOptions() {
+  const sel  = document.getElementById('filterMonth');
+  const prev = monthOptionsBuilt ? sel.value : '';   // pemuatan pertama: selalu ke bulan berjalan
+  monthOptionsBuilt = true;
+  const yms  = allData.map(d => (d.tanggal || '').slice(0, 7)).filter(s => /^\d{4}-\d{2}$/.test(s));
+  let start = THIS_YM, end = addMonths(THIS_YM, 2);
+  yms.forEach(ym => { if (ym < start) start = ym; if (ym > end) end = ym; });
+  let html = '<option value="all">Semua Bulan</option>';
+  for (let ym = start; ym <= end; ym = addMonths(ym, 1)) {
+    html += `<option value="${ym}">${NAMA_BULAN[+ym.slice(5, 7) - 1]} ${ym.slice(0, 4)}</option>`;
+  }
+  sel.innerHTML = html;
+  const opts = monthOptions();
+  sel.value = (prev === 'all' || opts.includes(prev)) ? prev : (opts.includes(THIS_YM) ? THIS_YM : opts[opts.length - 1]);
+}
+
+// Bulan yang tampil di kalender ("YYYY-MM"). Kalender butuh satu bulan pasti, jadi
+// "Semua Bulan" diganti ke bulan berjalan (atau bulan terakhir di daftar).
+function calYM() {
   const sel  = document.getElementById('filterMonth');
   const opts = monthOptions();
-  if (sel.value === 'all') {
-    const now = String(new Date().getMonth() + 1);
-    sel.value = opts.includes(now) ? now : opts[0];
+  if (sel.value === 'all' || !opts.includes(sel.value)) {
+    sel.value = opts.includes(THIS_YM) ? THIS_YM : opts[opts.length - 1];
   }
-  return +sel.value;
+  return sel.value;
 }
 
 function setView(view) {
@@ -1310,7 +1366,7 @@ function setView(view) {
 
 function shiftMonth(step) {
   const opts = monthOptions();
-  const i = opts.indexOf(String(calMonth())) + step;
+  const i = opts.indexOf(calYM()) + step;
   if (i < 0 || i >= opts.length) return;
   document.getElementById('filterMonth').value = opts[i];
   selectedDate = null;
@@ -1318,9 +1374,8 @@ function shiftMonth(step) {
 }
 
 function goToday() {
-  const now = String(new Date().getMonth() + 1);
-  if (monthOptions().includes(now) && new Date().getFullYear() === DASH_YEAR) {
-    document.getElementById('filterMonth').value = now;
+  if (monthOptions().includes(THIS_YM)) {
+    document.getElementById('filterMonth').value = THIS_YM;
     selectedDate = today;
     render();
   } else {
@@ -1337,25 +1392,27 @@ function selectDate(dateIso) {
 }
 
 function renderCalendar() {
-  const month = calMonth();
+  const ym    = calYM();
+  const year  = +ym.slice(0, 4);
+  const month = +ym.slice(5, 7);
   const opts  = monthOptions();
-  document.getElementById('calMonthLbl').textContent = `${NAMA_BULAN[month - 1]} ${DASH_YEAR}`;
-  document.getElementById('calPrev').disabled = opts.indexOf(String(month)) <= 0;
-  document.getElementById('calNext').disabled = opts.indexOf(String(month)) >= opts.length - 1;
+  document.getElementById('calMonthLbl').textContent = `${NAMA_BULAN[month - 1]} ${year}`;
+  document.getElementById('calPrev').disabled = opts.indexOf(ym) <= 0;
+  document.getElementById('calNext').disabled = opts.indexOf(ym) >= opts.length - 1;
 
-  if (!selectedDate || +selectedDate.slice(5, 7) !== month) {
-    selectedDate = (+today.slice(5, 7) === month && +today.slice(0, 4) === DASH_YEAR) ? today : null;
+  if (!selectedDate || selectedDate.slice(0, 7) !== ym) {
+    selectedDate = THIS_YM === ym ? today : null;
   }
 
   const rows  = allData.filter(matchesFilters);
-  const lead  = (new Date(DASH_YEAR, month - 1, 1).getDay() + 6) % 7;   // Senin = kolom 0
-  const days  = new Date(DASH_YEAR, month, 0).getDate();
+  const lead  = (new Date(year, month - 1, 1).getDay() + 6) % 7;   // Senin = kolom 0
+  const days  = new Date(year, month, 0).getDate();
   const total = Math.ceil((lead + days) / 7) * 7;
   const weeks = [];
   let html = '';
 
   for (let i = 0; i < total; i++) {
-    const dt  = new Date(DASH_YEAR, month - 1, 1 - lead + i);
+    const dt  = new Date(year, month - 1, 1 - lead + i);
     const di  = isoDate(dt.getFullYear(), dt.getMonth() + 1, dt.getDate());
     const out = dt.getMonth() + 1 !== month;
     const col = i % 7;
@@ -1399,10 +1456,10 @@ function renderCalendar() {
   // Sebaran per minggu + hari kerja kosong
   let emptyWorkdays = 0;
   for (let d = 1; d <= days; d++) {
-    const wd = new Date(DASH_YEAR, month - 1, d).getDay();
-    if (wd !== 0 && wd !== 6 && !rows.some(r => r.tanggal === isoDate(DASH_YEAR, month, d))) emptyWorkdays++;
+    const wd = new Date(year, month - 1, d).getDay();
+    if (wd !== 0 && wd !== 6 && !rows.some(r => r.tanggal === isoDate(year, month, d))) emptyWorkdays++;
   }
-  const monthCount = rows.filter(r => r.tanggal && +r.tanggal.slice(5, 7) === month && +r.tanggal.slice(0, 4) === DASH_YEAR).length;
+  const monthCount = rows.filter(r => (r.tanggal || '').slice(0, 7) === ym).length;
   document.getElementById('calWeeks').innerHTML =
     '<span>Sebaran per minggu:</span>' +
     weeks.map((wk, i) => `<span class="cal-wk${wk.workdays >= 3 && wk.n <= 1 ? ' low' : ''}">Mg ${i + 1} <b>${wk.n}</b><span class="cal-wk-bar">${'<i></i>'.repeat(wk.n)}</span></span>`).join('') +
@@ -1471,8 +1528,7 @@ function renderCalPanel(rows) {
 // ── EVENTS ────────────────────────────────────────────────
 // Default filter bulan = bulan berjalan (kalau ada di daftar).
 const monthSel = document.getElementById('filterMonth');
-const thisMonth = String(new Date().getMonth() + 1);
-if ([...monthSel.options].some(o => o.value === thisMonth)) monthSel.value = thisMonth;
+buildMonthOptions();
 monthSel.addEventListener('change', () => { selectedDate = null; render(); });
 ['filterStatus','filterFormat','filterPlatform'].forEach(id =>
   document.getElementById(id).addEventListener('change', render));
