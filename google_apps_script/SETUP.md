@@ -22,7 +22,7 @@ ikuti urutan ini.
 6. Format kolom `tanggal` dan `tanggal_asal` sebagai Date: blok kolom C dan H → Format → Number → Date (format `YYYY-MM-DD`)
 7. (Opsional, tapi disarankan) Tambah data validation dropdown di kolom `status` (kolom F):
    blok F2:F1000 → Data → Data validation → List of items:
-   `Draft, Naskah selesai, Desain selesai, Siap posting, Posted`
+   `Draft, Naskah selesai, Desain selesai, Siap posting, Terjadwal, Posted`
 8. Catat **Sheet ID** dari URL: `docs.google.com/spreadsheets/d/`**`INI_SHEET_ID`**`/edit`
 
 ---

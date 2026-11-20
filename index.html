@@ -18,6 +18,7 @@
       --c-naskah:  #0ea5e9;
       --c-desain:  #8b5cf6;
       --c-siap:    #f59e0b;
+      --c-terjadwal: #6366f1;
       --c-posted:  #10b981;
       --c-overdue: #ef4444;
     }
@@ -116,6 +117,8 @@
     .card.desain  .card-icon { background: #ede9fe; }
     .card.siap    .card-num { color: var(--c-siap); }
     .card.siap    .card-icon { background: #fef3c7; }
+    .card.terjadwal .card-num { color: var(--c-terjadwal); }
+    .card.terjadwal .card-icon { background: #e0e7ff; }
     .card.posted  .card-num { color: var(--c-posted); }
     .card.posted  .card-icon { background: #d1fae5; }
     .card.overdue .card-num { color: var(--c-overdue); }
@@ -268,6 +271,8 @@
     .badge-desain::before { background: #8b5cf6; }
     .badge-siap    { background: #fef3c7; color: #92400e; }
     .badge-siap::before { background: #f59e0b; }
+    .badge-terjadwal { background: #e0e7ff; color: #3730a3; }
+    .badge-terjadwal::before { background: #6366f1; }
     .badge-posted  { background: #d1fae5; color: #065f46; }
     .badge-posted::before { background: #10b981; }
     .badge-overdue { background: #fee2e2; color: #991b1b; }
@@ -424,6 +429,7 @@
     .cal-chip.st-naskah  { background: #e0f2fe; color: #075985; border-color: var(--c-naskah); }
     .cal-chip.st-desain  { background: #ede9fe; color: #5b21b6; border-color: var(--c-desain); }
     .cal-chip.st-siap    { background: #fef3c7; color: #92400e; border-color: var(--c-siap); }
+    .cal-chip.st-terjadwal { background: #e0e7ff; color: #3730a3; border-color: var(--c-terjadwal); }
     .cal-chip.st-posted  { background: #d1fae5; color: #065f46; border-color: var(--c-posted); }
     .cal-chip.st-overdue { background: #fee2e2; color: #991b1b; border-color: var(--c-overdue); }
     .cal-chip.ghost { background: transparent; color: var(--muted); border: 1px dashed #cbd2e1; border-left: 3px dashed #cbd2e1; font-weight: 500; font-style: italic; }
@@ -563,6 +569,11 @@
       <div class="card-num" id="c-siap">–</div>
       <div class="card-lbl">Siap Tayang</div>
     </div>
+    <div class="card terjadwal">
+      <div class="card-top"><div class="card-icon">📅</div></div>
+      <div class="card-num" id="c-terjadwal">–</div>
+      <div class="card-lbl">Terjadwal</div>
+    </div>
     <div class="card posted">
       <div class="card-top"><div class="card-icon">✅</div></div>
       <div class="card-num" id="c-posted">–</div>
@@ -589,6 +600,7 @@
         <option value="Naskah selesai">Naskah Selesai</option>
         <option value="Desain selesai">Desain Selesai</option>
         <option value="Siap posting">Siap Tayang</option>
+        <option value="Terjadwal">Terjadwal</option>
         <option value="Posted">Sudah Tayang</option>
       </select>
       <select id="filterFormat">
@@ -633,6 +645,7 @@
           <span><i class="lg-dot" style="background:var(--c-naskah)"></i>Naskah</span>
           <span><i class="lg-dot" style="background:var(--c-desain)"></i>Desain</span>
           <span><i class="lg-dot" style="background:var(--c-siap)"></i>Siap tayang</span>
+          <span><i class="lg-dot" style="background:var(--c-terjadwal)"></i>Terjadwal</span>
           <span><i class="lg-dot" style="background:var(--c-posted)"></i>Sudah tayang</span>
           <span><i class="lg-dot" style="background:var(--c-overdue)"></i>Terlambat</span>
           <span><i class="lg-dot" style="border:1px dashed #9ca3af"></i>Tanggal asal (digeser)</span>
@@ -688,6 +701,7 @@
           <option value="Naskah selesai">Naskah Selesai</option>
           <option value="Desain selesai">Desain Selesai</option>
           <option value="Siap posting">Siap Tayang</option>
+          <option value="Terjadwal">Terjadwal</option>
           <option value="Posted">Sudah Tayang</option>
         </select>
       </div>
@@ -955,7 +969,7 @@ function inSelectedMonth(d) {
 }
 
 function renderSummary() {
-  const c = { Draft:0,'Naskah selesai':0,'Desain selesai':0,'Siap posting':0,Posted:0,overdue:0 };
+  const c = { Draft:0,'Naskah selesai':0,'Desain selesai':0,'Siap posting':0,'Terjadwal':0,Posted:0,overdue:0 };
   allData.filter(inSelectedMonth).forEach(d => {
     if (c[d.status] !== undefined) c[d.status]++;
     if (d.status !== 'Posted' && d.tanggal && d.tanggal < today) c.overdue++;
@@ -964,6 +978,7 @@ function renderSummary() {
   document.getElementById('c-naskah').textContent  = c['Naskah selesai'];
   document.getElementById('c-desain').textContent  = c['Desain selesai'];
   document.getElementById('c-siap').textContent    = c['Siap posting'];
+  document.getElementById('c-terjadwal').textContent = c['Terjadwal'];
   document.getElementById('c-posted').textContent  = c.Posted;
   document.getElementById('c-overdue').textContent = c.overdue;
 }
@@ -1063,6 +1078,7 @@ function badgeClass(s) {
     'Naskah selesai': 'badge-naskah',
     'Desain selesai': 'badge-desain',
     'Siap posting':   'badge-siap',
+    'Terjadwal':      'badge-terjadwal',
     'Posted':         'badge-posted'
   }[s] || 'badge-draft';
 }
@@ -1073,6 +1089,7 @@ function statusLabel(s) {
     'Naskah selesai': 'Naskah Selesai',
     'Desain selesai': 'Desain Selesai',
     'Siap posting':   'Siap Tayang',
+    'Terjadwal':      'Terjadwal',
     'Posted':         'Sudah Tayang'
   }[s] || s;
 }
@@ -1308,7 +1325,7 @@ function isoDate(y, m, d) { return `${y}-${String(m).padStart(2,'0')}-${String(d
 function isOverdue(d) { return d.status !== 'Posted' && d.tanggal && d.tanggal < today; }
 function statusKey(d) {
   if (isOverdue(d)) return 'overdue';
-  return { 'Draft':'draft', 'Naskah selesai':'naskah', 'Desain selesai':'desain', 'Siap posting':'siap', 'Posted':'posted' }[d.status] || 'draft';
+  return { 'Draft':'draft', 'Naskah selesai':'naskah', 'Desain selesai':'desain', 'Siap posting':'siap', 'Terjadwal':'terjadwal', 'Posted':'posted' }[d.status] || 'draft';
 }
 function hariBesarOn(dateIso) {
   return HARI_BESAR.filter(h => h.sampai ? (dateIso >= h.t && dateIso <= h.sampai) : h.t === dateIso);

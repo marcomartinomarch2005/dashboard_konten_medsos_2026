@@ -148,6 +148,7 @@ Gunakan status berikut secara konsisten di semua dokumen:
 | `Naskah selesai` | Naskah sudah dibuat dan disetujui owner |
 | `Desain selesai` | Visual sudah jadi |
 | `Siap posting` | Naskah + visual sudah lengkap |
+| `Terjadwal` | Sudah dijadwalkan di Repliz, menunggu waktu tayang |
 | `Posted` | Sudah tayang di platform |
 
 ---

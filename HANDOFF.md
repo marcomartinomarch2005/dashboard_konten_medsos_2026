@@ -1,5 +1,29 @@
 # HANDOFF LOG
 
+## Sesi 20 November 2026 — Muse (Nanas)
+
+### Yang dikerjakan:
+- Tambah status baru `Terjadwal` ke dashboard (`index.html`): pilihan di dropdown filter + dialog Edit Konten, kartu ringkasan (ikon 📅), legenda kalender, badge dan chip kalender, warna indigo (`--c-terjadwal` #6366f1), dan hitungan ringkasan. Urutan alur: Draft → Naskah selesai → Desain selesai → Siap posting → Terjadwal → Posted.
+- `google_apps_script/Code.gs`: ikon 📅 + hitungan `Terjadwal` di ringkasan Telegram mingguan (`reminderMingguan`, `laporanMingguan`).
+- `PROTOCOL.md` §5 dan `google_apps_script/SETUP.md`: `Terjadwal` dicatat sebagai status resmi (arti: sudah dijadwalkan di Repliz, menunggu waktu tayang).
+- Aturan sync Repliz→Sheet ikut berubah: konten yang sudah terjadwal tapi belum terbit dicatat `Terjadwal`, bukan `Siap posting`.
+- Uji lokal (Playwright, file lokal): kedua dropdown memuat `Terjadwal`, kartu `#c-terjadwal` ada, `badgeClass`/`statusLabel`/`statusKey` memetakan `Terjadwal` dengan benar — semua cek lolos.
+
+### Status saat ini:
+- Perubahan ada di 5 file (PROTOCOL.md, google_apps_script/Code.gs, google_apps_script/SETUP.md, index.html, HANDOFF.md ini). Push ditolak 403 "Resource not accessible by integration" dua kali (20 Nov 12:41 dan 12:44 WIT) — GitHub App Muse belum punya akses tulis ke repo ini (baca bisa, tulis tidak), meski tautan instalasi sudah dibuka. Perlu owner memeriksa di GitHub Settings → Applications → Meta Muse AI → Repository access, pastikan `dashboard_konten_medsos_2026` dipilih. Jangan ulangi push sebelum itu diperbaiki. Cadangan: patch `terjadwal-dashboard.patch` (git diff) tersimpan di luar repo.
+- Belum ada baris Sheet berstatus `Terjadwal` (belum ada jadwal aktif di Repliz per 20 Nov 2026).
+
+### Yang belum selesai / perlu dilanjutkan:
+- Owner: buka tautan instalasi GitHub App dan beri akses (tulis) ke `dashboard_konten_medsos_2026`, lalu minta Muse mengulang push commit "feat: tambah status Terjadwal di dashboard".
+- Deploy ulang Apps Script (`Code.gs`) agar ringkasan Telegram menghitung `Terjadwal`.
+- Jika kolom status di Sheet memakai data validation, tambahkan `Terjadwal` ke daftarnya.
+
+### Catatan untuk sesi berikutnya:
+- Item `Terjadwal` yang tanggalnya lewat tetap dihitung Terlambat (logika overdue tidak diubah — sengaja).
+- Jangan ulangi push sebelum akses tulis diperbaiki; 403 yang sama akan terulang.
+
+---
+
 ## Sesi 3 November 2026 — Claude Opus 5.5 (Anthropic) via Claude Code
 
 ### Yang dikerjakan:

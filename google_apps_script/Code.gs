@@ -216,7 +216,7 @@ function sendTelegram_(text) {
 }
 
 function statusIcon_(status) {
-  return { 'Draft': '⚠️', 'Naskah selesai': '📝', 'Desain selesai': '🎨', 'Siap posting': '✅', 'Posted': '✅' }[status] || '•';
+  return { 'Draft': '⚠️', 'Naskah selesai': '📝', 'Desain selesai': '🎨', 'Siap posting': '✅', 'Terjadwal': '📅', 'Posted': '✅' }[status] || '•';
 }
 
 /** Trigger mingguan: Minggu 20:00 — deadline minggu ini + yang belum dikerjakan */
@@ -227,7 +227,7 @@ function reminderMingguan() {
   var todayStr = Utilities.formatDate(today, Session.getScriptTimeZone(), 'yyyy-MM-dd');
   var in7Str = Utilities.formatDate(in7, Session.getScriptTimeZone(), 'yyyy-MM-dd');
 
-  var counts = { Draft: 0, 'Naskah selesai': 0, 'Desain selesai': 0, 'Siap posting': 0, Posted: 0, overdue: 0 };
+  var counts = { Draft: 0, 'Naskah selesai': 0, 'Desain selesai': 0, 'Siap posting': 0, 'Terjadwal': 0, Posted: 0, overdue: 0 };
   var upcoming = [];
   rows.forEach(function (r) {
     var f = r.fields;
@@ -241,6 +241,7 @@ function reminderMingguan() {
   var msg = '📋 STATUS KONTEN MINGGU INI @bpom.jayapura\n\n' +
     '✅ Sudah tayang: ' + counts.Posted + '\n' +
     '📝 Naskah selesai: ' + counts['Naskah selesai'] + '\n' +
+    '📅 Terjadwal: ' + counts['Terjadwal'] + '\n' +
     '⚠️ Belum dikerjakan: ' + counts.Draft + '\n' +
     '🔴 Terlambat: ' + counts.overdue + '\n\n' +
     'Deadline minggu ini:\n' +
@@ -252,7 +253,7 @@ function reminderMingguan() {
 /** Trigger mingguan: Jumat 15:00 — ringkasan progres minggu berjalan */
 function laporanMingguan() {
   var rows = readAllRows_();
-  var counts = { Draft: 0, 'Naskah selesai': 0, 'Desain selesai': 0, 'Siap posting': 0, Posted: 0 };
+  var counts = { Draft: 0, 'Naskah selesai': 0, 'Desain selesai': 0, 'Siap posting': 0, 'Terjadwal': 0, Posted: 0 };
   rows.forEach(function (r) {
     var s = r.fields.status;
     if (counts[s] !== undefined) counts[s]++;
@@ -264,6 +265,7 @@ function laporanMingguan() {
     '📝 Naskah selesai: ' + counts['Naskah selesai'] + '\n' +
     '🎨 Desain selesai: ' + counts['Desain selesai'] + '\n' +
     '📦 Siap posting: ' + counts['Siap posting'] + '\n' +
+    '📅 Terjadwal: ' + counts['Terjadwal'] + '\n' +
     '⚠️ Belum dikerjakan: ' + counts.Draft;
 
   sendTelegram_(msg);
