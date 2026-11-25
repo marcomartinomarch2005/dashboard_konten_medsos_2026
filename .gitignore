@@ -3,3 +3,11 @@ Thumbs.db
 .DS_Store
 .claude/
 .vscode/
+
+# Google Drive shortcut files (tidak bisa dibuat/dibaca dari luar Drive)
+*.gdoc
+*.gsheet
+*.gslides
+
+# Dependensi hasil npm ci
+node_modules/
